@@ -27,7 +27,6 @@ public:
 		return this->next;
 	}
 	Item getItem() {
-		/*return item.getID() + "\n" + item.getTitle();*/
 		return this->item;
 	}
 	//setter

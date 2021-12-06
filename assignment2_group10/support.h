@@ -60,7 +60,6 @@ void uppdateItem(string id, itemList& itemList) {
 	node* current = itemList.getHead();
 	int choice;
 	bool flag = true;
-	Item newItem = current->getItem();
 	while (current != NULL && current->getItem().id != id) {
 		current = current->getNext();
 	}
@@ -68,7 +67,7 @@ void uppdateItem(string id, itemList& itemList) {
 		cout << "Cannot found!\n";
 		return;
 	}
-
+	Item newItem = current->getItem();
 	while (flag) {
 		system("cls");
 		cout << "1.ID: " << current->getItem().id << endl;
