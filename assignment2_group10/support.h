@@ -59,9 +59,8 @@ void addItem(itemList& itemList) {
 void uppdateItem(string id, itemList& itemList) {
 	node* current = itemList.getHead();
 	int choice;
-	string temp;
 	bool flag = true;
-
+	Item newItem = current->getItem();
 	while (current != NULL && current->getItem().id != id) {
 		current = current->getNext();
 	}
@@ -86,40 +85,38 @@ void uppdateItem(string id, itemList& itemList) {
 		cin >> choice;
 		switch (choice) {
 		case 1:{
-			cin >> temp;
-			current->getItem().id = temp;
+			cin >> newItem.id;
+			current->setItem(newItem);
 			break;
 		}
 		case 2:{
-			cin >> temp;
-			current->getItem().title = temp;
+			cin >> newItem.title;
+			current->setItem(newItem);
 			break;
 		}
 		case 3: {
-			cin >> temp;
-			current->getItem().type = temp;
+			cin >> newItem.type;
+			current->setItem(newItem);
 			break;
 		}
 		case 4: {
-			cin >> temp;
-			current->getItem().loanType = temp;
+			cin >> newItem.loanType;
+			current->setItem(newItem);
 			break;
 		}
-		/*case 5: {
-			int newCopy;
-			cin >> newCopy;
-			current->getItem().numOfcopies = newCopy;
+		case 5: {
+			cin >> newItem.numOfcopies;
+			current->setItem(newItem);
 			break;
 		}
 		case 6: {
-			float newFee;
-			cin >> newFee;
-			current->getItem().fee = newFee;
+			cin >> newItem.fee;
+			current->setItem(newItem);
 			break;
-		}*/
+		}
 		case 7: {
-			cin >> temp;
-			current->getItem().genre = temp;
+			cin >> newItem.genre;
+			current->setItem(newItem);
 			break;
 		}
 		case 0:
