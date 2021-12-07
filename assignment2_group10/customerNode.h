@@ -3,6 +3,11 @@
 using namespace std;
 #define SIZE 100
 
+typedef struct myString {
+	string list[SIZE];
+	int count = 0;
+};
+
 typedef struct Customer {
 	string id;
 	string name;
@@ -10,7 +15,7 @@ typedef struct Customer {
 	string phone;
 	int numOfRentals;
 	string customerType;
-	string listItemId[SIZE];
+	myString listItemId;
 };
 
 class customerNode {

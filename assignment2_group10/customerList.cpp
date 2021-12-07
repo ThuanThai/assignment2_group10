@@ -24,8 +24,8 @@ void customerList::printCustomerList() {
 		cout << "Number of rentals: " << current->getCustomer().numOfRentals << endl;
 		cout << "Type: " << current->getCustomer().customerType << endl;
 		cout << "List of items' IDs\n";
-		for (int j = 0; j < current->getCustomer().numOfRentals; j++) {
-			cout << current->getCustomer().listItemId[j] << endl;
+		for (int j = 0; j < current->getCustomer().listItemId.count; j++) {
+			cout << current->getCustomer().listItemId.list[j] << endl;
 		}
 		current = current->getNext();
 		i++;

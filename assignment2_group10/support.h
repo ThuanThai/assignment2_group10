@@ -4,6 +4,7 @@
 #include "customerNode.h"
 #include "customerList.h"
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 void readItemFile(ifstream& fileIn, Item& newItem) {
@@ -21,6 +22,7 @@ void readItemFile(ifstream& fileIn, Item& newItem) {
 }
 
 void readCustomerFile(ifstream& fileIn, Customer& newCustomer) {
+	string tmp;
 	getline(fileIn, newCustomer.id, ',');
 	getline(fileIn, newCustomer.name, ',');
 	getline(fileIn, newCustomer.address, ',');
@@ -28,8 +30,17 @@ void readCustomerFile(ifstream& fileIn, Customer& newCustomer) {
 	fileIn >> newCustomer.numOfRentals;
 	fileIn.ignore();
 	getline(fileIn, newCustomer.customerType);
-	for (int i = 0; i < newCustomer.numOfRentals; i++) {
-		getline(fileIn, newCustomer.listItemId[i], '\n');
+	while (getline(fileIn, tmp, '\n')) {
+		if (tmp[0] == 'I') {
+			stringstream ss(tmp);
+			ss >> newCustomer.listItemId.list[newCustomer.listItemId.count];
+			newCustomer.listItemId.count++;
+		}
+		else {
+			int byte = (tmp.length() + 2) * (-1);
+			fileIn.seekg(byte, 1);
+			break;
+		}
 	}
 }
 
