@@ -24,12 +24,21 @@
     <ClInclude Include="support.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="customerNode.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="customerList.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="itemList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="customerList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

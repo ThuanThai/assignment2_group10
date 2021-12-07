@@ -1,6 +1,8 @@
 #pragma once
-#include"node.h"
+#include "node.h"
 #include "itemList.h"
+#include "customerNode.h"
+#include "customerList.h"
 #include <fstream>
 using namespace std;
 
@@ -18,6 +20,19 @@ void readItemFile(ifstream& fileIn, Item& newItem) {
 	}
 }
 
+void readCustomerFile(ifstream& fileIn, Customer& newCustomer) {
+	getline(fileIn, newCustomer.id, ',');
+	getline(fileIn, newCustomer.name, ',');
+	getline(fileIn, newCustomer.address, ',');
+	getline(fileIn, newCustomer.phone, ',');
+	fileIn >> newCustomer.numOfRentals;
+	fileIn.ignore();
+	getline(fileIn, newCustomer.customerType);
+	for (int i = 0; i < newCustomer.numOfRentals; i++) {
+		getline(fileIn, newCustomer.listItemId[i], '\n');
+	}
+}
+
 void listReadItemfile(itemList& itemList) {
 	ifstream fileIn;
 	fileIn.open("item.txt", ios_base::in);
@@ -28,6 +43,20 @@ void listReadItemfile(itemList& itemList) {
 		Item newItem;
 		readItemFile(fileIn, newItem);
 		itemList.appendItemBack(newItem);
+	}
+	fileIn.close();
+}
+
+void listReadCustomerFile(customerList& customerList) {
+	ifstream fileIn;
+	fileIn.open("customers.txt", ios_base::in);
+	if (!fileIn) {
+		cerr << "Cannot open file\n";
+	}
+	while (!fileIn.eof()) {
+		Customer newCustomer;
+		readCustomerFile(fileIn, newCustomer);
+		customerList.appendCustomerBack(newCustomer);
 	}
 	fileIn.close();
 }
@@ -128,7 +157,7 @@ void uppdateItem(string id, itemList& itemList) {
 	}
 }
 
-void menu(itemList& itemList) {
+void menu(itemList& itemList, customerList& customerList) {
 	bool flag = true;
 	string choice;
 	string id;
@@ -136,6 +165,8 @@ void menu(itemList& itemList) {
 		system("cls");
 		cout << "1. Add a new item, update or delete an existing item\n";
 		cout << "2. Print Item list\n";
+		cout << "3. Add new customer or update an existing customer\n";
+		cout << "4. Print Customer List\n";
 		cin >> choice;
 		if (choice == "1") {
 			system("cls");
@@ -159,8 +190,34 @@ void menu(itemList& itemList) {
 				itemList.deleteItem(id);
 			}
 		}
-		else if (choice == "2") {
+		else if (choice == "3") {
 			itemList.printItemList();
+			system("pause");
+		}
+		else if (choice == "3") {
+			system("cls");
+			cout << "1. Add a new item\n";
+			cout << "2. Update a new item\n";
+			cout << "3. Delete\n";
+			cin >> choice;
+			if (choice == "1") {
+				addItem(itemList);
+			}
+			else if (choice == "2") {
+				cout << "Enter ID: ";
+				cin >> id;
+				uppdateItem(id, itemList);
+			}
+			else if (choice == "3") {
+				itemList.printItemList();
+				cout << "\t\t ===== Delete =====\n";
+				cout << "Enter ID: ";
+				cin >> id;
+				itemList.deleteItem(id);
+			}
+		}
+		else if (choice == "4") {
+			customerList.printCustomerList();
 			system("pause");
 		}
 		else if (choice == "exit" || choice == "Exit") {
