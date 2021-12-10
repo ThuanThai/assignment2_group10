@@ -4,8 +4,8 @@
 using namespace std;
 
 void itemList::appendItemBack(Item newItem) {
-	node* newNode = new node(newItem);
-	node* current = this->head;
+	Item* newNode = new Item(newItem);
+	Item* current = this->head;
 	if (current == NULL) {
 		head = newNode;
 		return;
@@ -17,17 +17,17 @@ void itemList::appendItemBack(Item newItem) {
 }
 
 void itemList::deleteItem(string ID) {
-	node* current = this->head;
-	node* prev = NULL;
-	if (current->getItem().id == ID && current->getNext() != NULL) {
+	Item* current = this->head;
+	Item* prev = NULL;
+	if (current->getId() == ID && current->getNext() != NULL) {
 		this->head = this->head->getNext();
 		delete current;
 		return;
 	}
-	while (current != NULL && current->getItem().id != ID) {
+	while (current != NULL && current->getId() != ID) {
 		prev = current;
 		current = current->getNext();
-	}    
+	}
 	if (current == NULL) {
 		cout << "Cannot found valid information!\n";
 		return;
@@ -39,19 +39,18 @@ void itemList::deleteItem(string ID) {
 }
 
 void itemList::printItemList() {
-	node* current = this->head;
+	Item* current = this->head;
 	int i = 1;
 	while (current != NULL) {
 		cout << "\t\t===== Item " << i << "=====\n";
-		cout << "ID: " << current->getItem().id << endl;
-		cout << "Title: " << current->getItem().title << endl;
-		cout << "Type: " << current->getItem().type << endl;
-		cout << "Loan Type: " << current->getItem().loanType << endl;
-		cout << "Num of copies: " << current->getItem().numOfcopies << endl;
-		cout << "Fee: " << current->getItem().fee << endl;
-		if(current->getItem().genre != "") {
-			cout << "Genre: " << current->getItem().genre << endl;
-		}
+		cout << "ID: " << current->getId() << endl;
+		cout << "Title: " << current->getTitle() << endl;
+		cout << "Loan Type: " << current->getLoanType() << endl;
+		cout << "Stock: " << current->getStock() << endl;
+		cout << "Fee: " << current->getFee() << endl;
+		//if(current->getItem().genre != "") {
+		//	cout << "Genre: " << current->getItem().genre << endl;
+		//}
 		current = current->getNext();
 		i++;
 	}

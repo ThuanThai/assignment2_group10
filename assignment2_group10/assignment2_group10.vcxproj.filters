@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="node.h">
+    <ClInclude Include="Item.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="itemList.h">

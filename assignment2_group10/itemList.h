@@ -1,17 +1,17 @@
 #pragma once
-#include "node.h"
+#include "Item.h"
 
 class itemList {
 private:
-	node* head;
+	Item* head;
 public:
 	itemList() {
 		head = NULL;
 	}
 	itemList(Item newItem) {
-		head = new node(newItem);
+		head = new Item(newItem);
 	}
-	node* getHead() {
+	Item* getHead() {
 		return this->head;
 	}
 	void appendItemBack(Item newItem);

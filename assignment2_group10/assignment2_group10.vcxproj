@@ -142,7 +142,7 @@
     <ClInclude Include="customerList.h" />
     <ClInclude Include="customerNode.h" />
     <ClInclude Include="itemList.h" />
-    <ClInclude Include="node.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="support.h" />
   </ItemGroup>
   <ItemGroup>

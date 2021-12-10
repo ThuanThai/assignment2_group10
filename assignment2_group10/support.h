@@ -1,12 +1,12 @@
 #pragma once
-#include "node.h"
+#include "Item.h"
 #include "itemList.h"
 #include "customerNode.h"
 #include "customerList.h"
 #include <fstream>
 #include <sstream>
 using namespace std;
-
+/*
 void readItemFile(ifstream& fileIn, Item& newItem) {
 	getline(fileIn, newItem.id, ',');
 	getline(fileIn, newItem.title, ',');
@@ -237,3 +237,4 @@ void menu(itemList& itemList, customerList& customerList) {
 		}
 	}
 }
+*/
