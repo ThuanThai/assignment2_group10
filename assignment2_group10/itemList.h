@@ -1,5 +1,6 @@
 #pragma once
 #include "Item.h"
+#include "StreamingItem.h"
 
 class itemList {
 private:
@@ -15,6 +16,7 @@ public:
 		return this->head;
 	}
 	void appendItemBack(Item newItem);
+	void appendItemBack(StreamingItem newItem);
 	void deleteItem(string ID);
 	void printItemList();
 };
