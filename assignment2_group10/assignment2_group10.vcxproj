@@ -143,12 +143,14 @@
     <ClInclude Include="customerNode.h" />
     <ClInclude Include="itemList.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="StreamingItem.h" />
     <ClInclude Include="support.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="customerList.cpp" />
     <ClCompile Include="itemList.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StreamingItem.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,13 +22,12 @@ public:
 		this->fee = NULL;
 		this->next = NULL;
 	}
-	Item(string id, string title, string loanType, int stock, float fee, string genre, Item* next) {
+	Item(string id, string title, string loanType, int stock, float fee) {
 		this->id = id;
 		this->title = title;
 		this->loanType = loanType;
 		this->stock = stock;
 		this->fee = fee;
-		this->next = next;
 	}
 	//getter
 	string getId() {
