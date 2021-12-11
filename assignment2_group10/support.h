@@ -7,7 +7,7 @@
 #include <sstream>
 using namespace std;
 
-void readItemFile(ifstream& fileIn, Item& newItem) {
+void readItemFile(ifstream& fileIn, StreamingItem& newStreamingItem) {
 	string id, title, type, loanType, genre = "";
 	int stock;
 	float fee;
@@ -21,23 +21,23 @@ void readItemFile(ifstream& fileIn, Item& newItem) {
 	fileIn.ignore();
 	if (type._Equal("Record") || type._Equal("DVD")) {
 		getline(fileIn, genre, '\n');
-		StreamingItem newItem = newItem;
 		fileIn.ignore();
-		newItem.setId(id);
-		newItem.setTitle(title);
-		newItem.setType(type);
-		newItem.setLoanType(loanType);
-		newItem.setStock(stock);
-		newItem.setFee(fee);
-		newItem.setGenre(genre);
+		newStreamingItem.setId(id);
+		newStreamingItem.setTitle(title);
+		newStreamingItem.setType(type);
+		newStreamingItem.setLoanType(loanType);
+		newStreamingItem.setStock(stock);
+		newStreamingItem.setFee(fee);
+		newStreamingItem.setGenre(genre);
 	}
 	else {
-		newItem.setId(id);
-		newItem.setTitle(title);
-		newItem.setType(type);
-		newItem.setLoanType(loanType);
-		newItem.setStock(stock);
-		newItem.setFee(fee);
+		Item* newItem = &newStreamingItem;
+		newItem->setId(id);
+		newItem->setTitle(title);
+		newItem->setType(type);
+		newItem->setLoanType(loanType);
+		newItem->setStock(stock);
+		newItem->setFee(fee);
 	}
 }
 
@@ -71,7 +71,7 @@ void listReadItemfile(itemList& itemList) {
 		cerr << "Cannot open file\n";
 	}
 	while (!fileIn.eof()) {
-		Item newItem;
+		StreamingItem newItem;
 		readItemFile(fileIn, newItem);
 		itemList.appendItemBack(newItem);
 	}
