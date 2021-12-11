@@ -37,12 +37,14 @@ void readCustomerFile(ifstream& fileIn, Customer& newCustomer) {
 			newCustomer.listItemId.count++;
 		}
 		else {
+			// move the pointer in file to the begin of line
 			int byte = (tmp.length() + 2) * (-1);
 			fileIn.seekg(byte, 1);
 			break;
 		}
 	}
 }
+
 
 void listReadItemfile(itemList& itemList) {
 	ifstream fileIn;
@@ -94,6 +96,56 @@ void addItem(itemList& itemList) {
 		cin >> newItem.genre;
 	}
 	itemList.appendItemBack(newItem);
+}
+
+void addCustomer(customerList& customerList) {
+	Customer newCustomer;
+	string ans;
+	cout << "\t\t===== Input Customer's information =====\n";
+	cout << "ID: ";
+	cin.ignore();
+	getline(cin, newCustomer.id);
+	cout << "Name: ";
+	getline(cin, newCustomer.name);
+	cout << "Address: ";
+	getline(cin, newCustomer.address);
+	cout << "Phone: ";
+	getline(cin, newCustomer.phone);
+	cout << "Number of retals: ";
+	cin >> newCustomer.numOfRentals;
+	cin.ignore();
+	cout << "Customer type: ";
+	getline(cin, newCustomer.customerType);
+	do {
+		cout << "Update the list of items' IDs\ny/n:";
+		getline(cin, ans);
+		if (ans != "y" && ans != "n") {
+			cerr << "Wrong choice\n";
+			system("pause");
+		}
+	} while (ans != "y" && ans != "n");
+	if (ans == "y") {
+		while (true) {
+			cout << "Item's ID: ";
+			getline(cin, newCustomer.listItemId.list[newCustomer.listItemId.count]);
+			newCustomer.listItemId.count++;
+			do {
+				cout << "Do you want to continue?\ny/n: ";
+				getline(cin, ans);
+				if (ans != "y" && ans != "n") {
+					cerr << "Wrong choice\n";
+					system("pause");
+				}
+			} while (ans != "y" && ans != "n");
+			if (ans == "y") {
+				continue;
+			}
+			else {
+				break;
+			}
+		}
+	}
+	customerList.appendCustomerBack(newCustomer);
 }
 
 void uppdateItem(string id, itemList& itemList) {
@@ -201,7 +253,7 @@ void menu(itemList& itemList, customerList& customerList) {
 				itemList.deleteItem(id);
 			}
 		}
-		else if (choice == "3") {
+		else if (choice == "2") {
 			itemList.printItemList();
 			system("pause");
 		}
@@ -212,7 +264,7 @@ void menu(itemList& itemList, customerList& customerList) {
 			cout << "3. Delete\n";
 			cin >> choice;
 			if (choice == "1") {
-				addItem(itemList);
+				addCustomer(customerList);
 			}
 			else if (choice == "2") {
 				cout << "Enter ID: ";
@@ -220,11 +272,11 @@ void menu(itemList& itemList, customerList& customerList) {
 				uppdateItem(id, itemList);
 			}
 			else if (choice == "3") {
-				itemList.printItemList();
+				customerList.printCustomerList();
 				cout << "\t\t ===== Delete =====\n";
 				cout << "Enter ID: ";
 				cin >> id;
-				itemList.deleteItem(id);
+				customerList.deleteCustomer(id);
 			}
 		}
 		else if (choice == "4") {

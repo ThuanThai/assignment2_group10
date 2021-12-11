@@ -17,5 +17,6 @@ public:
 		return this->head;
 	}
 	void appendCustomerBack(Customer newCustomer);
+	void deleteCustomer(string id);
 	void printCustomerList();
 };

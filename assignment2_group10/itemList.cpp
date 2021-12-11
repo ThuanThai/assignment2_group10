@@ -29,13 +29,13 @@ void itemList::deleteItem(string ID) {
 		current = current->getNext();
 	}    
 	if (current == NULL) {
-		cout << "Cannot found valid information!\n";
+		cout << "Cannot find valid information!\n";
 		return;
 	}
+	cout << "Delete Successfully\n";
+	system("pause");
 	prev->setNext(current->getNext());
 	delete current;
-	cout << "Delete Successfully!\n";
-	system("pause");
 }
 
 void itemList::printItemList() {
