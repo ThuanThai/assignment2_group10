@@ -8,9 +8,11 @@
 using namespace std;
 
 void readItemFile(ifstream& fileIn, StreamingItem& newStreamingItem) {
+	// initialize storing elements
 	string id, title, type, loanType, genre = "";
 	int stock;
 	float fee;
+	// read file
 	getline(fileIn, id, ',');
 	getline(fileIn, title, ',');
 	getline(fileIn, type, ',');
@@ -20,8 +22,9 @@ void readItemFile(ifstream& fileIn, StreamingItem& newStreamingItem) {
 	fileIn >> fee;
 	fileIn.ignore();
 	if (type._Equal("Record") || type._Equal("DVD")) {
+		// get genre if it is DVD/records
 		getline(fileIn, genre, '\n');
-		fileIn.ignore();
+		// set attributes
 		newStreamingItem.setId(id);
 		newStreamingItem.setTitle(title);
 		newStreamingItem.setType(type);
@@ -31,7 +34,9 @@ void readItemFile(ifstream& fileIn, StreamingItem& newStreamingItem) {
 		newStreamingItem.setGenre(genre);
 	}
 	else {
+		// upcast to normal item
 		Item* newItem = &newStreamingItem;
+		// set attributes
 		newItem->setId(id);
 		newItem->setTitle(title);
 		newItem->setType(type);
