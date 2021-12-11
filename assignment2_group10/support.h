@@ -96,31 +96,56 @@ void listReadCustomerFile(customerList& customerList) {
 	}
 	fileIn.close();
 }
-/*
+
 void addItem(itemList& itemList) {
-	Item newItem;
+	StreamingItem newStreamingItem;
+	// initialize storing elements
+	string id, title, type, loanType, genre = "";
+	int stock;
+	float fee;
 	cout << "\t\t===== Input Item's Information =====\n";
 	cout << "ID: ";
-	cin >> newItem.id;
+	cin >> id;
 	cout << "Title: ";
-	cin >> newItem.title;
+	cin >> title;
 	cout << "Type: ";
 	string tmp;
 	getline(cin, tmp);
-	cin >> newItem.type;
+	cin >> type;
 	cout << "Loan Type: ";
-	cin >> newItem.loanType;
+	cin >> loanType;
 	cout << "Num of copies: ";
-	cin >> newItem.numOfcopies;
+	cin >> stock;
 	cout << "Fee: ";
-	cin >> newItem.fee;
-	if (newItem.type._Equal("Record") || newItem.type._Equal("DVD")) {
+	cin >> fee;
+	if (type._Equal("Record") || type._Equal("DVD")) {
 		cout << "Gerne: ";
-		cin >> newItem.genre;
+		cin >> genre;
+		// set attributes
+		newStreamingItem.setId(id);
+		newStreamingItem.setTitle(title);
+		newStreamingItem.setType(type);
+		newStreamingItem.setLoanType(loanType);
+		newStreamingItem.setStock(stock);
+		newStreamingItem.setFee(fee);
+		newStreamingItem.setGenre(genre);
+		itemList.appendItemBack(newStreamingItem);
 	}
-	itemList.appendItemBack(newItem);
+	else {
+		// upcast to normal item
+		Item* newItem = &newStreamingItem;
+		// set attributes
+		newItem->setId(id);
+		newItem->setTitle(title);
+		newItem->setType(type);
+		newItem->setLoanType(loanType);
+		newItem->setStock(stock);
+		newItem->setFee(fee);
+		itemList.appendItemBack(*newItem);
+	}
 }
 
+/*
 void uppdateItem(string id, itemList& itemList) {
 	node* current = itemList.getHead();
 	int choice;

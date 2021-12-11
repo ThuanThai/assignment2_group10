@@ -16,6 +16,8 @@ int main() {
 	//customerList customer_List;
 	listReadItemfile(item_List);
 	item_List.printItemList();
+	addItem(item_List);
+	item_List.printItemList();
 	//listReadCustomerFile(customer_List);
 	//menu(item_List, customer_List);
 	return 0;
