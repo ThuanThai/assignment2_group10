@@ -6,18 +6,38 @@
 #include <fstream>
 #include <sstream>
 using namespace std;
-/*
+
 void readItemFile(ifstream& fileIn, Item& newItem) {
-	getline(fileIn, newItem.id, ',');
-	getline(fileIn, newItem.title, ',');
-	getline(fileIn, newItem.type, ',');
-	getline(fileIn, newItem.loanType, ',');
-	fileIn >> newItem.numOfcopies;
+	string id, title, type, loanType, genre = "";
+	int stock;
+	float fee;
+	getline(fileIn, id, ',');
+	getline(fileIn, title, ',');
+	getline(fileIn, type, ',');
+	getline(fileIn, loanType, ',');
+	fileIn >> stock;
 	fileIn.ignore();
-	fileIn >> newItem.fee;
+	fileIn >> fee;
 	fileIn.ignore();
-	if (newItem.type._Equal("Record") || newItem.type._Equal("DVD")) {
-		getline(fileIn, newItem.genre, '\n');
+	if (type._Equal("Record") || type._Equal("DVD")) {
+		getline(fileIn, genre, '\n');
+		StreamingItem newItem = newItem;
+		fileIn.ignore();
+		newItem.setId(id);
+		newItem.setTitle(title);
+		newItem.setType(type);
+		newItem.setLoanType(loanType);
+		newItem.setStock(stock);
+		newItem.setFee(fee);
+		newItem.setGenre(genre);
+	}
+	else {
+		newItem.setId(id);
+		newItem.setTitle(title);
+		newItem.setType(type);
+		newItem.setLoanType(loanType);
+		newItem.setStock(stock);
+		newItem.setFee(fee);
 	}
 }
 
@@ -71,7 +91,7 @@ void listReadCustomerFile(customerList& customerList) {
 	}
 	fileIn.close();
 }
-
+/*
 void addItem(itemList& itemList) {
 	Item newItem;
 	cout << "\t\t===== Input Item's Information =====\n";

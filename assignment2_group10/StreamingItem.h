@@ -7,9 +7,10 @@ protected:
 	string genre;
 public:
 	StreamingItem() {};
-	StreamingItem(string id, string title, string loanType, int stock, float fee, string genre) {
+	StreamingItem(string id, string title, string type, string loanType, int stock, float fee, string genre) {
 		this->id = id;
 		this->title = title;
+		this->type = type;
 		this->loanType = loanType;
 		this->stock = stock;
 		this->fee = fee;
