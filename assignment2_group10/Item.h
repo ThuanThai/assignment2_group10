@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
 
 class Item {
@@ -10,26 +12,27 @@ protected:
 	string loanType;
 	int stock;
 	float fee;
-	string genre;
-	Item* next;
 public:
 	//constructor
 	Item() {
 		this->id = "";
 		this->title = "";
 		this->loanType = "";
-		this->stock = NULL;
-		this->fee = NULL;
-		this->next = NULL;
+		this->stock = 0;
+		this->fee = 0.0f;
 	}
-	Item(string id, string title, string type, string loanType, int stock, float fee, Item* next) {
+	Item(string id, string title, string type, string loanType, int stock, float fee) {
 		this->id = id;
 		this->title = title;
 		this->loanType = loanType;
 		this->stock = stock;
 		this->fee = fee;
-		this->type = type;
 	}
+	~Item();
+
+	virtual void Output();
+	virtual void readItemFile(fstream&);
+
 	//getter
 	string getId() {
 		return this->id;
@@ -49,9 +52,6 @@ public:
 	float getFee() {
 		return this->fee;
 	}
-	Item* getNext() {
-		return this->next;
-	}
 
 	//setter
 	void setId(string id) {
@@ -69,11 +69,7 @@ public:
 	void setFee(float fee) {
 		this->fee = fee;
 	}
-	void setNext(Item* nextItem) {
-		this->next = nextItem;
-	}
 	void setType(string type) {
 		this->type = type;
 	}
-	
 };
