@@ -16,6 +16,18 @@ void itemList::appendItemBack(Item* newItem) {
 	}
 	current->setNext(newNode);
 }
+
+ItemNode* itemList::findItem(string id) {
+	ItemNode* current = head;
+	while (current != NULL && current->getItem()->getId() != id) {
+		current = current->getNext();
+	}
+	if (current == NULL) {
+		cout << "cannot found!\n";
+		return NULL;
+	}
+	return current;
+}
 //void itemList::appendItemBack(StreamingItem newItem) {
 //	Item* newNode = new StreamingItem(newItem);
 //	Item* current = this->head;

@@ -30,3 +30,22 @@ void Item::readItemFile(fstream& fileIn) {
 	fileIn.ignore();
 }
 
+ostream& operator << (ostream& stream, const Item* item) {
+	stream << "1.Id: " << item->id << endl;
+	stream << "2.Title: " << item->title << endl;
+	stream << "3.Type: " << item->type << endl;
+	stream << "4.Loan type: " << item->loanType << endl;
+	stream << "5.Num of copies: " << item->stock << endl;
+	stream << "6.Fee: " << item->fee << endl;
+	return stream;
+}
+
+void Item::updateType(Item* item, string newType) {
+	this->id = item->getId();
+	this->title = item->getTitle();
+	this->type = newType;
+	this->loanType = item->getLoanType();
+	this->stock = item->getStock();
+	this->fee = item->getFee();
+}
+

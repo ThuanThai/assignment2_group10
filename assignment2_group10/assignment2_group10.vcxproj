@@ -153,6 +153,7 @@
     <ClCompile Include="itemList.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RVItem.cpp" />
+    <ClCompile Include="support.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

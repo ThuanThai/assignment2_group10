@@ -1,4 +1,5 @@
 #pragma once
+#include "Item.h"
 #include "ItemNode.h"
 
 class itemList {
@@ -15,6 +16,7 @@ public:
 		return this->head;
 	}
 	void appendItemBack(Item* newItem);
+	ItemNode* findItem(string id);
 	/*void appendItemBack(StreamingItem newItem);
 	void deleteItem(string ID);*/
 	void printItemList();
