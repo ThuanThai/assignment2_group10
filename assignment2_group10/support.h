@@ -4,47 +4,9 @@
 #include "itemList.h"
 #include "customerNode.h"
 #include "customerList.h"
+#include <string>
 using namespace std;
 
-//void readItemFile(ifstream& fileIn, StreamingItem& newStreamingItem) {
-//	// initialize storing elements
-//	string id, title, type, loanType, genre = "";
-//	int stock;
-//	float fee;
-//	// read file
-//	getline(fileIn, id, ',');
-//	getline(fileIn, title, ',');
-//	getline(fileIn, type, ',');
-//	getline(fileIn, loanType, ',');
-//	fileIn >> stock;
-//	fileIn.ignore();
-//	fileIn >> fee;
-//	fileIn.ignore();
-//	if (type._Equal("Record") || type._Equal("DVD")) {
-//		// get genre if it is DVD/records
-//		getline(fileIn, genre, '\n');
-//		// set attributes
-//		newStreamingItem.setId(id);
-//		newStreamingItem.setTitle(title);
-//		newStreamingItem.setType(type);
-//		newStreamingItem.setLoanType(loanType);
-//		newStreamingItem.setStock(stock);
-//		newStreamingItem.setFee(fee);
-//		newStreamingItem.setGenre(genre);
-//	}
-//	else {
-//		// upcast to normal item
-//		Item* newItem = &newStreamingItem;
-//		// set attributes
-//		newItem->setId(id);
-//		newItem->setTitle(title);
-//		newItem->setType(type);
-//		newItem->setLoanType(loanType);
-//		newItem->setStock(stock);
-//		newItem->setFee(fee);
-//	}
-//}
-//
 //void readCustomerFile(ifstream& fileIn, Customer& newCustomer) {
 //	string tmp;
 //	getline(fileIn, newCustomer.id, ',');
@@ -244,73 +206,103 @@ void listReadItemfile(itemList& itemList) {
 //	}
 //}
 //
-//void menu(itemlist& itemlist, customerlist& customerlist) {
-//	bool flag = true;
-//	string choice;
-//	string id;
-//	while (flag) {
-//		system("cls");
-//		cout << "1. add a new item, update or delete an existing item\n";
-//		cout << "2. print item list\n";
-//		cout << "3. add new customer or update an existing customer\n";
-//		cout << "4. print customer list\n";
-//		cin >> choice;
-//		if (choice == "1") {
-//			system("cls");
-//			cout << "1. add a new item\n";
-//			cout << "2. update a new item\n";
-//			cout << "3. delete\n";
-//			cin >> choice;
-//			if (choice == "1") {
-//				additem(itemlist);
-//			}
-//			else if (choice == "2") {
-//				cout << "enter id: ";
-//				cin >> id;
-//				uppdateitem(id, itemlist);
-//			}
-//			else if (choice == "3") {
-//				itemlist.printitemlist();
-//				cout << "\t\t ===== delete =====\n";
-//				cout << "enter id: ";
-//				cin >> id;
-//				itemlist.deleteitem(id);
-//			}
-//		}
-//		else if (choice == "3") {
-//			itemlist.printitemlist();
-//			system("pause");
-//		}
-//		else if (choice == "3") {
-//			system("cls");
-//			cout << "1. add a new item\n";
-//			cout << "2. update a new item\n";
-//			cout << "3. delete\n";
-//			cin >> choice;
-//			if (choice == "1") {
-//				additem(itemlist);
-//			}
-//			else if (choice == "2") {
-//				cout << "enter id: ";
-//				cin >> id;
-//				uppdateitem(id, itemlist);
-//			}
-//			else if (choice == "3") {
-//				itemlist.printitemlist();
-//				cout << "\t\t ===== delete =====\n";
-//				cout << "enter id: ";
-//				cin >> id;
-//				itemlist.deleteitem(id);
-//			}
-//		}
-//		else if (choice == "4") {
-//			customerlist.printcustomerlist();
-//			system("pause");
-//		}
-//		else if (choice == "exit" || choice == "exit") {
-//			flag = false;
-//			break;
-//		}
-//	}
-//}
+void menu(itemList& iList) {
+	bool flag = true;
+	string choice;
+	string id;
+	listReadItemfile(iList);
+	while (flag) {
+		system("cls");
+		cout << "1. add a new item, update or delete an existing item\n";
+		cout << "2. print item list\n";
+		cout << "3. add new customer or update an existing customer\n";
+		cout << "4. print customer list\n";
+		cin >> choice;
+		if (choice == "1") {
+			system("cls");
+			cout << "1. add a new item\n";
+			cout << "2. update a new item\n";
+			cout << "3. delete\n";
+			cin >> choice;
+			if (choice._Equal("1")) {
+				string type;
+				cout << "What type of item: \n";
+				cout << "1. Game\n";
+				cout << "2. Record\n";
+				cout << "3. DVD\n";
+				Item* newItem;
+
+				do {
+					getline(cin, choice);
+					if (choice < "1" && choice > "3") {
+						cout << "Invalid choice\n";
+					}
+				} while (choice < "1" && choice > "3");
+
+				if (choice._Equal("1")) {
+					type = "Game";
+					newItem = new Item;
+					newItem->Input(type);
+				}
+				else if (choice._Equal("2")) {
+					type = "Record";
+					newItem = new RVItem;
+					newItem->Input(type);
+				}
+				else {
+					type == "DVD";
+					newItem = new RVItem;
+					newItem->Input(type);
+				}
+				iList.appendItemBack(newItem);
+			}
+			/*else if (choice == "2") {
+				cout << "enter id: ";
+				cin >> id;
+				uppdateitem(id, itemlist);
+			}
+			else if (choice == "3") {
+				itemlist.printitemlist();
+				cout << "\t\t ===== delete =====\n";
+				cout << "enter id: ";
+				cin >> id;
+				itemlist.deleteitem(id);
+			}*/
+		}
+		else if (choice == "2") {
+			iList.printItemList();
+			system("pause");
+		}
+		/*else if (choice == "3") {
+			system("cls");
+			cout << "1. add a new item\n";
+			cout << "2. update a new item\n";
+			cout << "3. delete\n";
+			cin >> choice;
+			if (choice == "1") {
+				additem(itemlist);
+			}
+			else if (choice == "2") {
+				cout << "enter id: ";
+				cin >> id;
+				uppdateitem(id, itemlist);
+			}
+			else if (choice == "3") {
+				itemlist.printitemlist();
+				cout << "\t\t ===== delete =====\n";
+				cout << "enter id: ";
+				cin >> id;
+				itemlist.deleteitem(id);
+			}
+		}
+		else if (choice == "4") {
+			customerlist.printcustomerlist();
+			system("pause");
+		}
+		else if (choice == "exit" || choice == "exit") {
+			flag = false;
+			break;
+		}*/
+	}
+}
 

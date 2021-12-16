@@ -10,6 +10,15 @@ void Item::Output() {
 	cout << "Fee: " << fee << endl;
 }
 
+void Item::Input(string type) {
+	cout << "ID: "; cin >> id;
+	cout << "Title: "; cin >> title;
+	cout << "Loan Type: "; cin >> loanType;
+	cout << "Num of copies: "; cin >> stock;
+	cout << "Fee: "; cin >> fee;
+	this->type = type;
+}
+
 void Item::readItemFile(fstream& fileIn) {
 	getline(fileIn, id, ',');
 	getline(fileIn, title, ',');
@@ -20,3 +29,4 @@ void Item::readItemFile(fstream& fileIn) {
 	fileIn >> fee;
 	fileIn.ignore();
 }
+

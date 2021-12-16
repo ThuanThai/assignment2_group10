@@ -5,7 +5,6 @@
 
 int main() {
 	itemList iList;
-	listReadItemfile(iList);
-	iList.printItemList();
+	menu(iList);
 	return 0;
 }

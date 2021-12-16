@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 using namespace std;
 
@@ -31,8 +32,9 @@ public:
 	~Item();
 
 	virtual void Output();
+	virtual void Input(string type);
 	virtual void readItemFile(fstream&);
-
+	
 	//getter
 	string getId() {
 		return this->id;
