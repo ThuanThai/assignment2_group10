@@ -1,21 +1,21 @@
 #pragma once
-#include "customerNode.h"
+#include "CustomerNode.h"
 #include <iostream>
 using namespace std;
 class customerList {
 private:
-	customerNode* head;
+	CustomerNode* head;
 public:
 	customerList() {
 		head = NULL;
 	}
-	customerList(Customer newCustomer) {
-		head = new customerNode(newCustomer);
+	customerList(Customer* newCustomer) {
+		head = new CustomerNode(newCustomer);
 	}
 	//getter
-	customerNode* getHead() {
+	CustomerNode* getHead() {
 		return this->head;
 	}
-	void appendCustomerBack(Customer newCustomer);
+	void appendCustomerBack(Customer* newCustomer);
 	void printCustomerList();
 };

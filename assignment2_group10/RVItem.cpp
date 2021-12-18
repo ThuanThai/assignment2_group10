@@ -2,7 +2,7 @@
 
 void RVItem::Output() {
 	Item::Output();
-	cout << "Genre: " << this->genre << endl;
+	cout << "7.Genre: " << this->genre << endl;
 }
 
 void RVItem::readItemFile(fstream& fileIn) {
@@ -16,13 +16,13 @@ void RVItem::Input(string type) {
 }
 
 ostream& operator << (ostream& stream, const RVItem* item) {
-	stream << "1.Id: " << item->id << endl;
-	stream << "2.Title: " << item->title << endl;
-	stream << "3.Type: " << item->type << endl;
-	stream << "4.Loan type: " << item->loanType << endl;
-	stream << "5.Num of copies: " << item->stock << endl;
-	stream << "6.Fee: " << item->fee << endl;
-	stream << "7.Genre: " << item->genre << endl;
+	stream << "Id: " << item->id << endl;
+	stream << "Title: " << item->title << endl;
+	stream << "Type: " << item->type << endl;
+	stream << "Loan type: " << item->loanType << endl;
+	stream << "Num of copies: " << item->stock << endl;
+	stream << "Fee: " << item->fee << endl;
+	stream << "Genre: " << item->genre << endl;
 	return stream;
 }
 

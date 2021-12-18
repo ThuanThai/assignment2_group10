@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="customer.h" />
     <ClInclude Include="customerList.h" />
     <ClInclude Include="customerNode.h" />
     <ClInclude Include="itemList.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="support.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="customer.cpp" />
     <ClCompile Include="customerList.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="itemList.cpp" />
