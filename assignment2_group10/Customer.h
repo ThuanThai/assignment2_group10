@@ -35,6 +35,6 @@ public:
 
 	friend ostream& operator << (ostream& stream, const Customer* customer);
 	friend istream& operator >> (istream& stream, Customer*& customer);
-	virtual void Output();
+	void Output();
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "itemList.h"
 #include "support.h"
+#include "VipCustomer.h"
 #include <iostream>
 
 int main() {

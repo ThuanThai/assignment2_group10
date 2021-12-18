@@ -139,23 +139,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="customer.h" />
+    <ClInclude Include="Customer.h" />
     <ClInclude Include="customerList.h" />
     <ClInclude Include="customerNode.h" />
+    <ClInclude Include="GuestCustomer.h" />
     <ClInclude Include="itemList.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemNode.h" />
     <ClInclude Include="RVItem.h" />
     <ClInclude Include="support.h" />
+    <ClInclude Include="VipCustomer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="customer.cpp" />
+    <ClCompile Include="Customer.cpp" />
     <ClCompile Include="customerList.cpp" />
+    <ClCompile Include="GuestCustomer.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="itemList.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RVItem.cpp" />
     <ClCompile Include="support.cpp" />
+    <ClCompile Include="VipCustomer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
