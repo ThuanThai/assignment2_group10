@@ -314,6 +314,7 @@ void menu(itemList& iList) {
 bool isValidItemId(string id) {
 	if (id.length() != 9) return false;
 	if (id.at(0) != 'I') return false;
+	if (id.at(4) != '-') return false;
 	if (stoi(id.substr(5, 4)) > 2022) return false;
 	return true;
 }
