@@ -1,4 +1,5 @@
 #include "Item.h"
+#include "support.h"
 Item::~Item() {}
 
 void Item::Output() {
@@ -11,7 +12,10 @@ void Item::Output() {
 }
 
 void Item::Input(string type) {
-	cout << "ID: "; cin >> id;
+	do {
+		cout << "Valid Item Id syntax: Ixxx-yyyy" << endl;
+		cout << "ID: "; cin >> id;
+	} while (!isValidItemId(id));
 	cout << "Title: "; cin >> title;
 	cout << "Loan Type: "; cin >> loanType;
 	cout << "Num of copies: "; cin >> stock;

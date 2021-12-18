@@ -23,10 +23,13 @@ ItemNode* itemList::findItem(string id) {
 		current = current->getNext();
 	}
 	if (current == NULL) {
-		cout << "cannot found!\n";
-		return NULL;
+		cout << "Cannot find valid information!\n";
+		return;
 	}
-	return current;
+	cout << "Delete Successfully\n";
+	system("pause");
+	prev->setNext(current->getNext());
+	delete current;
 }
 
 void itemList::deleteItem(string ID) {

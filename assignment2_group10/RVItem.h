@@ -9,7 +9,7 @@ public:
 	RVItem() : Item() {
 		this->genre = "";
 	}
-	RVItem(string genre) : Item(id, title, type, loanType, stock, fee) {
+	RVItem(string id, string title, string type, string loanType, int stock, float fee, string genre) : Item(id, title, type, loanType, stock, fee) {
 		this->genre = genre;
 	}
 	~RVItem() { ; }

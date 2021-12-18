@@ -218,27 +218,32 @@ void menu(itemList& iList) {
 		cout << "2. print item list\n";
 		cout << "3. add new customer or update an existing customer\n";
 		cout << "4. print customer list\n";
+		cout << "Enter your command here: ";
 		cin >> choice;
+		cin.ignore();
 		if (choice == "1") {
 			system("cls");
 			cout << "1. add a new item\n";
 			cout << "2. update a new item\n";
 			cout << "3. delete\n";
+			cout << "Enter your command here: ";
 			cin >> choice;
+			cin.ignore();
 			if (choice._Equal("1")) {
 				string type;
-				cout << "What type of item: \n";
 				cout << "1. Game\n";
 				cout << "2. Record\n";
 				cout << "3. DVD\n";
 				Item* newItem;
 
 				do {
+					cout << "What type of item you want to add: ";
 					getline(cin, choice);
-					if (choice < "1" && choice > "3") {
+					if (choice < "1" || choice > "3") {
 						cout << "Invalid choice\n";
+						cout << "Please enter a digit from 1 to 3!!! ex: enter 1 if you wsnt to add a game.\n";
 					}
-				} while (choice < "1" && choice > "3");
+				} while (choice < "1" || choice > "3");
 
 				if (choice._Equal("1")) {
 					type = "Game";
@@ -305,4 +310,11 @@ void menu(itemList& iList) {
 			break;
 		}*/
 	}
+}
+bool isValidItemId(string id) {
+	if (id.length() != 9) return false;
+	if (id.at(0) != 'I') return false;
+	if (id.at(4) != '-') return false;
+	if (stoi(id.substr(5, 4)) > 2022) return false;
+	return true;
 }
