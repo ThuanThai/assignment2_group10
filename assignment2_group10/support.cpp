@@ -136,8 +136,8 @@ void updateItem(string id, itemList& iList) {
 	ItemNode* current = iList.findItem(id);
 	while (flag) {
 		system("cls");
-		cout << current->getItem();
-		cout << "0. exit" << endl;
+		current->getItem()->Output();
+		cout << "0.Exit" << endl;
 		cout << "enter choice: ";
 		cin >> choice;
 		cin.ignore();
@@ -162,7 +162,7 @@ void updateItem(string id, itemList& iList) {
 				updateItem->updateType(current->getItem(), update);
 				current->setItem(updateItem);
 			}
-			else if (currentType._Equal("DVD") || currentType._Equal("Record") && update == "Game") {
+			else if (currentType._Equal("DVD") || currentType._Equal("Record") && update._Equal("Game")) {
 				updateItem = new Item;
 				updateItem->updateType(current->getItem(), update);
 				current->setItem(updateItem);
@@ -187,6 +187,11 @@ void updateItem(string id, itemList& iList) {
 			break;
 		}
 		case 7: {
+			if (current->getItem()->getType()._Equal("Game")) {
+				cout << "wrong chocie";
+				system("pause");
+				continue;
+			}
 			getline(cin, update);
 			current->getItem()->setGenre(update);
 			break;
@@ -196,6 +201,7 @@ void updateItem(string id, itemList& iList) {
 			break;
 		default:
 			cout << "wrong chocie";
+			system("pause");
 			continue;
 		}
 	}
@@ -261,13 +267,13 @@ void menu(itemList& iList) {
 				cin >> id;
 				updateItem(id, iList);
 			}
-			/*else if (choice == "3") {
-				itemlist.printitemlist();
+			else if (choice == "3") {
+				iList.printItemList();
 				cout << "\t\t ===== delete =====\n";
-				cout << "enter id: ";
+				cout << "Enter id: ";
 				cin >> id;
-				itemlist.deleteitem(id);
-			}*/
+				iList.deleteItem(id);
+			}
 		}
 		else if (choice == "2") {
 			iList.printItemList();

@@ -3,12 +3,12 @@
 Item::~Item() {}
 
 void Item::Output() {
-	cout << "ID: " << id << endl;
-	cout << "Title: " << title << endl;
-	cout << "Type: " << type << endl;
-	cout << "Loan Type: " << loanType << endl;
-	cout << "Num of copies: " << stock << endl;
-	cout << "Fee: " << fee << endl;
+	cout << "1.ID: " << id << endl;
+	cout << "2.Title: " << title << endl;
+	cout << "3.Type: " << type << endl;
+	cout << "4.Loan Type: " << loanType << endl;
+	cout << "5.Num of copies: " << stock << endl;
+	cout << "6.Fee: " << fee << endl;
 }
 
 void Item::Input(string type) {
@@ -35,12 +35,12 @@ void Item::readItemFile(fstream& fileIn) {
 }
 
 ostream& operator << (ostream& stream, const Item* item) {
-	stream << "1.Id: " << item->id << endl;
-	stream << "2.Title: " << item->title << endl;
-	stream << "3.Type: " << item->type << endl;
-	stream << "4.Loan type: " << item->loanType << endl;
-	stream << "5.Num of copies: " << item->stock << endl;
-	stream << "6.Fee: " << item->fee << endl;
+	stream << "Id: " << item->id << endl;
+	stream << "Title: " << item->title << endl;
+	stream << "Type: " << item->type << endl;
+	stream << "Loan type: " << item->loanType << endl;
+	stream << "Num of copies: " << item->stock << endl;
+	stream << "Fee: " << item->fee << endl;
 	return stream;
 }
 

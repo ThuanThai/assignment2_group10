@@ -1,5 +1,6 @@
 #pragma once
 #include "Item.h"
+#include "RVItem.h"
 #include "ItemNode.h"
 
 class itemList {
@@ -17,8 +18,7 @@ public:
 	}
 	void appendItemBack(Item* newItem);
 	ItemNode* findItem(string id);
-	/*void appendItemBack(StreamingItem newItem);
-	void deleteItem(string ID);*/
+	void deleteItem(string ID);
 	void printItemList();
 };
 
