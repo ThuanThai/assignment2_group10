@@ -47,13 +47,13 @@
     <ClCompile Include="customerList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RVItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="support.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

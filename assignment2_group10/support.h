@@ -8,7 +8,7 @@ using namespace std;
 bool ItemFlag(string tmp);
 void listReadItemfile(itemList& itemList);
 void menu(itemList& iList);
-
+bool isValidItemId(string);
 
 
 
