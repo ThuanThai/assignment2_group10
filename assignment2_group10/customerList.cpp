@@ -13,14 +13,14 @@ void customerList::appendCustomerBack(Customer* newCustomer) {
 }
 
 void customerList::deleteCustomer(string id) {
-	customerNode* current = head;
-	customerNode* prev = NULL;
-	if (current->getCustomer().id == id && current->getNext() != NULL) {
+	CustomerNode* current = head;
+	CustomerNode* prev = NULL;
+	if (current->getCustomer()->getId() == id && current->getNext() != NULL) {
 		head = head->getNext();
 		delete current;
 		return;
 	}
-	while (current != NULL && current->getCustomer().id != id) {
+	while (current != NULL && current->getCustomer()->getId() != id) {
 		prev = current;
 		current = current->getNext();
 	}

@@ -24,12 +24,9 @@ ItemNode* itemList::findItem(string id) {
 	}
 	if (current == NULL) {
 		cout << "Cannot find valid information!\n";
-		return;
+		return NULL;
 	}
-	cout << "Delete Successfully\n";
-	system("pause");
-	prev->setNext(current->getNext());
-	delete current;
+	return current;
 }
 
 void itemList::deleteItem(string ID) {
