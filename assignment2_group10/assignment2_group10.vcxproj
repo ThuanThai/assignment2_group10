@@ -146,6 +146,7 @@
     <ClInclude Include="itemList.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemNode.h" />
+    <ClInclude Include="RegularCustomer.h" />
     <ClInclude Include="RVItem.h" />
     <ClInclude Include="support.h" />
     <ClInclude Include="VipCustomer.h" />
@@ -157,6 +158,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="itemList.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RegularCustomer.cpp" />
     <ClCompile Include="RVItem.cpp" />
     <ClCompile Include="support.cpp" />
     <ClCompile Include="VipCustomer.cpp" />

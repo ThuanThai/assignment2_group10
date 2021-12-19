@@ -24,7 +24,6 @@ ItemNode* itemList::findItem(string id) {
 		current = current->getNext();
 	}
 	if (current == NULL) {
-		//cout << "Cannot find valid information!\n";
 		return NULL;
 	}
 	return current;

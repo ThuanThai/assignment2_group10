@@ -45,6 +45,9 @@
     <ClInclude Include="GuestCustomer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RegularCustomer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="itemList.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GuestCustomer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RegularCustomer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

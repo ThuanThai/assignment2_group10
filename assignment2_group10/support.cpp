@@ -41,29 +41,32 @@ void listReadItemfile(itemList& itemList) {
 }
 
 
-//void readCustomerFile(ifstream& fileIn, Customer& newCustomer) {
-//	string tmp;
-//	getline(fileIn, newCustomer.id, ',');
-//	getline(fileIn, newCustomer.name, ',');
-//	getline(fileIn, newCustomer.address, ',');
-//	getline(fileIn, newCustomer.phone, ',');
-//	fileIn >> newCustomer.numOfRentals;
-//	fileIn.ignore();
-//	getline(fileIn, newCustomer.customerType);
-//	while (getline(fileIn, tmp, '\n')) {
-//		if (tmp[0] == 'I') {
-//			stringstream ss(tmp);
-//			ss >> newCustomer.listItemId.list[newCustomer.listItemId.count];
-//			newCustomer.listItemId.count++;
-//		}
-//		else {
-//			int byte = (tmp.length() + 2) * (-1);
-//			fileIn.seekg(byte, 1);
-//			break;
-//		}
-//	}
-//}
-//
+void listReadCustomerFile(customerList& cList) {
+	ifstream fileIn("customers.txt", ios_base::in);
+	if (!fileIn) {
+		cerr << "Cannot Open File\n";
+	}
+	while (!fileIn.eof())
+	{
+		Customer* customer = new Customer;
+		Customer* newCustomer = NULL;
+		customer->readCustomerFile(fileIn);
+		if (customer->getRank().compare("Guest") == 0) {
+			newCustomer = new GuestCustomer;
+			newCustomer->setCustomerType(customer);
+		}
+		else if (customer->getRank().compare("Regular") == 0) {
+			newCustomer = new RegularCustomer;
+			newCustomer->setCustomerType(customer);
+		}
+		else if (customer->getRank().compare("VIP") == 0) {
+			newCustomer = new VipCustomer;
+			newCustomer->setCustomerType(customer);
+		}
+		cList.appendCustomerBack(newCustomer);
+	}
+	fileIn.close();
+}
 
 //
 //void listReadCustomerFile(customerList& customerList) {
@@ -134,6 +137,11 @@ void updateItem(string id, itemList& iList) {
 	int choice;
 	bool flag = true;
 	ItemNode* current = iList.findItem(id);
+	if (current == NULL) {
+		cout << "Can not found\n";
+		system("pause");
+		return;
+	}
 	while (flag) {
 		system("cls");
 		current->getItem()->Output();
@@ -207,11 +215,12 @@ void updateItem(string id, itemList& iList) {
 	}
 }
 
-void menu(itemList& iList) {
+void menu(itemList& iList, customerList& cList) {
 	bool flag = true;
 	string choice;
 	string id;
 	listReadItemfile(iList);
+	listReadCustomerFile(cList);
 	while (flag) {
 		system("cls");
 		cout << "1. add a new item, update or delete an existing item\n";
@@ -295,15 +304,15 @@ void menu(itemList& iList) {
 				cin >> id;
 				itemlist.deleteitem(id);
 			}
-		}
+		}*/
 		else if (choice == "4") {
-			customerlist.printcustomerlist();
+			cList.printCustomerList();
 			system("pause");
 		}
 		else if (choice == "exit" || choice == "exit") {
 			flag = false;
 			break;
-		}*/
+		}
 	}
 }
 bool isValidItemId(string id) {

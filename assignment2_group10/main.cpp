@@ -7,6 +7,7 @@
 
 int main() { 
 	itemList iList;
-	menu(iList);
+	customerList cList;
+	menu(iList, cList);
 	return 0;
 }

@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include "Customer.h"
+#include "GuestCustomer.h"
+#include "RegularCustomer.h"
+#include "VipCustomer.h"
 using namespace std;
 
 
