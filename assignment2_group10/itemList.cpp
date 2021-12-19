@@ -24,7 +24,7 @@ ItemNode* itemList::findItem(string id) {
 		current = current->getNext();
 	}
 	if (current == NULL) {
-		cout << "Cannot find valid information!\n";
+		//cout << "Cannot find valid information!\n";
 		return NULL;
 	}
 	return current;
@@ -77,12 +77,21 @@ void itemList::addNewItem(string type) {
 		cout << "ID: "; cin >> id;
 	} while (!isValidItemId(id) || this->findItem(id) != NULL);
 	cout << "Title: "; cin >> title;
-	cout << "Loan Type: "; cin >> loanType;
+	do {
+		cout << "Valid loan type: 2-day | 1-week" << endl;
+		cout << "Loan Type: "; cin >> loanType;
+	} while (!loanType._Equal("2-day") && !loanType._Equal("1-week"));
+	
 	cout << "Num of copies: "; cin >> stock;
 	cout << "Fee: "; cin >> fee;
 	if (type._Equal("DVD") || type._Equal("Record")) {
 		newItem = new RVItem;
-		cout << "Genre: "; cin >> genre;
+		do {
+			cout << "Valid genre: Action | Horror | Drama | Comedy" << endl;
+			cout << "Genre: "; cin >> genre;
+
+		} while (!genre._Equal("Action") && !genre._Equal("Horror") && !genre._Equal("Drama") && !genre._Equal("Comedy"));
+		
 		newItem->setGenre(genre);
 	}
 	newItem->setId(id);
