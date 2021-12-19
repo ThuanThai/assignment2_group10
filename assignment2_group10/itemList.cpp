@@ -70,21 +70,36 @@ void itemList::printItemList() {
 void itemList::addNewItem(string type) {
 	Item* newItem = new Item;
 	string id, title, loanType, genre;
-	int stock;
-	float fee;
+	int stock = 0;
+	float fee = 0.0f;
+	// get id
 	do {
 		cout << "Valid Item Id syntax: Ixxx-yyyy | yyyy < 2022 | ID is unique in list." << endl;
 		cout << "ID: "; cin >> id;
 	} while (!isValidItemId(id) || this->findItem(id) != NULL);
+
+	// get title
+	cout << endl;
 	cout << "Title: "; cin >> title;
+
+	// get loanType 
+	cout << endl;
 	do {
 		cout << "Valid loan type: 2-day | 1-week" << endl;
 		cout << "Loan Type: "; cin >> loanType;
 	} while (!loanType._Equal("2-day") && !loanType._Equal("1-week"));
 	
-	cout << "Num of copies: "; cin >> stock;
-	cout << "Fee: "; cin >> fee;
+	// get stock size
+	cout << endl;
+	inputStockSize(&stock);
+
+	// get fee 
+	cout << endl;
+	inputFee(&fee);
+
+	// get genre
 	if (type._Equal("DVD") || type._Equal("Record")) {
+		cout << endl;
 		newItem = new RVItem;
 		do {
 			cout << "Valid genre: Action | Horror | Drama | Comedy" << endl;

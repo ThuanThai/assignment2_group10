@@ -9,7 +9,8 @@ bool ItemFlag(string tmp);
 void listReadItemfile(itemList& itemList);
 void menu(itemList& iList);
 bool isValidItemId(string);
-
+void inputStockSize(int* stock);
+void inputFee(float* fee);
 
 
 

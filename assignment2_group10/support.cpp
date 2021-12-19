@@ -313,3 +313,23 @@ bool isValidItemId(string id) {
 	if (stoi(id.substr(5, 4)) > 2022) return false;
 	return true;
 }
+void inputStockSize(int *stock) {
+	string stockStr;
+	cout << "Num of copies: "; cin >> stockStr;
+	try {
+		*(stock) = stoi(stockStr);
+	}
+	catch (const std::exception& ex) {
+		inputStockSize(stock);
+	}
+ }
+void inputFee(float *fee) {
+	string feeStr;
+	cout << "Fee: "; cin >> feeStr;
+	try {
+		*(fee) = stof(feeStr);
+	}
+	catch (const std::exception& ex) {
+		inputFee(fee);
+	}
+}
