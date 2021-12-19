@@ -33,7 +33,6 @@ public:
 	~Item();
 
 	virtual void Output();
-	virtual void Input(string type);
 	virtual void readItemFile(fstream&);
 	virtual void setGenre(string genre) { ; } // Not do anything if item is not belong to RVItem;
 	virtual void updateType(Item* item, string newType);

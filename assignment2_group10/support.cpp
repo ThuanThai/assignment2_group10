@@ -234,7 +234,6 @@ void menu(itemList& iList) {
 				cout << "1. Game\n";
 				cout << "2. Record\n";
 				cout << "3. DVD\n";
-				Item* newItem;
 
 				do {
 					cout << "What type of item you want to add: ";
@@ -247,20 +246,16 @@ void menu(itemList& iList) {
 
 				if (choice._Equal("1")) {
 					type = "Game";
-					newItem = new Item;
-					newItem->Input(type);
+					iList.addNewItem(type);
 				}
 				else if (choice._Equal("2")) {
 					type = "Record";
-					newItem = new RVItem;
-					newItem->Input(type);
+					iList.addNewItem(type);
 				}
 				else {
 					type == "DVD";
-					newItem = new RVItem;
-					newItem->Input(type);
+					iList.addNewItem(type);
 				}
-				iList.appendItemBack(newItem);
 			}
 			else if (choice == "2") {
 				cout << "enter id: ";

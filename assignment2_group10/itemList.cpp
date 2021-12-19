@@ -1,6 +1,7 @@
 #pragma once
 #include "itemList.h"
 #include "StreamingItem.h"
+#include "support.h"
 #include <iostream>
 using namespace std;
 
@@ -66,3 +67,29 @@ void itemList::printItemList() {
 		i++;
 	}
 }
+void itemList::addNewItem(string type) {
+	Item* newItem = new Item;
+	string id, title, loanType, genre;
+	int stock;
+	float fee;
+	do {
+		cout << "Valid Item Id syntax: Ixxx-yyyy | yyyy < 2022 | ID is unique in list." << endl;
+		cout << "ID: "; cin >> id;
+	} while (!isValidItemId(id) || this->findItem(id) != NULL);
+	cout << "Title: "; cin >> title;
+	cout << "Loan Type: "; cin >> loanType;
+	cout << "Num of copies: "; cin >> stock;
+	cout << "Fee: "; cin >> fee;
+	if (type._Equal("DVD") || type._Equal("Record")) {
+		newItem = new RVItem;
+		cout << "Genre: "; cin >> genre;
+		newItem->setGenre(genre);
+	}
+	newItem->setId(id);
+	newItem->setTitle(title);
+	newItem->setType(type);
+	newItem->setLoanType(loanType);
+	newItem->setStock(stock);
+	newItem->setFee(fee);
+	this->appendItemBack(newItem);
+};

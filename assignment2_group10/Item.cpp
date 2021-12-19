@@ -11,18 +11,6 @@ void Item::Output() {
 	cout << "6.Fee: " << fee << endl;
 }
 
-void Item::Input(string type) {
-	do {
-		cout << "Valid Item Id syntax: Ixxx-yyyy" << endl;
-		cout << "ID: "; cin >> id;
-	} while (!isValidItemId(id));
-	cout << "Title: "; cin >> title;
-	cout << "Loan Type: "; cin >> loanType;
-	cout << "Num of copies: "; cin >> stock;
-	cout << "Fee: "; cin >> fee;
-	this->type = type;
-}
-
 void Item::readItemFile(fstream& fileIn) {
 	getline(fileIn, id, ',');
 	getline(fileIn, title, ',');
