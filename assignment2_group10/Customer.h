@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 using namespace std;
 class Customer
 {
@@ -15,8 +16,6 @@ protected:
 	vector<string> rList;
 	string rank;
 public:
-	Customer();
-	~Customer();
 	void setId(string id);
 	void setName(string name);
 	void setAddress(string address);
@@ -24,6 +23,7 @@ public:
 	void setItemRented(int num);
 	void setItemreturned(int num);
 	void setRank(string rank);
+	virtual void setRewardPoint(int num);
 
 	string getId();
 	string getName();
@@ -32,9 +32,12 @@ public:
 	int getItemRented();
 	int getItemReturned();
 	string getRank();
+	virtual int getRewardPoint();
 
 	friend ostream& operator << (ostream& stream, const Customer* customer);
 	friend istream& operator >> (istream& stream, Customer*& customer);
 	void Output();
+	void readCustomerFile(ifstream&);
+	void setCustomerType(Customer* customer);
 };
 

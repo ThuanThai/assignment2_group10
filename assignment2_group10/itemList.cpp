@@ -1,6 +1,7 @@
 #pragma once
 #include "itemList.h"
 #include "StreamingItem.h"
+#include "support.h"
 #include <iostream>
 using namespace std;
 
@@ -23,7 +24,6 @@ ItemNode* itemList::findItem(string id) {
 		current = current->getNext();
 	}
 	if (current == NULL) {
-		cout << "Cannot find valid information!\n";
 		return NULL;
 	}
 	return current;
@@ -66,3 +66,53 @@ void itemList::printItemList() {
 		i++;
 	}
 }
+void itemList::addNewItem(string type) {
+	Item* newItem = new Item;
+	string id, title, loanType, genre;
+	int stock = 0;
+	float fee = 0.0f;
+	// get id
+	do {
+		cout << "Valid Item Id syntax: Ixxx-yyyy | yyyy < 2022 | ID is unique in list." << endl;
+		cout << "ID: "; cin >> id;
+	} while (!isValidItemId(id) || this->findItem(id) != NULL);
+
+	// get title
+	cout << endl;
+	cout << "Title: "; cin >> title;
+
+	// get loanType 
+	cout << endl;
+	do {
+		cout << "Valid loan type: 2-day | 1-week" << endl;
+		cout << "Loan Type: "; cin >> loanType;
+	} while (!loanType._Equal("2-day") && !loanType._Equal("1-week"));
+	
+	// get stock size
+	cout << endl;
+	inputStockSize(&stock);
+
+	// get fee 
+	cout << endl;
+	inputFee(&fee);
+
+	// get genre
+	if (type._Equal("DVD") || type._Equal("Record")) {
+		cout << endl;
+		newItem = new RVItem;
+		do {
+			cout << "Valid genre: Action | Horror | Drama | Comedy" << endl;
+			cout << "Genre: "; cin >> genre;
+
+		} while (!genre._Equal("Action") && !genre._Equal("Horror") && !genre._Equal("Drama") && !genre._Equal("Comedy"));
+		
+		newItem->setGenre(genre);
+	}
+	newItem->setId(id);
+	newItem->setTitle(title);
+	newItem->setType(type);
+	newItem->setLoanType(loanType);
+	newItem->setStock(stock);
+	newItem->setFee(fee);
+	this->appendItemBack(newItem);
+};

@@ -10,11 +10,6 @@ void RVItem::readItemFile(fstream& fileIn) {
 	getline(fileIn, genre);
 }
 
-void RVItem::Input(string type) {
-	Item::Input(type);
-	cout << "Genre: "; cin >> genre;
-}
-
 ostream& operator << (ostream& stream, const RVItem* item) {
 	stream << "Id: " << item->id << endl;
 	stream << "Title: " << item->title << endl;
