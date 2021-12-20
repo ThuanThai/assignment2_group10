@@ -73,7 +73,7 @@ void itemList::addNewItem(string type) {
 	float fee = 0.0f;
 	// get id
 	do {
-		cout << "Valid Item Id syntax: Ixxx-yyyy | yyyy < 2022 | ID is unique in list." << endl;
+		cout << "Valid Item Id syntax: Ixxx-yyyy | yyyy < 2022 | ID must be unique in list." << endl;
 		cout << "ID: "; cin >> id;
 	} while (!isValidItemId(id) || this->findItem(id) != NULL);
 
