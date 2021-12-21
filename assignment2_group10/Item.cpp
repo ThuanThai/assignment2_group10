@@ -20,6 +20,7 @@ void Item::readItemFile(fstream& fileIn) {
 	fileIn.ignore();
 	fileIn >> fee;
 	fileIn.ignore();
+		
 }
 
 ostream& operator << (ostream& stream, const Item* item) {

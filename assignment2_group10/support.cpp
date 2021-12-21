@@ -26,7 +26,9 @@ void listReadItemfile(itemList& itemList) {
 			fileIn.seekg(byte, 1);
 			newItem = new Item;
 			newItem->readItemFile(fileIn);
-			itemList.appendItemBack(newItem);
+			if (isValidItem(*newItem, itemList)) {
+				itemList.appendItemBack(newItem);
+			}
 		}
 		else if (!flag) {
 			len = tmp.length();
@@ -34,7 +36,9 @@ void listReadItemfile(itemList& itemList) {
 			fileIn.seekg(byte, 1);
 			newItem = new RVItem;
 			newItem->readItemFile(fileIn);
-			itemList.appendItemBack(newItem);
+			if (isValidItem(*newItem, itemList)) {
+				itemList.appendItemBack(newItem);
+			}
 		}
 	}
 	fileIn.close();
@@ -267,7 +271,7 @@ void menu(itemList& iList, customerList& cList) {
 				}
 			}
 			else if (choice == "2") {
-				cout << "enter id: ";
+				cout << "Enter id: ";
 				cin >> id;
 				updateItem(id, iList);
 			}
@@ -309,7 +313,7 @@ void menu(itemList& iList, customerList& cList) {
 			cList.printCustomerList();
 			system("pause");
 		}
-		else if (choice == "exit" || choice == "exit") {
+		else if (choice == "exit" || choice == "Exit") {
 			flag = false;
 			break;
 		}
@@ -341,4 +345,20 @@ void inputFee(float *fee) {
 	catch (const std::exception& ex) {
 		inputFee(fee);
 	}
+}
+
+bool isValidItem(Item item, itemList list) {
+	if (!isValidItemId(item.getId())) return false;
+	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
+	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
+	if (list.findItem(item.getId()) != NULL) {
+		ItemNode *existedItem = list.findItem(item.getId());
+		// if new item is an existed item in the list - add up the stock
+		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
+			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()) {
+			existedItem->getItem()->setStock(existedItem->getItem()->getStock() + item.getStock());
+		}
+		return false;
+	}
+	return true;
 }
