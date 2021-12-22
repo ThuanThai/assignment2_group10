@@ -15,5 +15,7 @@ void inputFee(float* fee);
 bool isValidItem(Item item, itemList list);
 bool isValidRVItem(RVItem item, itemList list);
 
-
-
+//sort fuctions
+//for customer
+void swap(CustomerNode* C1, CustomerNode* C2);
+void sort(customerList& List);

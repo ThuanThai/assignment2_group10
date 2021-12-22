@@ -6,25 +6,23 @@
 #include "VipCustomer.h"
 using namespace std;
 
-
 class CustomerNode {
 private:
 	Customer* customer;
 	CustomerNode* next;
 public:
+	//Default constructor
+	CustomerNode();
 	//constructor
-	CustomerNode(Customer* newCustomer) {
-		this->customer = newCustomer;
-		next = NULL;
-	}
+	CustomerNode(Customer* newCustomer);
+	//copy contructor
+	CustomerNode(CustomerNode& customerNode);
+	//destructor
+	~CustomerNode();
 	//setter
-	void setCustomer(Customer* newCustomer) {
-		this->customer = newCustomer;
-	}
-	void setNext(CustomerNode* nextNode) {
-		this->next = nextNode;
-	}
+	void setCustomer(Customer* newCustomer);
+	void setNext(CustomerNode* nextNode);
 	//getter
-	Customer* getCustomer() { return this->customer; }
-	CustomerNode* getNext() { return this->next; }
+	Customer* getCustomer();
+	CustomerNode* getNext();
 };

@@ -20,7 +20,6 @@ void Item::readItemFile(fstream& fileIn) {
 	fileIn.ignore();
 	fileIn >> fee;
 	fileIn.ignore();
-		
 }
 
 ostream& operator << (ostream& stream, const Item* item) {
@@ -41,4 +40,3 @@ void Item::updateType(Item* item, string newType) {
 	this->stock = item->getStock();
 	this->fee = item->getFee();
 }
-

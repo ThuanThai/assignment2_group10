@@ -44,7 +44,6 @@ void listReadItemfile(itemList& itemList) {
 	fileIn.close();
 }
 
-
 void listReadCustomerFile(customerList& cList) {
 	ifstream fileIn("customers.txt", ios_base::in);
 	if (!fileIn) {
@@ -135,7 +134,6 @@ void listReadCustomerFile(customerList& cList) {
 //	}
 //}
 
-
 void updateItem(string id, itemList& iList) {
 	string update;
 	int choice;
@@ -154,12 +152,12 @@ void updateItem(string id, itemList& iList) {
 		cin >> choice;
 		cin.ignore();
 		switch (choice) {
-		case 1:{
+		case 1: {
 			getline(cin, update);
 			current->getItem()->setId(id);
 			break;
 		}
-		case 2:{
+		case 2: {
 			getline(cin, update);
 			current->getItem()->setTitle(update);
 			break;
@@ -326,7 +324,7 @@ bool isValidItemId(string id) {
 	if (stoi(id.substr(5, 4)) > 2022) return false;
 	return true;
 }
-void inputStockSize(int *stock) {
+void inputStockSize(int* stock) {
 	string stockStr;
 	cout << "Num of copies: "; cin >> stockStr;
 	try {
@@ -335,8 +333,8 @@ void inputStockSize(int *stock) {
 	catch (const std::exception& ex) {
 		inputStockSize(stock);
 	}
- }
-void inputFee(float *fee) {
+}
+void inputFee(float* fee) {
 	string feeStr;
 	cout << "Fee: "; cin >> feeStr;
 	try {
@@ -353,7 +351,7 @@ bool isValidItem(Item item, itemList list) {
 	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
 	if (!item.getGenre()._Equal("Action") && !item.getGenre()._Equal("Horror") && !item.getGenre()._Equal("Drama") && !item.getGenre()._Equal("Comedy") && !item.getGenre()._Equal("")) return false;
 	if (list.findItem(item.getId()) != NULL) {
-		ItemNode *existedItem = list.findItem(item.getId());
+		ItemNode* existedItem = list.findItem(item.getId());
 		// if new item is an existed item in the list - add up the stock
 		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
 			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()
@@ -365,3 +363,38 @@ bool isValidItem(Item item, itemList list) {
 	return true;
 }
 
+//Sort functions
+void swap(CustomerNode* C1, CustomerNode* C2) {
+	Customer* tmp = C1->getCustomer();
+	C1->setCustomer(C2->getCustomer());
+	C2->setCustomer(tmp);
+}
+
+//sort customer by id
+void sort(customerList& List)
+{
+	//check if list has "something"
+	if (List.getHead() == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+
+	bool sorted = 0;
+	CustomerNode* tmp;
+	CustomerNode* prev;
+	while (!sorted) {
+		tmp = List.getHead();
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+			if (tmp->getCustomer()->getId() < prev->getCustomer()->getId()) {
+				// if customer after have id < previous customer's
+				//swap two customers
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted;
+	}
+	cout << "finish sorting the list" << endl;
+}
