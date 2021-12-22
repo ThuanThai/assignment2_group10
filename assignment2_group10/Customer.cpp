@@ -47,7 +47,7 @@ void Customer::Output() {
 	cout << "Name: " << name << endl;
 	cout << "Address " << address << endl;
 	cout << "Phone: " << phone << endl;
-	cout << "Lis of Rentals: " << endl;
+	cout << "List of Rentals: " << endl;
 	for (auto x : rList)
 	{
 		cout << x << endl;
