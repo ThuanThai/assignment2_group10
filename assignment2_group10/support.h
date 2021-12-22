@@ -12,6 +12,8 @@ void menu(itemList& iList, customerList& cList);
 bool isValidItemId(string);
 void inputStockSize(int* stock);
 void inputFee(float* fee);
+bool isValidItem(Item item, itemList list);
+bool isValidRVItem(RVItem item, itemList list);
 
 
 
