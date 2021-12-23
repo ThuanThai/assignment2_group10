@@ -34,7 +34,6 @@ public:
 	void deleteCustomer(string id);
 	void printCustomerList();
 
-	//
 };
 
 

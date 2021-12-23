@@ -60,6 +60,7 @@ ostream& operator << (ostream& stream, const Customer* customer) {
 	stream << "Name: " << customer->name << endl;
 	stream << "Address " << customer->address << endl;
 	stream << "Phone: " << customer->phone << endl;
+	stream << "Rank: " << customer->rank << endl;
 	stream << "Lis of Rentals: " << endl;
 	for (auto x : customer->rList)
 	{
@@ -84,6 +85,7 @@ void Customer::Output() {
 	cout << "Name: " << name << endl;
 	cout << "Address " << address << endl;
 	cout << "Phone: " << phone << endl;
+	cout << "Rank: " << rank << endl;
 	cout << "List of Rentals: " << endl;
 	for (auto x : rList)
 	{

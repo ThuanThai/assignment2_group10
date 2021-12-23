@@ -543,7 +543,8 @@ int compare_string(string prev, string tmp)
 	string prev_lower = toLower(prev);
 	string tmp_lower = toLower(tmp);
 	if (prev_lower > tmp_lower) return 1; // if the previous > the temp
-	return 0;
+	if (prev_lower < tmp_lower) return -1; // if the previous < the temp
+	return 0; // if the previous = the temp
 }
 
 //function transform string to lowercase

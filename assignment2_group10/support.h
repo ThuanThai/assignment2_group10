@@ -20,7 +20,6 @@ bool isValidRVItem(RVItem item, itemList list);
 //sort fuctions
 //for customer
 void swap(CustomerNode* C1, CustomerNode* C2);
-
 void sort_by_id(customerList& List);
 void sort_by_name(customerList& List);
 
