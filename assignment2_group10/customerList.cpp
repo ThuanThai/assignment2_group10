@@ -1,3 +1,4 @@
+#pragma once
 #include "customerList.h"
 void customerList::appendCustomerBack(Customer* newCustomer) {
 	CustomerNode* newCustomerNode = new CustomerNode(newCustomer);

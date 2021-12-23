@@ -23,7 +23,9 @@ void listReadItemfile(itemList& itemList) {
 			fileIn.seekg(byte, 1);
 			newItem = new Item;
 			newItem->readItemFile(fileIn);
-			itemList.appendItemBack(newItem);
+			if (isValidItem(*newItem, itemList)) {
+				itemList.appendItemBack(newItem);
+			}
 		}
 		else if (search(tmp, "DVD") || search(tmp, "Record")) {
 			len = tmp.length();
@@ -31,12 +33,13 @@ void listReadItemfile(itemList& itemList) {
 			fileIn.seekg(byte, 1);
 			newItem = new RVItem;
 			newItem->readItemFile(fileIn);
-			itemList.appendItemBack(newItem);
+			if (isValidItem(*newItem, itemList)) {
+				itemList.appendItemBack(newItem);
+			}
 		}
 	}
 	fileIn.close();
 }
-
 
 void listReadCustomerFile(customerList& cList) {
 	ifstream fileIn("customers.txt", ios_base::in);
@@ -128,7 +131,6 @@ void listReadCustomerFile(customerList& cList) {
 //	}
 //}
 
-
 void updateItem(string id, itemList& iList) {
 	string update;
 	int choice;
@@ -147,12 +149,12 @@ void updateItem(string id, itemList& iList) {
 		cin >> choice;
 		cin.ignore();
 		switch (choice) {
-		case 1:{
+		case 1: {
 			getline(cin, update);
 			current->getItem()->setId(id);
 			break;
 		}
-		case 2:{
+		case 2: {
 			getline(cin, update);
 			current->getItem()->setTitle(update);
 			break;
@@ -334,7 +336,7 @@ void menu() {
 				}
 			}
 			else if (choice == "2") {
-				cout << "enter id: ";
+				cout << "Enter id: ";
 				cin >> id;
 				updateItem(id, iList);
 			}
@@ -346,7 +348,23 @@ void menu() {
 				iList.deleteItem(id);
 			}
 		}
+		// 2. Print item list
 		else if (choice == "2") {
+			//ask for sorting type
+			cout << "Sort the list by: " << endl;
+			cout << "1. Id" << endl;
+			cout << "2. Title" << endl;
+			do {
+				cout << "Enter your command here (1 or 2): ";
+				cin >> choice;
+				cin.ignore();
+			} while (choice != "1" && choice != "2");
+
+			//check sorting type
+			if (choice == "1") sort_by_id(iList);
+			else if (choice == "2") sort_by_title(iList);
+			
+			//print the customer list
 			iList.printItemList();
 			system("pause");
 		}
@@ -372,7 +390,23 @@ void menu() {
 				itemlist.deleteitem(id);
 			}
 		}*/
+		// 4. Print item list
 		else if (choice == "4") {
+			//ask for sorting type
+			cout << "Sort the list by: " << endl;
+			cout << "1. Id" << endl;
+			cout << "2. Name" << endl;
+			do {
+				cout << "Enter your command here (1 or 2): ";
+				cin >> choice;
+				cin.ignore();
+			} while (choice != "1" && choice != "2");
+
+			//check sorting type
+			if (choice == "1") sort_by_id(cList);
+			else if (choice == "2") sort_by_name(cList);
+		
+			//print the customer list
 			cList.printCustomerList();
 			system("pause");
 		}
@@ -390,4 +424,194 @@ void menu() {
 		}
 	}
 }
+bool isValidItemId(string id) {
+	if (id.length() != 9) return false;
+	if (id.at(0) != 'I') return false;
+	if (id.at(4) != '-') return false;
+	if (stoi(id.substr(5, 4)) > 2022) return false;
+	return true;
+}
+void inputStockSize(int* stock) {
+	string stockStr;
+	cout << "Num of copies: "; cin >> stockStr;
+	try {
+		*(stock) = stoi(stockStr);
+	}
+	catch (const std::exception& ex) {
+		inputStockSize(stock);
+	}
+}
+void inputFee(float* fee) {
+	string feeStr;
+	cout << "Fee: "; cin >> feeStr;
+	try {
+		*(fee) = stof(feeStr);
+	}
+	catch (const std::exception& ex) {
+		inputFee(fee);
+	}
+}
 
+
+//Sorting functions
+
+//for customer
+void swap(CustomerNode* C1, CustomerNode* C2) {
+	Customer* tmp = C1->getCustomer();
+	C1->setCustomer(C2->getCustomer());
+	C2->setCustomer(tmp);
+}
+
+//for item
+void swap(ItemNode* I1, ItemNode* I2) {
+	Item* tmp = I1->getItem();
+	I1->setItem(I2->getItem());
+	I2->setItem(tmp);
+}
+
+// sorting item by id
+void sort_by_id(itemList& List)
+{
+	//check if list has "something"
+	if (List.getHead() == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	ItemNode* tmp;
+	ItemNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = List.getHead();
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by Id
+			if (tmp->getItem()->getId() < prev->getItem()->getId()) {
+				// if after item has id < previous item's
+				//swap two items
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Id..." << endl;
+}
+
+// sorting item by title
+void sort_by_title(itemList& List)
+{
+	//check if list has "something"
+	if (List.getHead() == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	ItemNode* tmp;
+	ItemNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = List.getHead();
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by title
+			if (compare_string(prev->getItem()->getTitle(), tmp->getItem()->getTitle())) {
+				// if after item has title < previous item's
+				//swap two items
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Title..." << endl;
+}
+
+//sort customer by id
+void sort_by_id(customerList& List)
+{
+	//check if list has "something"
+	if (List.getHead() == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	CustomerNode* tmp;
+	CustomerNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = List.getHead();
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by Id
+			if (tmp->getCustomer()->getId() < prev->getCustomer()->getId()) {
+				// if after customer has id < previous customer's
+				//swap two customers
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Id..." << endl;
+}
+
+//sort customer by name
+void sort_by_name(customerList& List)
+{
+	//check if list has "something"
+	if (List.getHead() == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	CustomerNode* tmp;
+	CustomerNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = List.getHead();
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by name
+			if(compare_string(prev->getCustomer()->getName(),tmp->getCustomer()->getName())){
+				// if the after customer have name < previous customer's
+				//swap two customers
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Name..." << endl;
+}
+
+// function compare two string
+// return 1 if x > y
+// else return 0
+int compare_string(string prev, string tmp)
+{
+	string prev_lower = toLower(prev);
+	string tmp_lower = toLower(tmp);
+	if (prev_lower > tmp_lower) return 1; // if the previous > the temp
+	if (prev_lower < tmp_lower) return -1; // if the previous < the temp
+	return 0; // if the previous = the temp
+}
+
+//function transform string to lowercase
+string toLower(string s)
+{
+	for (int i = 0; i < s.length(); i++) {
+		if (s[i] >= 'A' && s[i] <= 'Z') {
+			s[i] += 'a' - 'A';
+		}
+	}
+	return s;
+}

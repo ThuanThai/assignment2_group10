@@ -1,3 +1,4 @@
+#pragma once
 #include "VipCustomer.h"
 VipCustomer::VipCustomer()
 {

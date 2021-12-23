@@ -81,18 +81,18 @@ void itemList::addNewItem(string type) {
 	cout << endl;
 	cout << "Title: "; getline(cin, title);
 
-	// get loanType 
+	// get loanType
 	cout << endl;
 	do {
 		cout << "Valid loan type: 2-day | 1-week" << endl;
 		cout << "Loan Type: "; getline(cin, loanType);
 	} while (!loanType._Equal("2-day") && !loanType._Equal("1-week"));
-	
+
 	// get stock size
 	cout << endl;
 	inputStockSize(&stock);
 
-	// get fee 
+	// get fee
 	cout << endl;
 	inputFee(&fee);
 
@@ -103,9 +103,8 @@ void itemList::addNewItem(string type) {
 		do {
 			cout << "Valid genre: Action | Horror | Drama | Comedy" << endl;
 			cout << "Genre: "; cin >> genre;
-
 		} while (!genre._Equal("Action") && !genre._Equal("Horror") && !genre._Equal("Drama") && !genre._Equal("Comedy"));
-		
+
 		newItem->setGenre(genre);
 	}
 	newItem->setId(id);

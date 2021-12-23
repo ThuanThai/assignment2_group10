@@ -1,6 +1,6 @@
 #pragma once
 #include "Customer.h"
-class VipCustomer:public Customer
+class VipCustomer :public Customer
 {
 private:
 	int rewardPoint;
@@ -13,5 +13,3 @@ public:
 	bool borrowing(Item* item);
 	bool returning(Item* item);
 };
-
-
