@@ -33,6 +33,8 @@ public:
 	void appendCustomerBack(Customer* newCustomer);
 	void deleteCustomer(string id);
 	void printCustomerList();
+
+	//
 };
 
 

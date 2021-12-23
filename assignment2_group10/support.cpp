@@ -283,18 +283,20 @@ void menu(itemList& iList, customerList& cList) {
 		}
 		// 2. Print item list
 		else if (choice == "2") {
-			int sorting_type = 1; // variable stores the sorting type
 			//ask for sorting type
 			cout << "Sort the list by: " << endl;
 			cout << "1. Id" << endl;
 			cout << "2. Title" << endl;
 			do {
 				cout << "Enter your command here (1 or 2): ";
-				cin >> sorting_type;
+				cin >> choice;
 				cin.ignore();
-			} while (sorting_type != 1 && sorting_type != 2);
-			//start sorting
-			sort(iList, sorting_type);
+			} while (choice != "1" && choice != "2");
+
+			//check sorting type
+			if (choice == "1") sort_by_id(iList);
+			else if (choice == "2") sort_by_title(iList);
+			
 			//print the customer list
 			iList.printItemList();
 			system("pause");
@@ -323,19 +325,20 @@ void menu(itemList& iList, customerList& cList) {
 		}*/
 		// 4. Print item list
 		else if (choice == "4") {
-			int sorting_type = 1; // variable stores the sorting type
 			//ask for sorting type
 			cout << "Sort the list by: " << endl;
 			cout << "1. Id" << endl;
 			cout << "2. Name" << endl;
 			do {
 				cout << "Enter your command here (1 or 2): ";
-				cin >> sorting_type;
+				cin >> choice;
 				cin.ignore();
-			} while (sorting_type != 1 && sorting_type != 2);
+			} while (choice != "1" && choice != "2");
 
-			//start sorting
-			sort(cList, sorting_type);
+			//check sorting type
+			if (choice == "1") sort_by_id(cList);
+			else if (choice == "2") sort_by_name(cList);
+		
 			//print the customer list
 			cList.printCustomerList();
 			system("pause");
@@ -408,91 +411,128 @@ void swap(ItemNode* I1, ItemNode* I2) {
 	I2->setItem(tmp);
 }
 
-void sort(itemList& List, int type)
+// sorting item by id
+void sort_by_id(itemList& List)
 {
 	//check if list has "something"
 	if (List.getHead() == NULL) {
 		cout << "Nothing in the list" << endl;
 		return;
 	}
-	/*
-		type = 1 -> sort by Id
-		type = 2 -> sort by title
-	*/
 	bool sorted = 0;
 	ItemNode* tmp;
 	ItemNode* prev;
+	//start sorting
 	while (!sorted) {
 		tmp = List.getHead();
 		while (tmp->getNext() != NULL) {
 			prev = tmp;
 			tmp = tmp->getNext();
-			//sorting by Id
-			if (type == 1) {
-				if (tmp->getItem()->getId() < prev->getItem()->getId()) {
-					// if customer after have id < previous customer's
-					//swap two customers
-					swap(prev, tmp);
-					sorted = 1;
-				}
-			}
-			// sorting by name
-			else {
-				if (compare_string(prev->getItem()->getTitle(), tmp->getItem()->getTitle())) {
-					swap(prev, tmp);
-					sorted = 1;
-				}
 
+			//sorting by Id
+			if (tmp->getItem()->getId() < prev->getItem()->getId()) {
+				// if after item has id < previous item's
+				//swap two items
+				swap(prev, tmp);
+				sorted = 1;
 			}
 		}
-		sorted = !sorted;
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
 	}
-	if (type == 1) cout << "Finish sorting the list by Id..." << endl;
-	else cout << "Finish sorting the list by Title..." << endl;
+	cout << "Finish sorting the list by Id..." << endl;
 }
 
-//sort customer
-void sort(customerList& List, int type)
+// sorting item by title
+void sort_by_title(itemList& List)
 {
 	//check if list has "something"
 	if (List.getHead() == NULL) {
 		cout << "Nothing in the list" << endl;
 		return;
 	}
-	/*
-		type = 1 -> sort by Id
-		type = 2 -> sort by name
-	*/
 	bool sorted = 0;
-	CustomerNode* tmp;
-	CustomerNode* prev;
+	ItemNode* tmp;
+	ItemNode* prev;
+	//start sorting
 	while (!sorted) {
 		tmp = List.getHead();
 		while (tmp->getNext() != NULL) {
 			prev = tmp;
 			tmp = tmp->getNext();
-			//sorting by Id
-			if (type == 1) {
-				if (tmp->getCustomer()->getId() < prev->getCustomer()->getId()) {
-					// if customer after have id < previous customer's
-					//swap two customers
-					swap(prev, tmp);
-					sorted = 1;
-				}
-			}
-			// sorting by name
-			else {
-				if (compare_string(prev->getCustomer()->getName(), tmp->getCustomer()->getName())){
-					swap(prev,tmp);
-					sorted = 1;
-				}
 
+			//sorting by title
+			if (compare_string(prev->getItem()->getTitle(), tmp->getItem()->getTitle())) {
+				// if after item has title < previous item's
+				//swap two items
+				swap(prev, tmp);
+				sorted = 1;
 			}
 		}
-		sorted = !sorted;
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
 	}
-	if (type == 1) cout << "Finish sorting the list by Id..." << endl;
-	else cout << "Finish sorting the list by name..." << endl;
+	cout << "Finish sorting the list by Title..." << endl;
+}
+
+//sort customer by id
+void sort_by_id(customerList& List)
+{
+	//check if list has "something"
+	if (List.getHead() == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	CustomerNode* tmp;
+	CustomerNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = List.getHead();
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by Id
+			if (tmp->getCustomer()->getId() < prev->getCustomer()->getId()) {
+				// if after customer has id < previous customer's
+				//swap two customers
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Id..." << endl;
+}
+
+//sort customer by name
+void sort_by_name(customerList& List)
+{
+	//check if list has "something"
+	if (List.getHead() == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	CustomerNode* tmp;
+	CustomerNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = List.getHead();
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by name
+			if(compare_string(prev->getCustomer()->getName(),tmp->getCustomer()->getName())){
+				// if the after customer have name < previous customer's
+				//swap two customers
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Name..." << endl;
 }
 
 // function compare two string
