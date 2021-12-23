@@ -281,7 +281,21 @@ void menu(itemList& iList, customerList& cList) {
 				iList.deleteItem(id);
 			}
 		}
+		// 2. Print item list
 		else if (choice == "2") {
+			int sorting_type = 1; // variable stores the sorting type
+			//ask for sorting type
+			cout << "Sort the list by: " << endl;
+			cout << "1. Id" << endl;
+			cout << "2. Title" << endl;
+			do {
+				cout << "Enter your command here (1 or 2): ";
+				cin >> sorting_type;
+				cin.ignore();
+			} while (sorting_type != 1 && sorting_type != 2);
+			//start sorting
+			sort(iList, sorting_type);
+			//print the customer list
 			iList.printItemList();
 			system("pause");
 		}
@@ -307,15 +321,19 @@ void menu(itemList& iList, customerList& cList) {
 				itemlist.deleteitem(id);
 			}
 		}*/
+		// 4. Print item list
 		else if (choice == "4") {
 			int sorting_type = 1; // variable stores the sorting type
 			//ask for sorting type
 			cout << "Sort the list by: " << endl;
 			cout << "1. Id" << endl;
 			cout << "2. Name" << endl;
-			cout << "Enter your command here (1 or 2): ";
-			cin >> sorting_type;
-			cin.ignore();
+			do {
+				cout << "Enter your command here (1 or 2): ";
+				cin >> sorting_type;
+				cin.ignore();
+			} while (sorting_type != 1 && sorting_type != 2);
+
 			//start sorting
 			sort(cList, sorting_type);
 			//print the customer list
@@ -390,6 +408,49 @@ void swap(ItemNode* I1, ItemNode* I2) {
 	I2->setItem(tmp);
 }
 
+void sort(itemList& List, int type)
+{
+	//check if list has "something"
+	if (List.getHead() == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	/*
+		type = 1 -> sort by Id
+		type = 2 -> sort by title
+	*/
+	bool sorted = 0;
+	ItemNode* tmp;
+	ItemNode* prev;
+	while (!sorted) {
+		tmp = List.getHead();
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+			//sorting by Id
+			if (type == 1) {
+				if (tmp->getItem()->getId() < prev->getItem()->getId()) {
+					// if customer after have id < previous customer's
+					//swap two customers
+					swap(prev, tmp);
+					sorted = 1;
+				}
+			}
+			// sorting by name
+			else {
+				if (compare_string(prev->getItem()->getTitle(), tmp->getItem()->getTitle())) {
+					swap(prev, tmp);
+					sorted = 1;
+				}
+
+			}
+		}
+		sorted = !sorted;
+	}
+	if (type == 1) cout << "Finish sorting the list by Id..." << endl;
+	else cout << "Finish sorting the list by Title..." << endl;
+}
+
 //sort customer
 void sort(customerList& List, int type)
 {
@@ -430,7 +491,7 @@ void sort(customerList& List, int type)
 		}
 		sorted = !sorted;
 	}
-	if (type == 2) cout << "Finish sorting the list by Id..." << endl;
+	if (type == 1) cout << "Finish sorting the list by Id..." << endl;
 	else cout << "Finish sorting the list by name..." << endl;
 }
 

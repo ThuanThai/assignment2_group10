@@ -20,8 +20,11 @@ bool isValidRVItem(RVItem item, itemList list);
 //sort fuctions
 //for customer
 void swap(CustomerNode* C1, CustomerNode* C2);
-void swap(ItemNode* I1, ItemNode* I2);
 void sort(customerList& List, int type);
+
+//for item
+void swap(ItemNode* I1, ItemNode* I2);
+void sort(itemList& List, int type);
 
 // function compare two string
 // return 1 if x > y
