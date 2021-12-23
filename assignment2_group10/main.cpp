@@ -6,13 +6,12 @@
 #include <iostream>
 
 int main() {
-	/*
+	
 	itemList iList;
 	customerList cList;
 	menu(iList, cList);
-	
-	*/
 	// testing 
+	/*
 	Customer C1, C2, C3, C4, C5;
 	C1.setId("C100");
 	C1.setName("AB");
@@ -38,6 +37,7 @@ int main() {
 	sort(List,0);
 
 	List.printCustomerList();
+	*/
 
 	return 0;
 }

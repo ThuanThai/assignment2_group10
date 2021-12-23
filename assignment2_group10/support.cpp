@@ -308,6 +308,17 @@ void menu(itemList& iList, customerList& cList) {
 			}
 		}*/
 		else if (choice == "4") {
+			int sorting_type = 1; // variable stores the sorting type
+			//ask for sorting type
+			cout << "Sort the list by: " << endl;
+			cout << "1. Id" << endl;
+			cout << "2. Name" << endl;
+			cout << "Enter your command here (1 or 2): ";
+			cin >> sorting_type;
+			cin.ignore();
+			//start sorting
+			sort(cList, sorting_type);
+			//print the customer list
 			cList.printCustomerList();
 			system("pause");
 		}
@@ -388,8 +399,8 @@ void sort(customerList& List, int type)
 		return;
 	}
 	/*
-		type = 0 -> sort by Id
-		type = 1 -> sort by name
+		type = 1 -> sort by Id
+		type = 2 -> sort by name
 	*/
 	bool sorted = 0;
 	CustomerNode* tmp;
@@ -400,7 +411,7 @@ void sort(customerList& List, int type)
 			prev = tmp;
 			tmp = tmp->getNext();
 			//sorting by Id
-			if (type == 0) {
+			if (type == 1) {
 				if (tmp->getCustomer()->getId() < prev->getCustomer()->getId()) {
 					// if customer after have id < previous customer's
 					//swap two customers
@@ -419,7 +430,7 @@ void sort(customerList& List, int type)
 		}
 		sorted = !sorted;
 	}
-	if (type == 0) cout << "Finish sorting the list by Id..." << endl;
+	if (type == 2) cout << "Finish sorting the list by Id..." << endl;
 	else cout << "Finish sorting the list by name..." << endl;
 }
 
