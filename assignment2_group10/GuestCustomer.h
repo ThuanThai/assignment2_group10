@@ -6,5 +6,7 @@ class GuestCustomer:public Customer
 public:
 	GuestCustomer();
 	~GuestCustomer();
+	bool borrowing(Item* item);
+	bool returning(Item* item);
 };
 

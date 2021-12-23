@@ -1,11 +1,8 @@
 #pragma once
 #include "support.h"
 
-bool ItemFlag(string tmp) {
-	if (tmp.find("Game") != -1) {
-		return true;
-	}
-	return false;
+bool search(string source, string find) {
+	return (source.find(find) != string::npos);
 }
 
 void listReadItemfile(itemList& itemList) {
@@ -18,9 +15,9 @@ void listReadItemfile(itemList& itemList) {
 		cerr << "Cannot open file\n";
 	}
 	while (getline(fileIn, tmp, '\n')) {
+		Item* item = new Item;
 		Item* newItem = NULL;
-		bool flag = ItemFlag(tmp);
-		if (flag) {
+		if (search(tmp, "Game")) {
 			len = tmp.length();
 			byte = (len * (-1)) - 2;
 			fileIn.seekg(byte, 1);
@@ -28,7 +25,7 @@ void listReadItemfile(itemList& itemList) {
 			newItem->readItemFile(fileIn);
 			itemList.appendItemBack(newItem);
 		}
-		else if (!flag) {
+		else if (search(tmp, "DVD") || search(tmp, "Record")) {
 			len = tmp.length();
 			byte = (len * (-1)) - 2;
 			fileIn.seekg(byte, 1);
@@ -215,7 +212,75 @@ void updateItem(string id, itemList& iList) {
 	}
 }
 
-void menu(itemList& iList, customerList& cList) {
+bool isValidItemId(string id) {
+	if (id.length() != 9) return false;
+	if (id.at(0) != 'I') return false;
+	if (id.at(4) != '-') return false;
+	if (stoi(id.substr(5, 4)) > 2022) return false;
+	return true;
+}
+void inputStockSize(int* stock) {
+	string stockStr;
+	cout << "Num of copies: "; cin >> stockStr;
+	try {
+		*(stock) = stoi(stockStr);
+	}
+	catch (const std::exception& ex) {
+		inputStockSize(stock);
+	}
+}
+void inputFee(float* fee) {
+	string feeStr;
+	cout << "Fee: "; cin >> feeStr;
+	try {
+		*(fee) = stof(feeStr);
+	}
+	catch (const std::exception& ex) {
+		inputFee(fee);
+	}
+}
+
+void borrowing(customerList& cList, itemList& iList) {
+	string id;
+	cout << "Input customer's ID: "; getline(cin, id);
+	if (cList.findCustomer(id) == NULL) {
+		cout << "Invalid customer'sID\n";
+		return;
+	}
+	Customer* customer = cList.findCustomer(id)->getCustomer();
+	
+	cout << "Input item's ID: "; getline(cin, id);
+	if (iList.findItem(id) == NULL) {
+		cout << "Invalid item's ID\n";
+		return;
+	}
+	Item* item = iList.findItem(id)->getItem();
+	if (customer->borrowing(item)) cout << "Successfully borrowing \n" << item;
+	else cout << "Your account is not authorized\n";
+}
+
+void returning(customerList& cList, itemList& iList) {
+	string id;
+	cout << "Input customer's ID: "; getline(cin, id);
+	if (cList.findCustomer(id) == NULL) {
+		cout << "Invalid customer'sID\n";
+		return;
+	}
+	Customer* customer = cList.findCustomer(id)->getCustomer();
+	
+	cout << "Input item's ID: "; getline(cin, id);
+	if (iList.findItem(id) == NULL) {
+		cout << "Invalid item's ID\n";
+		return;
+	}
+	Item* item = iList.findItem(id)->getItem();
+	if (customer->returning(item)) cout << "Successfully returning \n" << item;
+	else cout << "The item is not borrowed by this account\n";
+}
+
+void menu() {
+	itemList iList; 
+	customerList cList;
 	bool flag = true;
 	string choice;
 	string id;
@@ -227,6 +292,8 @@ void menu(itemList& iList, customerList& cList) {
 		cout << "2. print item list\n";
 		cout << "3. add new customer or update an existing customer\n";
 		cout << "4. print customer list\n";
+		cout << "5. Rent an item\n";
+		cout << "6. Return an item\n";
 		cout << "Enter your command here: ";
 		cin >> choice;
 		cin.ignore();
@@ -309,36 +376,18 @@ void menu(itemList& iList, customerList& cList) {
 			cList.printCustomerList();
 			system("pause");
 		}
-		else if (choice == "exit" || choice == "exit") {
+		else if (choice == "5") {
+			borrowing(cList, iList);
+			system("pause");
+		}
+		else if (choice == "6") {
+			returning(cList, iList);
+			system("pause");
+		}
+		else if (choice == "Exit" || choice == "exit") {
 			flag = false;
 			break;
 		}
 	}
 }
-bool isValidItemId(string id) {
-	if (id.length() != 9) return false;
-	if (id.at(0) != 'I') return false;
-	if (id.at(4) != '-') return false;
-	if (stoi(id.substr(5, 4)) > 2022) return false;
-	return true;
-}
-void inputStockSize(int *stock) {
-	string stockStr;
-	cout << "Num of copies: "; cin >> stockStr;
-	try {
-		*(stock) = stoi(stockStr);
-	}
-	catch (const std::exception& ex) {
-		inputStockSize(stock);
-	}
- }
-void inputFee(float *fee) {
-	string feeStr;
-	cout << "Fee: "; cin >> feeStr;
-	try {
-		*(fee) = stof(feeStr);
-	}
-	catch (const std::exception& ex) {
-		inputFee(fee);
-	}
-}
+
