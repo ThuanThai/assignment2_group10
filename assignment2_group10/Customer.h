@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include "Item.h"
 using namespace std;
 class Customer
 {
@@ -33,7 +34,8 @@ public:
 	int getItemReturned();
 	string getRank();
 	virtual int getRewardPoint();
-
+	virtual bool borrowing(Item* item);
+	virtual bool returning(Item* item);
 	friend ostream& operator << (ostream& stream, const Customer* customer);
 	friend istream& operator >> (istream& stream, Customer*& customer);
 	void Output();

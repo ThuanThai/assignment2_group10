@@ -74,18 +74,18 @@ void itemList::addNewItem(string type) {
 	// get id
 	do {
 		cout << "Valid Item Id syntax: Ixxx-yyyy | yyyy < 2022 | ID is unique in list." << endl;
-		cout << "ID: "; cin >> id;
+		cout << "ID: "; getline(cin, id);
 	} while (!isValidItemId(id) || this->findItem(id) != NULL);
 
 	// get title
 	cout << endl;
-	cout << "Title: "; cin >> title;
+	cout << "Title: "; getline(cin, title);
 
 	// get loanType 
 	cout << endl;
 	do {
 		cout << "Valid loan type: 2-day | 1-week" << endl;
-		cout << "Loan Type: "; cin >> loanType;
+		cout << "Loan Type: "; getline(cin, loanType);
 	} while (!loanType._Equal("2-day") && !loanType._Equal("1-week"));
 	
 	// get stock size

@@ -6,8 +6,6 @@
 #include <iostream>
 
 int main() { 
-	itemList iList;
-	customerList cList;
-	menu(iList, cList);
+	menu();
 	return 0;
 }
