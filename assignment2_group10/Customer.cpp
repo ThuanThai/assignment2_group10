@@ -1,3 +1,4 @@
+#pragma once
 #include "Customer.h"
 //constructor
 Customer::Customer()

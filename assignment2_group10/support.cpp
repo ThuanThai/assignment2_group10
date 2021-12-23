@@ -363,22 +363,34 @@ bool isValidItem(Item item, itemList list) {
 	return true;
 }
 
-//Sort functions
+//Sorting functions
+
+//for customer
 void swap(CustomerNode* C1, CustomerNode* C2) {
 	Customer* tmp = C1->getCustomer();
 	C1->setCustomer(C2->getCustomer());
 	C2->setCustomer(tmp);
 }
 
-//sort customer by id
-void sort(customerList& List)
+//for item
+void swap(ItemNode* I1, ItemNode* I2) {
+	Item* tmp = I1->getItem();
+	I1->setItem(I2->getItem());
+	I2->setItem(tmp);
+}
+
+//sort customer
+void sort(customerList& List, int type)
 {
 	//check if list has "something"
 	if (List.getHead() == NULL) {
 		cout << "Nothing in the list" << endl;
 		return;
 	}
-
+	/*
+		type = 0 -> sort by Id
+		type = 1 -> sort by name
+	*/
 	bool sorted = 0;
 	CustomerNode* tmp;
 	CustomerNode* prev;
@@ -387,14 +399,48 @@ void sort(customerList& List)
 		while (tmp->getNext() != NULL) {
 			prev = tmp;
 			tmp = tmp->getNext();
-			if (tmp->getCustomer()->getId() < prev->getCustomer()->getId()) {
-				// if customer after have id < previous customer's
-				//swap two customers
-				swap(prev, tmp);
-				sorted = 1;
+			//sorting by Id
+			if (type == 0) {
+				if (tmp->getCustomer()->getId() < prev->getCustomer()->getId()) {
+					// if customer after have id < previous customer's
+					//swap two customers
+					swap(prev, tmp);
+					sorted = 1;
+				}
+			}
+			// sorting by name
+			else {
+				if (compare_string(prev->getCustomer()->getName(), tmp->getCustomer()->getName())){
+					swap(prev,tmp);
+					sorted = 1;
+				}
+
 			}
 		}
 		sorted = !sorted;
 	}
-	cout << "finish sorting the list" << endl;
+	if (type == 0) cout << "Finish sorting the list by Id..." << endl;
+	else cout << "Finish sorting the list by name..." << endl;
+}
+
+// function compare two string
+// return 1 if x > y
+// else return 0
+int compare_string(string prev, string tmp)
+{
+	string prev_lower = toLower(prev);
+	string tmp_lower = toLower(tmp);
+	if (prev_lower > tmp_lower) return 1; // if the previous > the temp
+	return 0;
+}
+
+//function transform string to lowercase
+string toLower(string s)
+{
+	for (int i = 0; i < s.length(); i++) {
+		if (s[i] >= 'A' && s[i] <= 'Z') {
+			s[i] += 'a' - 'A';
+		}
+	}
+	return s;
 }

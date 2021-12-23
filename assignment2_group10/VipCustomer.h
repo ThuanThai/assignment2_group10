@@ -1,6 +1,6 @@
 #pragma once
 #include "Customer.h"
-class VipCustomer:public Customer
+class VipCustomer :public Customer
 {
 private:
 	int rewardPoint;
@@ -11,5 +11,3 @@ public:
 	void setRewardPoint(unsigned int num);
 	int getRewardPoint();
 };
-
-
