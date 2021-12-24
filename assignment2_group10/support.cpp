@@ -23,9 +23,7 @@ void listReadItemfile(itemList& itemList) {
 			fileIn.seekg(byte, 1);
 			newItem = new Item;
 			newItem->readItemFile(fileIn);
-			if (isValidItem(*newItem, itemList)) {
-				itemList.appendItemBack(newItem);
-			}
+			itemList.appendItemBack(newItem);
 		}
 		else if (search(tmp, "DVD") || search(tmp, "Record")) {
 			len = tmp.length();
@@ -33,9 +31,7 @@ void listReadItemfile(itemList& itemList) {
 			fileIn.seekg(byte, 1);
 			newItem = new RVItem;
 			newItem->readItemFile(fileIn);
-			if (isValidItem(*newItem, itemList)) {
-				itemList.appendItemBack(newItem);
-			}
+			itemList.appendItemBack(newItem);
 		}
 	}
 	fileIn.close();
@@ -390,7 +386,7 @@ void menu() {
 				itemlist.deleteitem(id);
 			}
 		}*/
-		// 4. Print item list
+		// 4. Print customer list
 		else if (choice == "4") {
 			//ask for sorting type
 			cout << "Sort the list by: " << endl;
@@ -424,34 +420,6 @@ void menu() {
 		}
 	}
 }
-bool isValidItemId(string id) {
-	if (id.length() != 9) return false;
-	if (id.at(0) != 'I') return false;
-	if (id.at(4) != '-') return false;
-	if (stoi(id.substr(5, 4)) > 2022) return false;
-	return true;
-}
-void inputStockSize(int* stock) {
-	string stockStr;
-	cout << "Num of copies: "; cin >> stockStr;
-	try {
-		*(stock) = stoi(stockStr);
-	}
-	catch (const std::exception& ex) {
-		inputStockSize(stock);
-	}
-}
-void inputFee(float* fee) {
-	string feeStr;
-	cout << "Fee: "; cin >> feeStr;
-	try {
-		*(fee) = stof(feeStr);
-	}
-	catch (const std::exception& ex) {
-		inputFee(fee);
-	}
-}
-
 
 //Sorting functions
 
