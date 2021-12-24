@@ -32,6 +32,7 @@ public:
 	}
 	void appendCustomerBack(Customer* newCustomer);
 	void deleteCustomer(string id);
+	CustomerNode* findCustomer(string id);
 	void printCustomerList();
 
 };

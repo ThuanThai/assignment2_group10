@@ -55,6 +55,10 @@ int Customer::getItemReturned() { return this->itemReturned; }
 string Customer::getRank() { return this->rank; }
 int Customer::getRewardPoint() { return -1; }
 
+bool Customer::borrowing(Item* item) { return false; }
+
+bool Customer::returning(Item* item) { return false; }
+
 ostream& operator << (ostream& stream, const Customer* customer) {
 	stream << "ID: " << customer->id << endl;
 	stream << "Name: " << customer->name << endl;
@@ -83,10 +87,10 @@ istream& operator >> (istream& stream, Customer*& customer) {
 void Customer::Output() {
 	cout << "ID: " << id << endl;
 	cout << "Name: " << name << endl;
-	cout << "Address " << address << endl;
+	cout << "Address: " << address << endl;
 	cout << "Phone: " << phone << endl;
-	cout << "Rank: " << rank << endl;
-	cout << "List of Rentals: " << endl;
+	cout << "Customer Type: " << rank << endl;
+	cout << "Lis of Rentals: " << endl;
 	for (auto x : rList)
 	{
 		cout << x << endl;

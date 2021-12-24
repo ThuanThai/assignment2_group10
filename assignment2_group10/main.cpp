@@ -5,11 +5,7 @@
 #include "VipCustomer.h"
 #include <iostream>
 
-int main() {
-	
-	itemList iList;
-	customerList cList;
-	menu(iList, cList);
-	
+int main() { 
+	menu();
 	return 0;
 }

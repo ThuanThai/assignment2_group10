@@ -10,4 +10,6 @@ public:
 
 	void setRewardPoint(unsigned int num);
 	int getRewardPoint();
+	bool borrowing(Item* item);
+	bool returning(Item* item);
 };
