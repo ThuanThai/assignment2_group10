@@ -68,68 +68,6 @@ void listReadCustomerFile(customerList& cList) {
 	fileIn.close();
 }
 
-//
-//void listReadCustomerFile(customerList& customerList) {
-//	ifstream fileIn;
-//	fileIn.open("customers.txt", ios_base::in);
-//	if (!fileIn) {
-//		cerr << "Cannot open file\n";
-//	}
-//	while (!fileIn.eof()) {
-//		Customer newCustomer;
-//		readCustomerFile(fileIn, newCustomer);
-//		customerList.appendCustomerBack(newCustomer);
-//	}
-//	fileIn.close();
-//}
-//
-//void addItem(itemList& itemList) {
-//	StreamingItem newStreamingItem;
-//	// initialize storing elements
-//	string id, title, type, loanType, genre = "";
-//	int stock;
-//	float fee;
-//	cout << "\t\t===== Input Item's Information =====\n";
-//	cout << "ID: ";
-//	cin >> id;
-//	cout << "Title: ";
-//	cin >> title;
-//	cout << "Type: ";
-//	string tmp;
-//	getline(cin, tmp);
-//	cin >> type;
-//	cout << "Loan Type: ";
-//	cin >> loanType;
-//	cout << "Num of copies: ";
-//	cin >> stock;
-//	cout << "Fee: ";
-//	cin >> fee;
-//	if (type._Equal("Record") || type._Equal("DVD")) {
-//		cout << "Gerne: ";
-//		cin >> genre;
-//		// set attributes
-//		newStreamingItem.setId(id);
-//		newStreamingItem.setTitle(title);
-//		newStreamingItem.setType(type);
-//		newStreamingItem.setLoanType(loanType);
-//		newStreamingItem.setStock(stock);
-//		newStreamingItem.setFee(fee);
-//		newStreamingItem.setGenre(genre);
-//		itemList.appendItemBack(newStreamingItem);
-//	}
-//	else {
-//		// upcast to normal item
-//		Item* newItem = &newStreamingItem;
-//		// set attributes
-//		newItem->setId(id);
-//		newItem->setTitle(title);
-//		newItem->setType(type);
-//		newItem->setLoanType(loanType);
-//		newItem->setStock(stock);
-//		newItem->setFee(fee);
-//		itemList.appendItemBack(*newItem);
-//	}
-//}
 
 void updateItem(string id, itemList& iList) {
 	string update;
@@ -250,7 +188,8 @@ void borrowing(customerList& cList, itemList& iList) {
 		return;
 	}
 	Customer* customer = cList.findCustomer(id)->getCustomer();
-	
+	cout << "\t\t====== Customer's Information =====\n";
+	cout << customer;
 	cout << "Input item's ID: "; getline(cin, id);
 	if (iList.findItem(id) == NULL) {
 		cout << "Invalid item's ID\n";
@@ -269,7 +208,8 @@ void returning(customerList& cList, itemList& iList) {
 		return;
 	}
 	Customer* customer = cList.findCustomer(id)->getCustomer();
-	
+	cout << "\t\t====== Customer's Information =====\n";
+	cout << customer;
 	cout << "Input item's ID: "; getline(cin, id);
 	if (iList.findItem(id) == NULL) {
 		cout << "Invalid item's ID\n";
@@ -296,6 +236,7 @@ void menu() {
 		cout << "4. print customer list\n";
 		cout << "5. Rent an item\n";
 		cout << "6. Return an item\n";
+		cout << "7. Display out-of-stock items\n";
 		cout << "Enter your command here: ";
 		cin >> choice;
 		cin.ignore();
@@ -331,7 +272,7 @@ void menu() {
 					iList.addNewItem(type);
 				}
 				else {
-					type == "DVD";
+					type = "DVD";
 					iList.addNewItem(type);
 				}
 			}
@@ -416,6 +357,10 @@ void menu() {
 		}
 		else if (choice == "6") {
 			returning(cList, iList);
+			system("pause");
+		}
+		else if (choice == "7") {
+			iList.displayOutOfStock();
 			system("pause");
 		}
 		else if (choice == "Exit" || choice == "exit") {

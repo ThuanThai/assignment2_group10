@@ -21,4 +21,5 @@ public:
 	void deleteItem(string ID);
 	void printItemList();
 	void addNewItem(string type);
+	void displayOutOfStock();
 };

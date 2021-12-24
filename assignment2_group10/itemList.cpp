@@ -66,6 +66,7 @@ void itemList::printItemList() {
 		i++;
 	}
 }
+
 void itemList::addNewItem(string type) {
 	Item* newItem = new Item;
 	string id, title, loanType, genre;
@@ -114,4 +115,17 @@ void itemList::addNewItem(string type) {
 	newItem->setStock(stock);
 	newItem->setFee(fee);
 	this->appendItemBack(newItem);
-};
+}
+
+void itemList::displayOutOfStock() {
+	ItemNode* current = head;
+	int i = 1;
+	while (current != NULL) {
+		if (current->getItem()->getStock() == 0) {
+			cout << "\t\t===== Item " << i << "=====\n";
+			cout << current;
+		}
+		current = current->getNext();
+		i++;
+	}
+}

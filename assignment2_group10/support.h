@@ -7,17 +7,16 @@
 
 using namespace std;
 
+void menu();
 bool search(string source, string find);
 void listReadItemfile(itemList& itemList);
 void listReadCustomerFile(customerList& cList);
-void menu();
 bool isValidItemId(string);
 bool isValidItem(Item item, itemList list);
 void inputStockSize(int* stock);
 void inputFee(float* fee);
 void borrowing(customerList& cList, itemList& iList);
 void returning(customerList& cList, itemList& iList);
-
 //sort fuctions
 //for customer
 void swap(CustomerNode* C1, CustomerNode* C2);
