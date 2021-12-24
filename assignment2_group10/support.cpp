@@ -487,7 +487,7 @@ void sort_by_title(itemList& List)
 			tmp = tmp->getNext();
 
 			//sorting by title
-			if (compare_string(prev->getItem()->getTitle(), tmp->getItem()->getTitle())) {
+			if (compare_string(prev->getItem()->getTitle(), tmp->getItem()->getTitle())==1) {
 				// if after item has title < previous item's
 				//swap two items
 				swap(prev, tmp);
@@ -549,7 +549,7 @@ void sort_by_name(customerList& List)
 			tmp = tmp->getNext();
 
 			//sorting by name
-			if(compare_string(prev->getCustomer()->getName(),tmp->getCustomer()->getName())){
+			if(compare_string(prev->getCustomer()->getName(),tmp->getCustomer()->getName())==1){
 				// if the after customer have name < previous customer's
 				//swap two customers
 				swap(prev, tmp);
