@@ -23,7 +23,9 @@ void listReadItemfile(itemList& itemList) {
 			fileIn.seekg(byte, 1);
 			newItem = new Item;
 			newItem->readItemFile(fileIn);
-			itemList.appendItemBack(newItem);
+			if (isValidItem(*newItem, itemList)) {
+				itemList.appendItemBack(newItem);
+			}
 		}
 		else if (search(tmp, "DVD") || search(tmp, "Record")) {
 			len = tmp.length();
@@ -31,7 +33,9 @@ void listReadItemfile(itemList& itemList) {
 			fileIn.seekg(byte, 1);
 			newItem = new RVItem;
 			newItem->readItemFile(fileIn);
-			itemList.appendItemBack(newItem);
+			if (isValidItem(*newItem, itemList)) {
+				itemList.appendItemBack(newItem);
+			}
 		}
 	}
 	fileIn.close();
@@ -582,4 +586,23 @@ string toLower(string s)
 		}
 	}
 	return s;
+}
+
+// check if the valid item
+bool isValidItem(Item item, itemList list) {
+	if (!isValidItemId(item.getId())) return false;
+	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
+	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
+	if (!item.getGenre()._Equal("Action") && !item.getGenre()._Equal("Horror") && !item.getGenre()._Equal("Drama") && !item.getGenre()._Equal("Comedy") && !item.getGenre()._Equal("")) return false;
+	if (list.findItem(item.getId()) != NULL) {
+		ItemNode* existedItem = list.findItem(item.getId());
+		// if new item is an existed item in the list - add up the stock
+		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
+			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()
+			&& existedItem->getItem()->getGenre() == item.getGenre()) {
+			existedItem->getItem()->setStock(existedItem->getItem()->getStock() + item.getStock());
+		}
+		return false;
+	}
+	return true;
 }

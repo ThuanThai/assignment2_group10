@@ -12,6 +12,7 @@ void listReadItemfile(itemList& itemList);
 void listReadCustomerFile(customerList& cList);
 void menu();
 bool isValidItemId(string);
+bool isValidItem(Item item, itemList list);
 void inputStockSize(int* stock);
 void inputFee(float* fee);
 void borrowing(customerList& cList, itemList& iList);
