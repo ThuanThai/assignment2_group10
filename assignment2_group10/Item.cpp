@@ -1,6 +1,7 @@
 #include "Item.h"
 #include "support.h"
-Item::~Item() {}
+
+Item::~Item() {;}
 
 void Item::Output() {
 	cout << "1.ID: " << id << endl;
@@ -20,7 +21,6 @@ void Item::readItemFile(fstream& fileIn) {
 	fileIn.ignore();
 	fileIn >> fee;
 	fileIn.ignore();
-		
 }
 
 ostream& operator << (ostream& stream, const Item* item) {
@@ -40,5 +40,20 @@ void Item::updateType(Item* item, string newType) {
 	this->loanType = item->getLoanType();
 	this->stock = item->getStock();
 	this->fee = item->getFee();
+}
+
+bool Item::borrowing() {
+	if(stock == 0)
+		return false;
+	else
+	{
+		stock--;
+		return true;
+	}
+}
+
+bool Item::returning() {
+	stock++;
+	return true;
 }
 

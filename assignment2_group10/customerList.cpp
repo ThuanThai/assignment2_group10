@@ -1,3 +1,4 @@
+#pragma once
 #include "customerList.h"
 void customerList::appendCustomerBack(Customer* newCustomer) {
 	CustomerNode* newCustomerNode = new CustomerNode(newCustomer);
@@ -32,6 +33,17 @@ void customerList::deleteCustomer(string id) {
 	system("pause");
 	prev->setNext(current->getNext());
 	delete current;
+}
+
+CustomerNode* customerList::findCustomer(string id) {
+	CustomerNode* current = this->head;
+	while (current != NULL && current->getCustomer()->getId() != id) {
+		current = current->getNext();
+	}
+	if (current == NULL) {
+		return NULL;
+	}
+	return current;
 }
 
 void customerList::printCustomerList() {

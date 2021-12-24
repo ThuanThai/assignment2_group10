@@ -1,19 +1,37 @@
 #pragma once
-#include "Item.h"
-#include "RVItem.h"
+#include <sstream>
 #include "itemList.h"
 #include "customerList.h"
+#include <string.h>
+#include <string>
 
 using namespace std;
 
-bool ItemFlag(string tmp);
+bool search(string source, string find);
 void listReadItemfile(itemList& itemList);
-void menu(itemList& iList, customerList& cList);
+void listReadCustomerFile(customerList& cList);
+void menu();
 bool isValidItemId(string);
 void inputStockSize(int* stock);
 void inputFee(float* fee);
-bool isValidItem(Item item, itemList list);
-bool isValidRVItem(RVItem item, itemList list);
+void borrowing(customerList& cList, itemList& iList);
+void returning(customerList& cList, itemList& iList);
 
+//sort fuctions
+//for customer
+void swap(CustomerNode* C1, CustomerNode* C2);
+void sort_by_id(customerList& List);
+void sort_by_name(customerList& List);
 
+//for item
+void swap(ItemNode* I1, ItemNode* I2);
+void sort_by_id(itemList& List);
+void sort_by_title(itemList& List);
 
+// function compare two string
+// return 1 if x > y
+// else return 0
+int compare_string(string x, string y);
+
+//function transform string to lowercase
+string toLower(string s);

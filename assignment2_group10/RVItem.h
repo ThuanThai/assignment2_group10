@@ -1,7 +1,6 @@
 #pragma once
 #include "Item.h"
 
-
 class RVItem : public Item {
 private:
 	string genre;
@@ -22,8 +21,7 @@ public:
 
 	//getter
 	string getGenre() { return genre; }
-	
+
 	//setter
 	void setGenre(string genre) { this->genre = genre; }
-	
 };

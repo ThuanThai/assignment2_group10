@@ -1,4 +1,41 @@
+#pragma once
 #include "Customer.h"
+//constructor
+Customer::Customer()
+{
+	this->id = -1;
+	this->name = "";
+	this->address = "";
+	this->phone = "";
+	this->itemRented = -1;
+	this->itemReturned = -1;
+	this->rank = "";
+	this->rList = {};
+}
+//constructor
+Customer::Customer(string id, string name, string address, string phone, int itemRented, int itemReturned, string rank)
+{
+	this->id = id;
+	this->name = name;
+	this->address = address;
+	this->phone = phone;
+	this->itemRented = itemRented;
+	this->itemReturned = itemReturned;
+	this->rank = rank;
+	this->rList = {};
+}
+//copy constructor
+Customer::Customer(Customer& C)
+{
+	this->id = C.id;
+	this->name = C.name;
+	this->address = C.address;
+	this->phone = C.phone;
+	this->itemRented = C.itemRented;
+	this->itemReturned = C.itemReturned;
+	this->rank = C.rank;
+	this->rList = C.rList;
+}
 
 void Customer::setId(string id) { this->id = id; }
 void Customer::setName(string name) { this->name = name; }
@@ -18,11 +55,16 @@ int Customer::getItemReturned() { return this->itemReturned; }
 string Customer::getRank() { return this->rank; }
 int Customer::getRewardPoint() { return -1; }
 
+bool Customer::borrowing(Item* item) { return false; }
+
+bool Customer::returning(Item* item) { return false; }
+
 ostream& operator << (ostream& stream, const Customer* customer) {
 	stream << "ID: " << customer->id << endl;
 	stream << "Name: " << customer->name << endl;
 	stream << "Address " << customer->address << endl;
 	stream << "Phone: " << customer->phone << endl;
+	stream << "Rank: " << customer->rank << endl;
 	stream << "Lis of Rentals: " << endl;
 	for (auto x : customer->rList)
 	{
@@ -35,7 +77,7 @@ istream& operator >> (istream& stream, Customer*& customer) {
 	cout << "Name: "; getline(stream, customer->name);
 	cout << "Address: "; getline(stream, customer->id);
 	cout << "Phone: "; getline(stream, customer->name);
-	cout << "List of Rentals: "; 
+	cout << "List of Rentals: ";
 	for (int i = 0; i < customer->itemRented; i++) {
 		getline(stream, customer->rList[i]);
 	}
@@ -45,9 +87,10 @@ istream& operator >> (istream& stream, Customer*& customer) {
 void Customer::Output() {
 	cout << "ID: " << id << endl;
 	cout << "Name: " << name << endl;
-	cout << "Address " << address << endl;
+	cout << "Address: " << address << endl;
 	cout << "Phone: " << phone << endl;
-	cout << "List of Rentals: " << endl;
+	cout << "Customer Type: " << rank << endl;
+	cout << "Lis of Rentals: " << endl;
 	for (auto x : rList)
 	{
 		cout << x << endl;
@@ -86,4 +129,3 @@ void Customer::setCustomerType(Customer* customer)
 	this->rList = customer->rList;
 	this->rank = customer->rank;
 }
-

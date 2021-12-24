@@ -26,6 +26,7 @@ public:
 	Item(string id, string title, string type, string loanType, int stock, float fee) {
 		this->id = id;
 		this->title = title;
+		this->type = type;
 		this->loanType = loanType;
 		this->stock = stock;
 		this->fee = fee;
@@ -37,7 +38,8 @@ public:
 	virtual void setGenre(string genre) { ; } // Not do anything if item is not belong to RVItem;
 	virtual string getGenre() { return ""; }
 	virtual void updateType(Item* item, string newType);
-	
+	bool borrowing();
+	bool returning();
 	friend ostream& operator << (ostream& stream, const Item* item);
 	//getter
 	string getId() {

@@ -22,4 +22,3 @@ public:
 	void printItemList();
 	void addNewItem(string type);
 };
-

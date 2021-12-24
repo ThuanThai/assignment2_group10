@@ -6,11 +6,25 @@ class customerList {
 private:
 	CustomerNode* head;
 public:
+	//default constructor
 	customerList() {
 		head = NULL;
 	}
+	//constructor
 	customerList(Customer* newCustomer) {
 		head = new CustomerNode(newCustomer);
+	}
+	//destructor
+	~customerList() {
+		if (head == NULL) {
+			return;
+		}
+		CustomerNode* temp = head;
+		while (temp != NULL) {
+			head = head->getNext();
+			delete temp;
+			temp = head;
+		}
 	}
 	//getter
 	CustomerNode* getHead() {
@@ -18,5 +32,9 @@ public:
 	}
 	void appendCustomerBack(Customer* newCustomer);
 	void deleteCustomer(string id);
+	CustomerNode* findCustomer(string id);
 	void printCustomerList();
+
 };
+
+

@@ -80,5 +80,8 @@
     <ClCompile Include="RegularCustomer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="customerNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
