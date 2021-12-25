@@ -277,6 +277,10 @@ void returning(customerList& cList, itemList& iList) {
 		return;
 	}
 	Customer* customer = cList.findCustomer(id)->getCustomer();
+	if (customer->getItemRented() == 0) {
+		cout << "Your account has not yet made a loan\n";
+		return;
+	}
 	cout << "\t\t====== Customer's Information =====\n";
 	cout << customer;
 	cout << "Input item's ID: "; getline(cin, id);
