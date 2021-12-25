@@ -247,6 +247,7 @@ void menu() {
 		cout << "4. print customer list\n";
 		cout << "5. Rent an item\n";
 		cout << "6. Return an item\n";
+		cout << "9. Print customer by groups\n";
 		cout << "Enter your command here: ";
 		cin >> choice;
 		cin.ignore();
@@ -362,12 +363,39 @@ void menu() {
 			cList.printCustomerList();
 			system("pause");
 		}
+		
+		//5. Rent an item
 		else if (choice == "5") {
 			borrowing(cList, iList);
 			system("pause");
 		}
+
+		//6. Return an item
 		else if (choice == "6") {
 			returning(cList, iList);
+			system("pause");
+		}
+
+		//9. Print group of customer
+		else if (choice == "9") {
+			//ask for which group
+			cout << "Display:  " << endl;
+			cout << "1. Guest customers" << endl;
+			cout << "2. Regular customers" << endl;
+			cout << "3. VIP customers" << endl;
+			do {
+				cout << "Enter your command here (1 or 2): ";
+				cin >> choice;
+				cin.ignore();
+			} while (choice != "1" && choice != "2" && choice != "3");
+			//sort by id before displaying
+			sort_by_id(cList);
+
+			//start print out customer by group
+			if (choice == "1") cList.printGuest(); //print the guest
+			else if (choice == "2") cList.printRegular(); //print the regular
+			else cList.printVIP(); // print the vip pro
+
 			system("pause");
 		}
 		else if (choice == "Exit" || choice == "exit") {
