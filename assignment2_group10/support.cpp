@@ -579,7 +579,7 @@ bool isValidItem(Item item, itemList list) {
 		// if new item is an existed item in the list - add up the stock
 		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
 			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()
-			&& existedItem->getItem()->getGenre() == item.getGenre()) {
+			) {
 			existedItem->getItem()->setStock(existedItem->getItem()->getStock() + item.getStock());
 		}
 		return false;
