@@ -68,68 +68,6 @@ void listReadCustomerFile(customerList& cList) {
 	fileIn.close();
 }
 
-//
-//void listReadCustomerFile(customerList& customerList) {
-//	ifstream fileIn;
-//	fileIn.open("customers.txt", ios_base::in);
-//	if (!fileIn) {
-//		cerr << "Cannot open file\n";
-//	}
-//	while (!fileIn.eof()) {
-//		Customer newCustomer;
-//		readCustomerFile(fileIn, newCustomer);
-//		customerList.appendCustomerBack(newCustomer);
-//	}
-//	fileIn.close();
-//}
-//
-//void addItem(itemList& itemList) {
-//	StreamingItem newStreamingItem;
-//	// initialize storing elements
-//	string id, title, type, loanType, genre = "";
-//	int stock;
-//	float fee;
-//	cout << "\t\t===== Input Item's Information =====\n";
-//	cout << "ID: ";
-//	cin >> id;
-//	cout << "Title: ";
-//	cin >> title;
-//	cout << "Type: ";
-//	string tmp;
-//	getline(cin, tmp);
-//	cin >> type;
-//	cout << "Loan Type: ";
-//	cin >> loanType;
-//	cout << "Num of copies: ";
-//	cin >> stock;
-//	cout << "Fee: ";
-//	cin >> fee;
-//	if (type._Equal("Record") || type._Equal("DVD")) {
-//		cout << "Gerne: ";
-//		cin >> genre;
-//		// set attributes
-//		newStreamingItem.setId(id);
-//		newStreamingItem.setTitle(title);
-//		newStreamingItem.setType(type);
-//		newStreamingItem.setLoanType(loanType);
-//		newStreamingItem.setStock(stock);
-//		newStreamingItem.setFee(fee);
-//		newStreamingItem.setGenre(genre);
-//		itemList.appendItemBack(newStreamingItem);
-//	}
-//	else {
-//		// upcast to normal item
-//		Item* newItem = &newStreamingItem;
-//		// set attributes
-//		newItem->setId(id);
-//		newItem->setTitle(title);
-//		newItem->setType(type);
-//		newItem->setLoanType(loanType);
-//		newItem->setStock(stock);
-//		newItem->setFee(fee);
-//		itemList.appendItemBack(*newItem);
-//	}
-//}
 
 void updateItem(string id, itemList& iList) {
 	string update;
