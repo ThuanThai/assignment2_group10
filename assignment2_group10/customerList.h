@@ -35,6 +35,10 @@ public:
 	CustomerNode* findCustomer(string id);
 	void printCustomerList();
 	void addNewCustomer();
+	//functions print group of customer
+	void printGuest();
+	void printRegular();
+	void printVIP();
 };
 
 

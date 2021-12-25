@@ -100,3 +100,63 @@ void customerList::addNewCustomer()
 	}
 	this->appendCustomerBack(newCustomer);
 }
+
+void customerList::printGuest()
+{
+	// check if the list is empty
+	if (head == NULL) {
+		cout << "No customer in the list" << endl;
+		return;
+	}
+	int count = 0; //variable counting the needed customer
+	CustomerNode* tmp = head;
+	while (tmp != NULL) {
+		if (compare_string(tmp->getCustomer()->getRank(), "Guest") == 0) {
+			count++;
+			cout << "\t\t ===== Customer " << count << " =====\n";
+			tmp->getCustomer()->Output();
+		}
+		tmp = tmp->getNext();
+	}
+	if (count == 0) cout << "No guest customer in the list" << endl;
+}
+
+void customerList::printRegular()
+{
+	// check if the list is empty
+	if (head == NULL) {
+		cout << "No customer in the list" << endl;
+		return;
+	}
+	int count = 0; //variable counting the needed customer
+	CustomerNode* tmp = head;
+	while (tmp != NULL) {
+		if (compare_string(tmp->getCustomer()->getRank(), "Regular") == 0) {
+			count++;
+			cout << "\t\t ===== Customer " << count << " =====\n";
+			tmp->getCustomer()->Output();
+		}
+		tmp = tmp->getNext();
+	}
+	if (count == 0) cout << "No regular customer in the list" << endl;
+}
+
+void customerList::printVIP()
+{
+	// check if the list is empty
+	if (head == NULL) {
+		cout << "No customer in the list" << endl;
+		return;
+	}
+	int count = 0; //variable counting the needed customer
+	CustomerNode* tmp = head;
+	while (tmp != NULL) {
+		if (compare_string(tmp->getCustomer()->getRank(), "VIP") == 0) {
+			count++;
+			cout << "\t\t ===== Customer " << count << " =====\n";
+			tmp->getCustomer()->Output();
+		}
+		tmp = tmp->getNext();
+	}
+	if (count == 0) cout << "No VIP customer in the list" << endl;
+}
