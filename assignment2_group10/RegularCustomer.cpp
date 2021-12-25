@@ -24,8 +24,6 @@ bool RegularCustomer::borrowing(Item* item) {
 }
 
 bool RegularCustomer::returning(Item* item) {
-	if (this->rList.size() == 0)
-		return false;
 	for (int i = 0; i < rList.size(); i++) {
 		if (item->getId()._Equal(this->rList[i]) && item->returning()) {
 			this->rList.erase(this->rList.begin() + i);

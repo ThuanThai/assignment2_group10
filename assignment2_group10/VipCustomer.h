@@ -6,6 +6,7 @@ private:
 	int rewardPoint;
 public:
 	VipCustomer();
+	VipCustomer(string id, string name, string address, string phone, string rank = "VIP") :Customer(id, name, address, phone, rank) { ; }
 	~VipCustomer();
 
 	void setRewardPoint(unsigned int num);

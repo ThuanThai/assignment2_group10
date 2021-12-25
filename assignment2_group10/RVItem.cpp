@@ -6,6 +6,10 @@ void RVItem::Output() {
 	cout << "7.Genre: " << this->genre << endl;
 }
 
+void RVItem::Input(string type)
+{
+}
+
 void RVItem::readItemFile(fstream& fileIn) {
 	Item::readItemFile(fileIn);
 	getline(fileIn, genre);
@@ -29,6 +33,6 @@ void RVItem::updateType(Item* item, string newType) {
 	this->loanType = item->getLoanType();
 	this->stock = item->getStock();
 	this->fee = item->getFee();
-	cout << "update Genre: \n";
+	cout << "update Genre: ";
 	getline(cin, genre);
 }
