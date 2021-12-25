@@ -13,8 +13,11 @@ void listReadCustomerFile(customerList& cList);
 void menu();
 bool isValidItemId(string);
 bool isValidItem(Item item, itemList list);
+bool isValidCustomerId(string id);
+bool isValidRank(string rank);
 void inputStockSize(int* stock);
 void inputFee(float* fee);
+void updateCustomer(string id, customerList& cList);
 void borrowing(customerList& cList, itemList& iList);
 void returning(customerList& cList, itemList& iList);
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "customerList.h"
+#include "support.h"
 void customerList::appendCustomerBack(Customer* newCustomer) {
 	CustomerNode* newCustomerNode = new CustomerNode(newCustomer);
 	CustomerNode* current = this->head;
@@ -55,4 +56,46 @@ void customerList::printCustomerList() {
 		current = current->getNext();
 		i++;
 	}
+}
+
+void customerList::addNewCustomer()
+{
+	Customer* newCustomer = new Customer;
+	string newId;
+	string newName;
+	string newAddress;
+	string newPhone;
+	string newRank;
+	do {
+		cin.ignore();
+		cout << "Valid id syntax: Cxxx | ID must be unique" << endl;
+		cout << "Enter customer ID: ";
+		getline(cin, newId);
+		
+	} while (!isValidCustomerId(newId) || this->findCustomer(newId) != NULL);
+
+	cout << "Enter customer name: ";
+	getline(cin, newName);
+
+	cout << "Enter customer address: ";
+	getline(cin, newAddress);
+
+	cout << "Enter customer phone number: ";
+	getline(cin, newPhone);
+
+	do {
+		cout << "Valid customer rank: Guest | Regular | VIP" << endl;
+		cout << "Enter customer rank: ";
+		getline(cin, newRank);
+	} while (!isValidRank(newRank));
+
+	newCustomer->setId(newId);
+	newCustomer->setName(newName);
+	newCustomer->setAddress(newAddress);
+	newCustomer->setPhone(newPhone);
+	newCustomer->setRank(newRank);
+	newCustomer->setItemRented(0);
+	newCustomer->setItemreturned(0);
+
+	this->appendCustomerBack(newCustomer);
 }

@@ -90,7 +90,7 @@ void Customer::Output() {
 	cout << "Address: " << address << endl;
 	cout << "Phone: " << phone << endl;
 	cout << "Customer Type: " << rank << endl;
-	cout << "Lis of Rentals: " << endl;
+	cout << "List of Rentals: " << endl;
 	for (auto x : rList)
 	{
 		cout << x << endl;

@@ -150,16 +150,19 @@ void updateItem(string id, itemList& iList) {
 		cin.ignore();
 		switch (choice) {
 		case 1: {
+			cout << "Enter new ID: ";
 			getline(cin, update);
 			current->getItem()->setId(id);
 			break;
 		}
 		case 2: {
+			cout << "Enter new title: ";
 			getline(cin, update);
 			current->getItem()->setTitle(update);
 			break;
 		}
 		case 3: {
+			cout << "Enter new type: ";
 			Item* updateItem;
 			string currentType = current->getItem()->getType();
 			getline(cin, update);
@@ -177,17 +180,20 @@ void updateItem(string id, itemList& iList) {
 			break;
 		}
 		case 4: {
+			cout << "Enter new loan type: ";
 			getline(cin, update);
 			current->getItem()->setLoanType(update);
 			break;
 		}
 		case 5: {
+			cout << "Enter new stock: ";
 			int newStock;
 			cin >> newStock;
 			current->getItem()->setStock(newStock);
 			break;
 		}
 		case 6: {
+			cout << "Enter new fee: ";
 			float newFee;
 			cin >> newFee;
 			current->getItem()->setFee(newFee);
@@ -199,6 +205,7 @@ void updateItem(string id, itemList& iList) {
 				system("pause");
 				continue;
 			}
+			cout << "Enter new genre: ";
 			getline(cin, update);
 			current->getItem()->setGenre(update);
 			break;
@@ -318,7 +325,7 @@ void menu() {
 					getline(cin, choice);
 					if (choice < "1" || choice > "3") {
 						cout << "Invalid choice\n";
-						cout << "Please enter a digit from 1 to 3!!! ex: enter 1 if you wsnt to add a game.\n";
+						cout << "Please enter a digit from 1 to 3!!! ex: enter 1 if you want to add a game.\n";
 					}
 				} while (choice < "1" || choice > "3");
 
@@ -368,28 +375,29 @@ void menu() {
 			iList.printItemList();
 			system("pause");
 		}
-		/*else if (choice == "3") {
+		// add, update, delete customer.
+		else if (choice == "3") {
 			system("cls");
-			cout << "1. add a new item\n";
-			cout << "2. update a new item\n";
-			cout << "3. delete\n";
+			cout << "1. add a new customer\n";
+			cout << "2. update a customer\n";
+			cout << "3. delete a customer\n";
+			cout << "Enter your command: ";
 			cin >> choice;
 			if (choice == "1") {
-				additem(itemlist);
+				cList.addNewCustomer();
 			}
 			else if (choice == "2") {
 				cout << "enter id: ";
 				cin >> id;
-				uppdateitem(id, itemlist);
+				updateCustomer(id, cList);
 			}
 			else if (choice == "3") {
-				itemlist.printitemlist();
 				cout << "\t\t ===== delete =====\n";
 				cout << "enter id: ";
 				cin >> id;
-				itemlist.deleteitem(id);
+				cList.deleteCustomer(id);
 			}
-		}*/
+		}
 		// 4. Print customer list
 		else if (choice == "4") {
 			//ask for sorting type
@@ -605,4 +613,66 @@ bool isValidItem(Item item, itemList list) {
 		return false;
 	}
 	return true;
+}
+
+bool isValidCustomerId(string id) {
+	if (id.length() != 4) return false;
+	if (id.at(0) != 'C') return false;
+	return true;
+}
+
+bool isValidRank(string rank)
+{
+	if (!rank._Equal("Guest") && !rank._Equal("Regular") && !rank._Equal("VIP")) return false;
+	return true;
+}
+
+void updateCustomer(string id, customerList& cList) {
+	string update;
+	int choice;
+	bool flag = true;
+	CustomerNode* current = cList.findCustomer(id);
+	if (current == NULL) {
+		cout << "Can not found\n";
+		system("pause");
+		return;
+	}
+	while (flag) {
+		system("cls");
+		current->getCustomer();
+		cout << "1.Name: " << current->getCustomer()->getName() << endl;
+		cout << "2.Address: " << current->getCustomer()->getAddress() << endl;
+		cout << "3.Phone: " << current->getCustomer()->getPhone() << endl;
+		cout << "0.Exit" << endl;
+		cout << "Enter attribute you want to change: ";
+		cin >> choice;
+		cin.ignore();
+		switch (choice) {
+		case 1: {
+			cout << "Enter new name: ";
+			getline(cin, update);
+			current->getCustomer()->setName(update);
+			break;
+		}
+		case 2: {
+			cout << "Enter new address: ";
+			getline(cin, update);
+			current->getCustomer()->setAddress(update);
+			break;
+		}
+		case 3: {
+			cout << "Enter new phone number: ";
+			getline(cin, update);
+			current->getCustomer()->setPhone(update);
+			break;
+		}
+		case 0:
+			flag = false;
+			break;
+		default:
+			cout << "wrong chocie";
+			system("pause");
+			continue;
+		}
+	}
 }

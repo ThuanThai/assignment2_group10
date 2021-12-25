@@ -34,7 +34,7 @@ public:
 	void deleteCustomer(string id);
 	CustomerNode* findCustomer(string id);
 	void printCustomerList();
-
+	void addNewCustomer();
 };
 
 
