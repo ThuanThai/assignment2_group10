@@ -621,12 +621,14 @@ bool isValidItem(Item item, itemList list) {
 	return true;
 }
 
+// check customer id
 bool isValidCustomerId(string id) {
 	if (id.length() != 4) return false;
 	if (id.at(0) != 'C') return false;
 	return true;
 }
 
+//check customer rank
 bool isValidRank(string rank)
 {
 	if (!rank._Equal("Guest") && !rank._Equal("Regular") && !rank._Equal("VIP")) return false;
