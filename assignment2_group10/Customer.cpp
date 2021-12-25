@@ -3,24 +3,24 @@
 //constructor
 Customer::Customer()
 {
-	this->id = -1;
+	this->id = "";
 	this->name = "";
 	this->address = "";
 	this->phone = "";
-	this->itemRented = -1;
-	this->itemReturned = -1;
+	this->itemRented = 0;
+	this->itemReturned = 0;
 	this->rank = "";
 	this->rList = {};
 }
 //constructor
-Customer::Customer(string id, string name, string address, string phone, int itemRented, int itemReturned, string rank)
+Customer::Customer(string id, string name, string address, string phone, string rank)
 {
 	this->id = id;
 	this->name = name;
 	this->address = address;
 	this->phone = phone;
-	this->itemRented = itemRented;
-	this->itemReturned = itemReturned;
+	this->itemRented = 0;
+	this->itemReturned = 0;
 	this->rank = rank;
 	this->rList = {};
 }

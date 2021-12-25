@@ -6,6 +6,10 @@ void RVItem::Output() {
 	cout << "7.Genre: " << this->genre << endl;
 }
 
+void RVItem::Input(string type)
+{
+}
+
 void RVItem::readItemFile(fstream& fileIn) {
 	Item::readItemFile(fileIn);
 	getline(fileIn, genre);

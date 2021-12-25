@@ -19,8 +19,7 @@ protected:
 public:
 	//constructor
 	Customer();
-	Customer(string id, string name, string address, string phone,
-		int itemRented, int itemReturned, string rank = "Guest");
+	Customer(string id, string name, string address, string phone, string rank = "Guest");
 	//copy constructor
 	Customer(Customer& C);
 

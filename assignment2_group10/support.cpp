@@ -257,7 +257,8 @@ void borrowing(customerList& cList, itemList& iList) {
 		return;
 	}
 	Customer* customer = cList.findCustomer(id)->getCustomer();
-	
+	cout << "\t\t====== Customer's Information =====\n";
+	cout << customer;
 	cout << "Input item's ID: "; getline(cin, id);
 	if (iList.findItem(id) == NULL) {
 		cout << "Invalid item's ID\n";
@@ -276,7 +277,8 @@ void returning(customerList& cList, itemList& iList) {
 		return;
 	}
 	Customer* customer = cList.findCustomer(id)->getCustomer();
-	
+	cout << "\t\t====== Customer's Information =====\n";
+	cout << customer;
 	cout << "Input item's ID: "; getline(cin, id);
 	if (iList.findItem(id) == NULL) {
 		cout << "Invalid item's ID\n";

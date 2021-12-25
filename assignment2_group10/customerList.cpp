@@ -60,7 +60,7 @@ void customerList::printCustomerList() {
 
 void customerList::addNewCustomer()
 {
-	Customer* newCustomer = new Customer;
+	Customer* newCustomer;
 	string newId;
 	string newName;
 	string newAddress;
@@ -88,14 +88,15 @@ void customerList::addNewCustomer()
 		cout << "Enter customer rank: ";
 		getline(cin, newRank);
 	} while (!isValidRank(newRank));
-
-	newCustomer->setId(newId);
-	newCustomer->setName(newName);
-	newCustomer->setAddress(newAddress);
-	newCustomer->setPhone(newPhone);
-	newCustomer->setRank(newRank);
-	newCustomer->setItemRented(0);
-	newCustomer->setItemreturned(0);
-
+	if (newRank._Equal("Guest")) {
+		newCustomer = new GuestCustomer(newId, newName, newAddress, newPhone);
+	}
+	else if(newRank._Equal("Regualar"))
+	{
+		newCustomer = new RegularCustomer(newId, newName, newAddress, newPhone);
+	}
+	else {
+		newCustomer = new VipCustomer(newId, newName, newAddress, newPhone);
+	}
 	this->appendCustomerBack(newCustomer);
 }
