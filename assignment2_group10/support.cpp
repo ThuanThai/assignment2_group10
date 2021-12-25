@@ -587,6 +587,24 @@ bool isValidItem(Item item, itemList list) {
 	return true;
 }
 
+bool isValidItem(RVItem item, itemList list) {
+	if (!isValidItemId(item.getId())) return false;
+	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
+	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
+	if (!item.getGenre()._Equal("Action") && !item.getGenre()._Equal("Horror") && !item.getGenre()._Equal("Drama") && !item.getGenre()._Equal("Comedy") && !item.getGenre()._Equal("")) return false;
+	if (list.findItem(item.getId()) != NULL) {
+		ItemNode* existedItem = list.findItem(item.getId());
+		// if new item is an existed item in the list - add up the stock
+		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
+			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()
+			&& existedItem->getItem()->getGenre() == item.getGenre()) {
+			existedItem->getItem()->setStock(existedItem->getItem()->getStock() + item.getStock());
+		}
+		return false;
+	}
+	return true;
+}
+
 // check customer id
 bool isValidCustomerId(string id) {
 	if (id.length() != 4) return false;

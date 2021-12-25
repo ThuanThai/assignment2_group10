@@ -30,6 +30,7 @@ void sort_by_name(customerList& List);
 //check file/user input
 bool isValidItemId(string);
 bool isValidItem(Item item, itemList list);
+bool isValidItem(RVItem item, itemList list);
 void inputStockSize(int* stock);
 void inputFee(float* fee);
 //sort
