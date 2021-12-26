@@ -33,7 +33,7 @@ void listReadItemfile(itemList& itemList) {
 			fileIn.seekg(byte, 1);
 			newItem = new RVItem;
 			newItem->readItemFile(fileIn);
-			if (isValidItem(*newItem, itemList)) {
+			if (isValidItem(*(RVItem*)newItem, itemList)) {
 				itemList.appendItemBack(newItem);
 			}
 		}
@@ -570,10 +570,15 @@ string toLower(string s)
 
 // check if the valid item
 bool isValidItem(Item item, itemList list) {
+	//check valid id
 	if (!isValidItemId(item.getId())) return false;
+	//check valid type
 	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
+	//check valid loan type
 	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
+	//check valid genre
 	if (!item.getGenre()._Equal("Action") && !item.getGenre()._Equal("Horror") && !item.getGenre()._Equal("Drama") && !item.getGenre()._Equal("Comedy") && !item.getGenre()._Equal("")) return false;
+	//check for the same id which is already added to the list
 	if (list.findItem(item.getId()) != NULL) {
 		ItemNode* existedItem = list.findItem(item.getId());
 		// if new item is an existed item in the list - add up the stock
@@ -588,10 +593,15 @@ bool isValidItem(Item item, itemList list) {
 }
 
 bool isValidItem(RVItem item, itemList list) {
+	//check valid id
 	if (!isValidItemId(item.getId())) return false;
+	//check valid type
 	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
+	//check valid loan type
 	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
+	//check valid genre
 	if (!item.getGenre()._Equal("Action") && !item.getGenre()._Equal("Horror") && !item.getGenre()._Equal("Drama") && !item.getGenre()._Equal("Comedy") && !item.getGenre()._Equal("")) return false;
+	//check for the same id which is already added to the list
 	if (list.findItem(item.getId()) != NULL) {
 		ItemNode* existedItem = list.findItem(item.getId());
 		// if new item is an existed item in the list - add up the stock
