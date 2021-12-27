@@ -244,8 +244,8 @@ bool customerList::isValidCustomer(Customer* customer, itemList iList) {
 	if (!isValidRank(customer->getRank())) return false;
 	// false data on rental system
 	if (customer->getItemRented() != customer->getRentalListLength()) return false;
-	// id is not unique
-	//if (cList.findCustomer(customer->getId()) != NULL) return false;
+	//id is not unique
+	if (this->findCustomer(customer->getId()) != NULL) return false;
 	// wrong phone number
 	if (!isValidPhoneNumber(customer->getPhone())) return false;
 	// item in rental list is not from the store
