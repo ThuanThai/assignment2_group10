@@ -36,7 +36,7 @@ void customerList::deleteCustomer(string id) {
 	delete current;
 }
 
-void customerList::readCustomerFile(string fileName) {
+void customerList::readCustomerFile(string fileName, itemList iList) {
 	ifstream fileIn(fileName, ios_base::in);
 	if (!fileIn) {
 		cerr << "Cannot Open File\n";
@@ -58,7 +58,12 @@ void customerList::readCustomerFile(string fileName) {
 			newCustomer = new VipCustomer;
 			newCustomer->setCustomerType(customer);
 		}
-		appendCustomerBack(newCustomer);
+		if (isValidCustomer(newCustomer, iList)) {
+			appendCustomerBack(newCustomer);
+		}
+		else {
+			cout << "Cannot add " << newCustomer->getId() << " into the list!!!" << endl;
+		}
 	}
 	fileIn.close();
 }
@@ -230,4 +235,20 @@ void customerList::printVIP()
 		tmp = tmp->getNext();
 	}
 	if (count == 0) cout << "No VIP customer in the list" << endl;
+}
+
+bool customerList::isValidCustomer(Customer* customer, itemList iList) {
+	// invalid id syntax
+	if (!isValidCustomerId(customer->getId())) return false;
+	// invalid rank syntax
+	if (!isValidRank(customer->getRank())) return false;
+	// false data on rental system
+	if (customer->getItemRented() != customer->getRentalListLength()) return false;
+	// id is not unique
+	//if (cList.findCustomer(customer->getId()) != NULL) return false;
+	// wrong phone number
+	if (!isValidPhoneNumber(customer->getPhone())) return false;
+	// item in rental list is not from the store
+	if (!customer->hasViableRentalList(iList)) return false;
+	return true;
 }

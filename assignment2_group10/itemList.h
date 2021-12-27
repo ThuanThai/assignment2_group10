@@ -22,5 +22,6 @@ public:
 	void deleteItem(string ID);
 	void printItemList();
 	void addNewItem(string type);
-	
+	bool isValidItem(Item item);
+	bool isValidItem(RVItem item);
 };

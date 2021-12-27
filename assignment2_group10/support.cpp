@@ -5,76 +5,6 @@ bool search(string source, string find) {
 	return (source.find(find) != string::npos);
 }
 
-void listReadItemfile(itemList& itemList) {
-	fstream fileIn;
-	string tmp;
-	int len;
-	int byte;
-	fileIn.open("item.txt", ios_base::in);
-	if (!fileIn) {
-		cerr << "Cannot open file\n";
-	}
-	while (getline(fileIn, tmp, '\n')) {
-		Item* item = new Item;
-		Item* newItem = NULL;
-		if (search(tmp, "Game")) {
-			len = tmp.length();
-			byte = (len * (-1)) - 2;
-			fileIn.seekg(byte, 1);
-			newItem = new Item;
-			newItem->readItemFile(fileIn);
-			if (isValidItem(*newItem, itemList)) {
-				itemList.appendItemBack(newItem);
-			}
-		}
-		else if (search(tmp, "DVD") || search(tmp, "Record")) {
-			len = tmp.length();
-			byte = (len * (-1)) - 2;
-			fileIn.seekg(byte, 1);
-			newItem = new RVItem;
-			newItem->readItemFile(fileIn);
-			if (isValidItem(*(RVItem*)newItem, itemList)) {
-				itemList.appendItemBack(newItem);
-			}
-		}
-	}
-	fileIn.close();
-}
-
-void listReadCustomerFile(customerList& cList, itemList iList) {
-	ifstream fileIn("customers.txt", ios_base::in);
-	if (!fileIn) {
-		cerr << "Cannot Open File\n";
-	}
-	while (!fileIn.eof())
-	{
-		Customer* customer = new Customer;
-		Customer* newCustomer = NULL;
-		customer->readCustomerFile(fileIn);
-		if (customer->getRank().compare("Guest") == 0) {
-			newCustomer = new GuestCustomer;
-			newCustomer->setCustomerType(customer);
-		}
-		else if (customer->getRank().compare("Regular") == 0) {
-			newCustomer = new RegularCustomer;
-			newCustomer->setCustomerType(customer);
-		}
-		else if (customer->getRank().compare("VIP") == 0) {
-			newCustomer = new VipCustomer;
-			newCustomer->setCustomerType(customer);
-		}
-
-		if (isValidCustomer(newCustomer, iList)) {
-			cList.appendCustomerBack(newCustomer);
-		}
-		else {
-			cout << "Cannot add " << newCustomer->getId() << " into the list!!!" << endl;
-		}
-	}
-	fileIn.close();
-}
-
-
 void updateItem(string id, itemList& iList) {
 	string update;
 	int choice;
@@ -202,7 +132,7 @@ void menu() {
 	string choice;
 	string id;
 	iList.readItemFile("item.txt");
-	cList.readCustomerFile("customers.txt");
+	cList.readCustomerFile("customers.txt", iList);
 	while (flag) {
 		system("cls");
 		cout << "1. add a new item, update or delete an existing item\n";
@@ -532,51 +462,6 @@ string toLower(string s)
 	return s;
 }
 
-// check if the valid item
-bool isValidItem(Item item, itemList list) {
-	//check valid id
-	if (!isValidItemId(item.getId())) return false;
-	//check valid type
-	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
-	//check valid loan type
-	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
-	//check for the same id which is already added to the list
-	if (list.findItem(item.getId()) != NULL) {
-		ItemNode* existedItem = list.findItem(item.getId());
-		// if new item is an existed item in the list - add up the stock
-		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
-			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()
-			) {
-			existedItem->getItem()->setStock(existedItem->getItem()->getStock() + item.getStock());
-		}
-		return false;
-	}
-	return true;
-}
-
-bool isValidItem(RVItem item, itemList list) {
-	//check valid id
-	if (!isValidItemId(item.getId())) return false;
-	//check valid type
-	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
-	//check valid loan type
-	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
-	//check valid genre
-	if (!item.getGenre()._Equal("Action") && !item.getGenre()._Equal("Horror") && !item.getGenre()._Equal("Drama") && !item.getGenre()._Equal("Comedy") && !item.getGenre()._Equal("")) return false;
-	//check for the same id which is already added to the list
-	if (list.findItem(item.getId()) != NULL) {
-		ItemNode* existedItem = list.findItem(item.getId());
-		// if new item is an existed item in the list - add up the stock
-		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
-			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()
-			&& existedItem->getItem()->getGenre() == item.getGenre()) {
-			existedItem->getItem()->setStock(existedItem->getItem()->getStock() + item.getStock());
-		}
-		return false;
-	}
-	return true;
-}
-
 // check customer id
 bool isValidCustomerId(string id) {
 	if (id.length() != 4) return false;
@@ -650,20 +535,4 @@ bool isValidPhoneNumber(string phoneNum) {
 	for (int i = 0; i < phoneNum.length(); i++) {
 		if (phoneNum[i] < '0' || phoneNum[i] > '9') return false;
 	}
-}
-
-bool isValidCustomer(Customer* customer, itemList iList) {
-	// invalid id syntax
-	if (!isValidCustomerId(customer->getId())) return false;
-	// invalid rank syntax
-	if (!isValidRank(customer->getRank())) return false;
-	// false data on rental system
-	if (customer->getItemRented() != customer->getRentalListLength()) return false;
-	// id is not unique
-	//if (cList.findCustomer(customer->getId()) != NULL) return false;
-	// wrong phone number
-	if (!isValidPhoneNumber(customer->getPhone())) return false;
-	// item in rental list is not from the store
-	if (!customer->hasViableRentalList(iList)) return false;
-	return true;
 }
