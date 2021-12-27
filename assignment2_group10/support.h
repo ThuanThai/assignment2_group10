@@ -21,6 +21,8 @@ void returning(customerList& cList, itemList& iList);
 //check file/user input
 bool isValidCustomerId(string id);
 bool isValidRank(string rank);
+bool isValidPhoneNumber(string phoneNum);
+bool isValidCustomer(Customer* customer);
 // sort
 void swap(CustomerNode* C1, CustomerNode* C2);
 void sort_by_id(customerList& List);

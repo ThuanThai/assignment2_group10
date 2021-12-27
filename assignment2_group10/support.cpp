@@ -63,7 +63,13 @@ void listReadCustomerFile(customerList& cList) {
 			newCustomer = new VipCustomer;
 			newCustomer->setCustomerType(customer);
 		}
-		cList.appendCustomerBack(newCustomer);
+
+		if (isValidCustomer(newCustomer)) {
+			cList.appendCustomerBack(newCustomer);
+		}
+		else {
+			cout << "Cannot add " << newCustomer->getId() << " into the list!!!" << endl;
+		}
 	}
 	fileIn.close();
 }
@@ -576,8 +582,6 @@ bool isValidItem(Item item, itemList list) {
 	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
 	//check valid loan type
 	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
-	//check valid genre
-	if (!item.getGenre()._Equal("Action") && !item.getGenre()._Equal("Horror") && !item.getGenre()._Equal("Drama") && !item.getGenre()._Equal("Comedy") && !item.getGenre()._Equal("")) return false;
 	//check for the same id which is already added to the list
 	if (list.findItem(item.getId()) != NULL) {
 		ItemNode* existedItem = list.findItem(item.getId());
@@ -677,4 +681,24 @@ void updateCustomer(string id, customerList& cList) {
 			continue;
 		}
 	}
+}
+
+bool isValidPhoneNumber(string phoneNum) {
+	for (int i = 0; i < phoneNum.length(); i++) {
+		if (phoneNum[i] < '0' || phoneNum[i] > '9') return false;
+	}
+}
+
+bool isValidCustomer(Customer* customer) {
+	// invalid id syntax
+	if (!isValidCustomerId(customer->getId())) return false;
+	// invalid rank syntax
+	if (!isValidRank(customer->getRank())) return false;
+	// false data on rental system
+	if (customer->getItemRented() != customer->getRentalListLength()) return false;
+	// id is not unique
+	//if (cList.findCustomer(customer->getId()) != NULL) return false;
+	// wrong phone number
+	if (!isValidPhoneNumber(customer->getPhone())) return false;
+	return true;
 }

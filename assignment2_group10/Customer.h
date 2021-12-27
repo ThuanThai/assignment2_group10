@@ -39,6 +39,7 @@ public:
 	int getItemRented();
 	int getItemReturned();
 	string getRank();
+	int getRentalListLength();
 	virtual int getRewardPoint();
 	virtual bool borrowing(Item* item);
 	virtual bool returning(Item* item);

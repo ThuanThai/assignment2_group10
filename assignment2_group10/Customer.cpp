@@ -53,10 +53,9 @@ string Customer::getPhone() { return this->phone; }
 int Customer::getItemRented() { return this->itemRented; }
 int Customer::getItemReturned() { return this->itemReturned; }
 string Customer::getRank() { return this->rank; }
+int Customer::getRentalListLength(){ return this->rList.size(); }
 int Customer::getRewardPoint() { return -1; }
-
 bool Customer::borrowing(Item* item) { return false; }
-
 bool Customer::returning(Item* item) { return false; }
 
 ostream& operator << (ostream& stream, const Customer* customer) {
