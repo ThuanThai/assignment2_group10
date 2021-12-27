@@ -41,7 +41,7 @@ void listReadItemfile(itemList& itemList) {
 	fileIn.close();
 }
 
-void listReadCustomerFile(customerList& cList) {
+void listReadCustomerFile(customerList& cList, itemList iList) {
 	ifstream fileIn("customers.txt", ios_base::in);
 	if (!fileIn) {
 		cerr << "Cannot Open File\n";
@@ -64,7 +64,7 @@ void listReadCustomerFile(customerList& cList) {
 			newCustomer->setCustomerType(customer);
 		}
 
-		if (isValidCustomer(newCustomer)) {
+		if (isValidCustomer(newCustomer, iList)) {
 			cList.appendCustomerBack(newCustomer);
 		}
 		else {
@@ -244,7 +244,7 @@ void menu() {
 	string choice;
 	string id;
 	listReadItemfile(iList);
-	listReadCustomerFile(cList);
+	listReadCustomerFile(cList, iList);
 	while (flag) {
 		system("cls");
 		cout << "1. add a new item, update or delete an existing item\n";
@@ -669,6 +669,11 @@ void updateCustomer(string id, customerList& cList) {
 		case 3: {
 			cout << "Enter new phone number: ";
 			getline(cin, update);
+			while (!isValidPhoneNumber(update)) {
+				cout << "Please enter digits only!!!" << endl;
+				cout << "Enter new phone number: ";
+				getline(cin, update);
+			}
 			current->getCustomer()->setPhone(update);
 			break;
 		}
@@ -689,7 +694,7 @@ bool isValidPhoneNumber(string phoneNum) {
 	}
 }
 
-bool isValidCustomer(Customer* customer) {
+bool isValidCustomer(Customer* customer, itemList iList) {
 	// invalid id syntax
 	if (!isValidCustomerId(customer->getId())) return false;
 	// invalid rank syntax
@@ -700,5 +705,7 @@ bool isValidCustomer(Customer* customer) {
 	//if (cList.findCustomer(customer->getId()) != NULL) return false;
 	// wrong phone number
 	if (!isValidPhoneNumber(customer->getPhone())) return false;
+	// item in rental list is not from the store
+	if (!customer->hasViableRentalList(iList)) return false;
 	return true;
 }
