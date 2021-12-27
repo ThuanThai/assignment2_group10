@@ -36,6 +36,33 @@ void customerList::deleteCustomer(string id) {
 	delete current;
 }
 
+void customerList::readCustomerFile(string fileName) {
+	ifstream fileIn(fileName, ios_base::in);
+	if (!fileIn) {
+		cerr << "Cannot Open File\n";
+	}
+	while (!fileIn.eof())
+	{
+		Customer* customer = new Customer;
+		Customer* newCustomer = NULL;
+		customer->readCustomerFile(fileIn);
+		if (customer->getRank().compare("Guest") == 0) {
+			newCustomer = new GuestCustomer;
+			newCustomer->setCustomerType(customer);
+		}
+		else if (customer->getRank().compare("Regular") == 0) {
+			newCustomer = new RegularCustomer;
+			newCustomer->setCustomerType(customer);
+		}
+		else if (customer->getRank().compare("VIP") == 0) {
+			newCustomer = new VipCustomer;
+			newCustomer->setCustomerType(customer);
+		}
+		appendCustomerBack(newCustomer);
+	}
+	fileIn.close();
+}
+
 CustomerNode* customerList::findCustomer(string id) {
 	CustomerNode* current = this->head;
 	while (current != NULL && current->getCustomer()->getId() != id) {
@@ -99,6 +126,50 @@ void customerList::addNewCustomer()
 		newCustomer = new VipCustomer(newId, newName, newAddress, newPhone);
 	}
 	this->appendCustomerBack(newCustomer);
+}
+
+void customerList::borrowing(itemList& iList) {
+	string id;
+	cout << "Input customer's ID: "; getline(cin, id);
+	if (findCustomer(id) == NULL) {
+		cout << "Invalid customer'sID\n";
+		return;
+	}
+	Customer* customer = findCustomer(id)->getCustomer();
+	cout << "\t\t====== Customer's Information =====\n";
+	cout << customer;
+	cout << "Input item's ID: "; getline(cin, id);
+	if (iList.findItem(id) == NULL) {
+		cout << "Invalid item's ID\n";
+		return;
+	}
+	Item* item = iList.findItem(id)->getItem();
+	if (customer->borrowing(item)) cout << "Successfully borrowing \n" << item;
+	else cout << "Item out of stock\n";
+}
+
+void customerList::returning(itemList& iList) {
+	string id;
+	cout << "Input customer's ID: "; getline(cin, id);
+	if (findCustomer(id) == NULL) {
+		cout << "Invalid customer'sID\n";
+		return;
+	}
+	Customer* customer = findCustomer(id)->getCustomer();
+	if (customer->getItemRented() == 0) {
+		cout << "Your account has not yet made a loan\n";
+		return;
+	}
+	cout << "\t\t====== Customer's Information =====\n";
+	cout << customer;
+	cout << "Input item's ID: "; getline(cin, id);
+	if (iList.findItem(id) == NULL) {
+		cout << "Invalid item's ID\n";
+		return;
+	}
+	Item* item = iList.findItem(id)->getItem();
+	if (customer->returning(item)) cout << "Successfully returning \n" << item;
+	else cout << "The item is not borrowed by this account\n";
 }
 
 void customerList::printGuest()

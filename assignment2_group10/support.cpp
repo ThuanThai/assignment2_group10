@@ -193,49 +193,7 @@ void inputFee(float* fee) {
 	}
 }
 
-void borrowing(customerList& cList, itemList& iList) {
-	string id;
-	cout << "Input customer's ID: "; getline(cin, id);
-	if (cList.findCustomer(id) == NULL) {
-		cout << "Invalid customer'sID\n";
-		return;
-	}
-	Customer* customer = cList.findCustomer(id)->getCustomer();
-	cout << "\t\t====== Customer's Information =====\n";
-	cout << customer;
-	cout << "Input item's ID: "; getline(cin, id);
-	if (iList.findItem(id) == NULL) {
-		cout << "Invalid item's ID\n";
-		return;
-	}
-	Item* item = iList.findItem(id)->getItem();
-	if (customer->borrowing(item)) cout << "Successfully borrowing \n" << item;
-	else cout << "Item out of stock\n";
-}
 
-void returning(customerList& cList, itemList& iList) {
-	string id;
-	cout << "Input customer's ID: "; getline(cin, id);
-	if (cList.findCustomer(id) == NULL) {
-		cout << "Invalid customer'sID\n";
-		return;
-	}
-	Customer* customer = cList.findCustomer(id)->getCustomer();
-	if (customer->getItemRented() == 0) {
-		cout << "Your account has not yet made a loan\n";
-		return;
-	}
-	cout << "\t\t====== Customer's Information =====\n";
-	cout << customer;
-	cout << "Input item's ID: "; getline(cin, id);
-	if (iList.findItem(id) == NULL) {
-		cout << "Invalid item's ID\n";
-		return;
-	}
-	Item* item = iList.findItem(id)->getItem();
-	if (customer->returning(item)) cout << "Successfully returning \n" << item;
-	else cout << "The item is not borrowed by this account\n";
-}
 
 void menu() {
 	itemList iList; 
@@ -243,8 +201,8 @@ void menu() {
 	bool flag = true;
 	string choice;
 	string id;
-	listReadItemfile(iList);
-	listReadCustomerFile(cList, iList);
+	iList.readItemFile("item.txt");
+	cList.readCustomerFile("customers.txt");
 	while (flag) {
 		system("cls");
 		cout << "1. add a new item, update or delete an existing item\n";
@@ -372,13 +330,13 @@ void menu() {
 		
 		//5. Rent an item
 		else if (choice == "5") {
-			borrowing(cList, iList);
+			cList.borrowing(iList);
 			system("pause");
 		}
 
 		//6. Return an item
 		else if (choice == "6") {
-			returning(cList, iList);
+			cList.returning(iList);
 			system("pause");
 		}
 

@@ -6,16 +6,11 @@
 #include <string>
 
 using namespace std;
-
-
 bool search(string source, string find);
 void listReadItemfile(itemList& itemList);
 void listReadCustomerFile(customerList& cList, itemList iList);
 void menu();
 void updateCustomer(string id, customerList& cList);
-void borrowing(customerList& cList, itemList& iList);
-void returning(customerList& cList, itemList& iList);
-
 
 //for customer
 //check file/user input

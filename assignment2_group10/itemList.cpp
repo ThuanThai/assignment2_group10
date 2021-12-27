@@ -114,4 +114,35 @@ void itemList::addNewItem(string type) {
 	newItem->setStock(stock);
 	newItem->setFee(fee);
 	this->appendItemBack(newItem);
-};
+}
+void itemList::readItemFile(string fileName) {
+	fstream fileIn;
+	string tmp;
+	int len;
+	int byte;
+	fileIn.open(fileName, ios_base::in);
+	if (!fileIn) {
+		cerr << "Cannot open file\n";
+	}
+	while (getline(fileIn, tmp, '\n')) {
+		Item* item = new Item;
+		Item* newItem = NULL;
+		if (search(tmp, "Game")) {
+			len = tmp.length();
+			byte = (len * (-1)) - 2;
+			fileIn.seekg(byte, 1);
+			newItem = new Item;
+			newItem->readItemFile(fileIn);
+			appendItemBack(newItem);
+		}
+		else if (search(tmp, "DVD") || search(tmp, "Record")) {
+			len = tmp.length();
+			byte = (len * (-1)) - 2;
+			fileIn.seekg(byte, 1);
+			newItem = new RVItem;
+			newItem->readItemFile(fileIn);
+			appendItemBack(newItem);
+		}
+	}
+	fileIn.close();
+}
