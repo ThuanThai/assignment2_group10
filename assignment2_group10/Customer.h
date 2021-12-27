@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "Item.h"
+#include "itemList.h"
 using namespace std;
 class Customer
 {
@@ -39,6 +40,8 @@ public:
 	int getItemRented();
 	int getItemReturned();
 	string getRank();
+	int getRentalListLength();
+	bool hasViableRentalList(itemList stock);
 	virtual int getRewardPoint();
 	virtual bool borrowing(Item* item);
 	virtual bool returning(Item* item);

@@ -53,10 +53,17 @@ string Customer::getPhone() { return this->phone; }
 int Customer::getItemRented() { return this->itemRented; }
 int Customer::getItemReturned() { return this->itemReturned; }
 string Customer::getRank() { return this->rank; }
+int Customer::getRentalListLength(){ return this->rList.size(); }
+bool Customer::hasViableRentalList(itemList stock)
+{
+	for (auto x : this->rList) {
+		// an item in customer rental list cannot be found in stock database
+		if (stock.findItem(x) == NULL) return false;
+	}
+	return true;
+}
 int Customer::getRewardPoint() { return -1; }
-
 bool Customer::borrowing(Item* item) { return false; }
-
 bool Customer::returning(Item* item) { return false; }
 
 ostream& operator << (ostream& stream, const Customer* customer) {

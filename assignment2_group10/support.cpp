@@ -41,7 +41,7 @@ void listReadItemfile(itemList& itemList) {
 	fileIn.close();
 }
 
-void listReadCustomerFile(customerList& cList) {
+void listReadCustomerFile(customerList& cList, itemList iList) {
 	ifstream fileIn("customers.txt", ios_base::in);
 	if (!fileIn) {
 		cerr << "Cannot Open File\n";
@@ -63,7 +63,13 @@ void listReadCustomerFile(customerList& cList) {
 			newCustomer = new VipCustomer;
 			newCustomer->setCustomerType(customer);
 		}
-		cList.appendCustomerBack(newCustomer);
+
+		if (isValidCustomer(newCustomer, iList)) {
+			cList.appendCustomerBack(newCustomer);
+		}
+		else {
+			cout << "Cannot add " << newCustomer->getId() << " into the list!!!" << endl;
+		}
 	}
 	fileIn.close();
 }
@@ -238,7 +244,7 @@ void menu() {
 	string choice;
 	string id;
 	listReadItemfile(iList);
-	listReadCustomerFile(cList);
+	listReadCustomerFile(cList, iList);
 	while (flag) {
 		system("cls");
 		cout << "1. add a new item, update or delete an existing item\n";
@@ -576,8 +582,6 @@ bool isValidItem(Item item, itemList list) {
 	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
 	//check valid loan type
 	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
-	//check valid genre
-	if (!item.getGenre()._Equal("Action") && !item.getGenre()._Equal("Horror") && !item.getGenre()._Equal("Drama") && !item.getGenre()._Equal("Comedy") && !item.getGenre()._Equal("")) return false;
 	//check for the same id which is already added to the list
 	if (list.findItem(item.getId()) != NULL) {
 		ItemNode* existedItem = list.findItem(item.getId());
@@ -665,6 +669,11 @@ void updateCustomer(string id, customerList& cList) {
 		case 3: {
 			cout << "Enter new phone number: ";
 			getline(cin, update);
+			while (!isValidPhoneNumber(update)) {
+				cout << "Please enter digits only!!!" << endl;
+				cout << "Enter new phone number: ";
+				getline(cin, update);
+			}
 			current->getCustomer()->setPhone(update);
 			break;
 		}
@@ -677,4 +686,26 @@ void updateCustomer(string id, customerList& cList) {
 			continue;
 		}
 	}
+}
+
+bool isValidPhoneNumber(string phoneNum) {
+	for (int i = 0; i < phoneNum.length(); i++) {
+		if (phoneNum[i] < '0' || phoneNum[i] > '9') return false;
+	}
+}
+
+bool isValidCustomer(Customer* customer, itemList iList) {
+	// invalid id syntax
+	if (!isValidCustomerId(customer->getId())) return false;
+	// invalid rank syntax
+	if (!isValidRank(customer->getRank())) return false;
+	// false data on rental system
+	if (customer->getItemRented() != customer->getRentalListLength()) return false;
+	// id is not unique
+	//if (cList.findCustomer(customer->getId()) != NULL) return false;
+	// wrong phone number
+	if (!isValidPhoneNumber(customer->getPhone())) return false;
+	// item in rental list is not from the store
+	if (!customer->hasViableRentalList(iList)) return false;
+	return true;
 }

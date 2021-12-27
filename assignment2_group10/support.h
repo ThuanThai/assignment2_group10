@@ -10,7 +10,7 @@ using namespace std;
 
 bool search(string source, string find);
 void listReadItemfile(itemList& itemList);
-void listReadCustomerFile(customerList& cList);
+void listReadCustomerFile(customerList& cList, itemList iList);
 void menu();
 void updateCustomer(string id, customerList& cList);
 void borrowing(customerList& cList, itemList& iList);
@@ -21,6 +21,8 @@ void returning(customerList& cList, itemList& iList);
 //check file/user input
 bool isValidCustomerId(string id);
 bool isValidRank(string rank);
+bool isValidPhoneNumber(string phoneNum);
+bool isValidCustomer(Customer* customer, itemList iList);
 // sort
 void swap(CustomerNode* C1, CustomerNode* C2);
 void sort_by_id(customerList& List);
