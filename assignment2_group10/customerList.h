@@ -32,13 +32,20 @@ public:
 	}
 	void appendCustomerBack(Customer* newCustomer);
 	void deleteCustomer(string id);
+	void readCustomerFile(string fileName, itemList iList);
 	CustomerNode* findCustomer(string id);
 	void printCustomerList();
 	void addNewCustomer();
+	void borrowing(itemList& iList);
+	void returning(itemList& iList);
+	bool isValidCustomer(Customer* customer, itemList iList);
 	//functions print group of customer
 	void printGuest();
 	void printRegular();
 	void printVIP();
+	//sort functions
+	void sort_by_id();
+	void sort_by_name();
 };
 
 

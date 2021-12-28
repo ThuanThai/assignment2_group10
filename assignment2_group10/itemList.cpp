@@ -114,4 +114,144 @@ void itemList::addNewItem(string type) {
 	newItem->setStock(stock);
 	newItem->setFee(fee);
 	this->appendItemBack(newItem);
-};
+}
+void itemList::readItemFile(string fileName) {
+	fstream fileIn;
+	string tmp;
+	int len;
+	int byte;
+	fileIn.open(fileName, ios_base::in);
+	if (!fileIn) {
+		cerr << "Cannot open file\n";
+	}
+	while (getline(fileIn, tmp, '\n')) {
+		Item* item = new Item;
+		Item* newItem = NULL;
+		if (search(tmp, "Game")) {
+			len = tmp.length();
+			byte = (len * (-1)) - 2;
+			fileIn.seekg(byte, 1);
+			newItem = new Item;
+			newItem->readItemFile(fileIn);
+			if (this->isValidItem(*newItem)) {
+				appendItemBack(newItem);
+			}
+		}
+		else if (search(tmp, "DVD") || search(tmp, "Record")) {
+			len = tmp.length();
+			byte = (len * (-1)) - 2;
+			fileIn.seekg(byte, 1);
+			newItem = new RVItem;
+			newItem->readItemFile(fileIn);
+			if (this->isValidItem(*newItem)) {
+				appendItemBack(newItem);
+			}
+		}
+	}
+	fileIn.close();
+}
+
+// check if the valid item
+bool itemList::isValidItem(Item item) {
+	//check valid id
+	if (!isValidItemId(item.getId())) return false;
+	//check valid type
+	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
+	//check valid loan type
+	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
+	//check for the same id which is already added to the list
+	if (this->findItem(item.getId()) != NULL) {
+		ItemNode* existedItem = this->findItem(item.getId());
+		// if new item is an existed item in the list - add up the stock
+		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
+			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()
+			) {
+			existedItem->getItem()->setStock(existedItem->getItem()->getStock() + item.getStock());
+		}
+		return false;
+	}
+	return true;
+}
+
+bool itemList::isValidItem(RVItem item) {
+	//check valid id
+	if (!isValidItemId(item.getId())) return false;
+	//check valid type
+	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
+	//check valid loan type
+	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
+	//check valid genre
+	if (!item.getGenre()._Equal("Action") && !item.getGenre()._Equal("Horror") && !item.getGenre()._Equal("Drama") && !item.getGenre()._Equal("Comedy") && !item.getGenre()._Equal("")) return false;
+	//check for the same id which is already added to the list
+	if (this->findItem(item.getId()) != NULL) {
+		ItemNode* existedItem = this->findItem(item.getId());
+		// if new item is an existed item in the list - add up the stock
+		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
+			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()
+			&& existedItem->getItem()->getGenre() == item.getGenre()) {
+			existedItem->getItem()->setStock(existedItem->getItem()->getStock() + item.getStock());
+		}
+		return false;
+	}
+	return true;
+}
+
+void itemList::sort_by_id()
+{
+	//check if list has "something"
+	if (head == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	ItemNode* tmp;
+	ItemNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = head;
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by Id
+			if (tmp->getItem()->getId() < prev->getItem()->getId()) {
+				// if after item has id < previous item's
+				//swap two items
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Id..." << endl;
+}
+
+void itemList::sort_by_title()
+{
+	//check if list has "something"
+	if (head == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	ItemNode* tmp;
+	ItemNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = head;
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by title
+			if (compare_string(prev->getItem()->getTitle(), tmp->getItem()->getTitle()) == 1) {
+				// if after item has title < previous item's
+				//swap two items
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Title..." << endl;
+}

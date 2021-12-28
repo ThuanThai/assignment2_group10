@@ -17,8 +17,14 @@ public:
 		return this->head;
 	}
 	void appendItemBack(Item* newItem);
+	void readItemFile(string fileName);
 	ItemNode* findItem(string id);
 	void deleteItem(string ID);
 	void printItemList();
 	void addNewItem(string type);
+	bool isValidItem(Item item);
+	bool isValidItem(RVItem item);
+	//sort funtions 
+	void sort_by_id();
+	void sort_by_title();
 };

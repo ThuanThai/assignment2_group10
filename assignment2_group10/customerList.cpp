@@ -36,6 +36,38 @@ void customerList::deleteCustomer(string id) {
 	delete current;
 }
 
+void customerList::readCustomerFile(string fileName, itemList iList) {
+	ifstream fileIn(fileName, ios_base::in);
+	if (!fileIn) {
+		cerr << "Cannot Open File\n";
+	}
+	while (!fileIn.eof())
+	{
+		Customer* customer = new Customer;
+		Customer* newCustomer = NULL;
+		customer->readCustomerFile(fileIn);
+		if (customer->getRank().compare("Guest") == 0) {
+			newCustomer = new GuestCustomer;
+			newCustomer->setCustomerType(customer);
+		}
+		else if (customer->getRank().compare("Regular") == 0) {
+			newCustomer = new RegularCustomer;
+			newCustomer->setCustomerType(customer);
+		}
+		else if (customer->getRank().compare("VIP") == 0) {
+			newCustomer = new VipCustomer;
+			newCustomer->setCustomerType(customer);
+		}
+		if (isValidCustomer(newCustomer, iList)) {
+			appendCustomerBack(newCustomer);
+		}
+		else {
+			cout << "Cannot add " << newCustomer->getId() << " into the list!!!" << endl;
+		}
+	}
+	fileIn.close();
+}
+
 CustomerNode* customerList::findCustomer(string id) {
 	CustomerNode* current = this->head;
 	while (current != NULL && current->getCustomer()->getId() != id) {
@@ -101,6 +133,50 @@ void customerList::addNewCustomer()
 	this->appendCustomerBack(newCustomer);
 }
 
+void customerList::borrowing(itemList& iList) {
+	string id;
+	cout << "Input customer's ID: "; getline(cin, id);
+	if (findCustomer(id) == NULL) {
+		cout << "Invalid customer'sID\n";
+		return;
+	}
+	Customer* customer = findCustomer(id)->getCustomer();
+	cout << "\t\t====== Customer's Information =====\n";
+	cout << customer;
+	cout << "Input item's ID: "; getline(cin, id);
+	if (iList.findItem(id) == NULL) {
+		cout << "Invalid item's ID\n";
+		return;
+	}
+	Item* item = iList.findItem(id)->getItem();
+	if (customer->borrowing(item)) cout << "Successfully borrowing \n" << item;
+	else cout << "Item out of stock\n";
+}
+
+void customerList::returning(itemList& iList) {
+	string id;
+	cout << "Input customer's ID: "; getline(cin, id);
+	if (findCustomer(id) == NULL) {
+		cout << "Invalid customer'sID\n";
+		return;
+	}
+	Customer* customer = findCustomer(id)->getCustomer();
+	if (customer->getItemRented() == 0) {
+		cout << "Your account has not yet made a loan\n";
+		return;
+	}
+	cout << "\t\t====== Customer's Information =====\n";
+	cout << customer;
+	cout << "Input item's ID: "; getline(cin, id);
+	if (iList.findItem(id) == NULL) {
+		cout << "Invalid item's ID\n";
+		return;
+	}
+	Item* item = iList.findItem(id)->getItem();
+	if (customer->returning(item)) cout << "Successfully returning \n" << item;
+	else cout << "The item is not borrowed by this account\n";
+}
+
 void customerList::printGuest()
 {
 	// check if the list is empty
@@ -159,4 +235,80 @@ void customerList::printVIP()
 		tmp = tmp->getNext();
 	}
 	if (count == 0) cout << "No VIP customer in the list" << endl;
+}
+
+void customerList::sort_by_id()
+{
+	//check if list has "something"
+	if (head == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	CustomerNode* tmp;
+	CustomerNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = head;
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by Id
+			if (tmp->getCustomer()->getId() < prev->getCustomer()->getId()) {
+				// if after customer has id < previous customer's
+				//swap two customers
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Id..." << endl;
+}
+
+void customerList::sort_by_name()
+{
+	//check if list has "something"
+	if (head == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	CustomerNode* tmp;
+	CustomerNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = head;
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by name
+			if (compare_string(prev->getCustomer()->getName(), tmp->getCustomer()->getName()) == 1) {
+				// if the after customer have name < previous customer's
+				//swap two customers
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Name..." << endl;
+}
+
+bool customerList::isValidCustomer(Customer* customer, itemList iList) {
+	// invalid id syntax
+	if (!isValidCustomerId(customer->getId())) return false;
+	// invalid rank syntax
+	if (!isValidRank(customer->getRank())) return false;
+	// false data on rental system
+	if (customer->getItemRented() != customer->getRentalListLength()) return false;
+	//id is not unique
+	if (this->findCustomer(customer->getId()) != NULL) return false;
+	// wrong phone number
+	if (!isValidPhoneNumber(customer->getPhone())) return false;
+	// item in rental list is not from the store
+	if (!customer->hasViableRentalList(iList)) return false;
+	return true;
 }

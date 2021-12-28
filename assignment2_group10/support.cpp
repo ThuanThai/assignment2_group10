@@ -5,76 +5,6 @@ bool search(string source, string find) {
 	return (source.find(find) != string::npos);
 }
 
-void listReadItemfile(itemList& itemList) {
-	fstream fileIn;
-	string tmp;
-	int len;
-	int byte;
-	fileIn.open("item.txt", ios_base::in);
-	if (!fileIn) {
-		cerr << "Cannot open file\n";
-	}
-	while (getline(fileIn, tmp, '\n')) {
-		Item* item = new Item;
-		Item* newItem = NULL;
-		if (search(tmp, "Game")) {
-			len = tmp.length();
-			byte = (len * (-1)) - 2;
-			fileIn.seekg(byte, 1);
-			newItem = new Item;
-			newItem->readItemFile(fileIn);
-			if (isValidItem(*newItem, itemList)) {
-				itemList.appendItemBack(newItem);
-			}
-		}
-		else if (search(tmp, "DVD") || search(tmp, "Record")) {
-			len = tmp.length();
-			byte = (len * (-1)) - 2;
-			fileIn.seekg(byte, 1);
-			newItem = new RVItem;
-			newItem->readItemFile(fileIn);
-			if (isValidItem(*(RVItem*)newItem, itemList)) {
-				itemList.appendItemBack(newItem);
-			}
-		}
-	}
-	fileIn.close();
-}
-
-void listReadCustomerFile(customerList& cList, itemList iList) {
-	ifstream fileIn("customers.txt", ios_base::in);
-	if (!fileIn) {
-		cerr << "Cannot Open File\n";
-	}
-	while (!fileIn.eof())
-	{
-		Customer* customer = new Customer;
-		Customer* newCustomer = NULL;
-		customer->readCustomerFile(fileIn);
-		if (customer->getRank().compare("Guest") == 0) {
-			newCustomer = new GuestCustomer;
-			newCustomer->setCustomerType(customer);
-		}
-		else if (customer->getRank().compare("Regular") == 0) {
-			newCustomer = new RegularCustomer;
-			newCustomer->setCustomerType(customer);
-		}
-		else if (customer->getRank().compare("VIP") == 0) {
-			newCustomer = new VipCustomer;
-			newCustomer->setCustomerType(customer);
-		}
-
-		if (isValidCustomer(newCustomer, iList)) {
-			cList.appendCustomerBack(newCustomer);
-		}
-		else {
-			cout << "Cannot add " << newCustomer->getId() << " into the list!!!" << endl;
-		}
-	}
-	fileIn.close();
-}
-
-
 void updateItem(string id, itemList& iList) {
 	string update;
 	int choice;
@@ -193,49 +123,7 @@ void inputFee(float* fee) {
 	}
 }
 
-void borrowing(customerList& cList, itemList& iList) {
-	string id;
-	cout << "Input customer's ID: "; getline(cin, id);
-	if (cList.findCustomer(id) == NULL) {
-		cout << "Invalid customer'sID\n";
-		return;
-	}
-	Customer* customer = cList.findCustomer(id)->getCustomer();
-	cout << "\t\t====== Customer's Information =====\n";
-	cout << customer;
-	cout << "Input item's ID: "; getline(cin, id);
-	if (iList.findItem(id) == NULL) {
-		cout << "Invalid item's ID\n";
-		return;
-	}
-	Item* item = iList.findItem(id)->getItem();
-	if (customer->borrowing(item)) cout << "Successfully borrowing \n" << item;
-	else cout << "Item out of stock\n";
-}
 
-void returning(customerList& cList, itemList& iList) {
-	string id;
-	cout << "Input customer's ID: "; getline(cin, id);
-	if (cList.findCustomer(id) == NULL) {
-		cout << "Invalid customer'sID\n";
-		return;
-	}
-	Customer* customer = cList.findCustomer(id)->getCustomer();
-	if (customer->getItemRented() == 0) {
-		cout << "Your account has not yet made a loan\n";
-		return;
-	}
-	cout << "\t\t====== Customer's Information =====\n";
-	cout << customer;
-	cout << "Input item's ID: "; getline(cin, id);
-	if (iList.findItem(id) == NULL) {
-		cout << "Invalid item's ID\n";
-		return;
-	}
-	Item* item = iList.findItem(id)->getItem();
-	if (customer->returning(item)) cout << "Successfully returning \n" << item;
-	else cout << "The item is not borrowed by this account\n";
-}
 
 void menu() {
 	itemList iList; 
@@ -243,8 +131,8 @@ void menu() {
 	bool flag = true;
 	string choice;
 	string id;
-	listReadItemfile(iList);
-	listReadCustomerFile(cList, iList);
+	iList.readItemFile("item.txt");
+	cList.readCustomerFile("customers.txt", iList);
 	while (flag) {
 		system("cls");
 		cout << "1. add a new item, update or delete an existing item\n";
@@ -319,8 +207,8 @@ void menu() {
 			} while (choice != "1" && choice != "2");
 
 			//check sorting type
-			if (choice == "1") sort_by_id(iList);
-			else if (choice == "2") sort_by_title(iList);
+			if (choice == "1") iList.sort_by_id();
+			else if (choice == "2") iList.sort_by_title();
 			
 			//print the customer list
 			iList.printItemList();
@@ -362,8 +250,8 @@ void menu() {
 			} while (choice != "1" && choice != "2");
 
 			//check sorting type
-			if (choice == "1") sort_by_id(cList);
-			else if (choice == "2") sort_by_name(cList);
+			if (choice == "1") cList.sort_by_id();
+			else if (choice == "2") cList.sort_by_name();
 		
 			//print the customer list
 			cList.printCustomerList();
@@ -372,13 +260,13 @@ void menu() {
 		
 		//5. Rent an item
 		else if (choice == "5") {
-			borrowing(cList, iList);
+			cList.borrowing(iList);
 			system("pause");
 		}
 
 		//6. Return an item
 		else if (choice == "6") {
-			returning(cList, iList);
+			cList.returning(iList);
 			system("pause");
 		}
 
@@ -395,7 +283,7 @@ void menu() {
 				cin.ignore();
 			} while (choice != "1" && choice != "2" && choice != "3");
 			//sort by id before displaying
-			sort_by_id(cList);
+			cList.sort_by_id();
 
 			//start print out customer by group
 			if (choice == "1") cList.printGuest(); //print the guest
@@ -428,6 +316,7 @@ void swap(ItemNode* I1, ItemNode* I2) {
 }
 
 // sorting item by id
+/*
 void sort_by_id(itemList& List)
 {
 	//check if list has "something"
@@ -457,8 +346,9 @@ void sort_by_id(itemList& List)
 	}
 	cout << "Finish sorting the list by Id..." << endl;
 }
-
+*/
 // sorting item by title
+/*
 void sort_by_title(itemList& List)
 {
 	//check if list has "something"
@@ -488,8 +378,9 @@ void sort_by_title(itemList& List)
 	}
 	cout << "Finish sorting the list by Title..." << endl;
 }
-
+*/
 //sort customer by id
+/*
 void sort_by_id(customerList& List)
 {
 	//check if list has "something"
@@ -519,8 +410,9 @@ void sort_by_id(customerList& List)
 	}
 	cout << "Finish sorting the list by Id..." << endl;
 }
-
+*/
 //sort customer by name
+/*
 void sort_by_name(customerList& List)
 {
 	//check if list has "something"
@@ -550,6 +442,7 @@ void sort_by_name(customerList& List)
 	}
 	cout << "Finish sorting the list by Name..." << endl;
 }
+*/
 
 // function compare two string
 // return 1 if x > y
@@ -572,51 +465,6 @@ string toLower(string s)
 		}
 	}
 	return s;
-}
-
-// check if the valid item
-bool isValidItem(Item item, itemList list) {
-	//check valid id
-	if (!isValidItemId(item.getId())) return false;
-	//check valid type
-	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
-	//check valid loan type
-	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
-	//check for the same id which is already added to the list
-	if (list.findItem(item.getId()) != NULL) {
-		ItemNode* existedItem = list.findItem(item.getId());
-		// if new item is an existed item in the list - add up the stock
-		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
-			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()
-			) {
-			existedItem->getItem()->setStock(existedItem->getItem()->getStock() + item.getStock());
-		}
-		return false;
-	}
-	return true;
-}
-
-bool isValidItem(RVItem item, itemList list) {
-	//check valid id
-	if (!isValidItemId(item.getId())) return false;
-	//check valid type
-	if (!item.getType()._Equal("Game") && !item.getType()._Equal("DVD") && !item.getType()._Equal("Record")) return false;
-	//check valid loan type
-	if ((!item.getLoanType()._Equal("2-day") && !item.getLoanType()._Equal("1-week"))) return false;
-	//check valid genre
-	if (!item.getGenre()._Equal("Action") && !item.getGenre()._Equal("Horror") && !item.getGenre()._Equal("Drama") && !item.getGenre()._Equal("Comedy") && !item.getGenre()._Equal("")) return false;
-	//check for the same id which is already added to the list
-	if (list.findItem(item.getId()) != NULL) {
-		ItemNode* existedItem = list.findItem(item.getId());
-		// if new item is an existed item in the list - add up the stock
-		if (existedItem->getItem()->getTitle() == item.getTitle() && existedItem->getItem()->getType() == item.getType()
-			&& existedItem->getItem()->getLoanType() == item.getLoanType() && existedItem->getItem()->getFee() == item.getFee()
-			&& existedItem->getItem()->getGenre() == item.getGenre()) {
-			existedItem->getItem()->setStock(existedItem->getItem()->getStock() + item.getStock());
-		}
-		return false;
-	}
-	return true;
 }
 
 // check customer id
@@ -692,20 +540,4 @@ bool isValidPhoneNumber(string phoneNum) {
 	for (int i = 0; i < phoneNum.length(); i++) {
 		if (phoneNum[i] < '0' || phoneNum[i] > '9') return false;
 	}
-}
-
-bool isValidCustomer(Customer* customer, itemList iList) {
-	// invalid id syntax
-	if (!isValidCustomerId(customer->getId())) return false;
-	// invalid rank syntax
-	if (!isValidRank(customer->getRank())) return false;
-	// false data on rental system
-	if (customer->getItemRented() != customer->getRentalListLength()) return false;
-	// id is not unique
-	//if (cList.findCustomer(customer->getId()) != NULL) return false;
-	// wrong phone number
-	if (!isValidPhoneNumber(customer->getPhone())) return false;
-	// item in rental list is not from the store
-	if (!customer->hasViableRentalList(iList)) return false;
-	return true;
 }
