@@ -237,6 +237,66 @@ void customerList::printVIP()
 	if (count == 0) cout << "No VIP customer in the list" << endl;
 }
 
+void customerList::sort_by_id()
+{
+	//check if list has "something"
+	if (head == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	CustomerNode* tmp;
+	CustomerNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = head;
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by Id
+			if (tmp->getCustomer()->getId() < prev->getCustomer()->getId()) {
+				// if after customer has id < previous customer's
+				//swap two customers
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Id..." << endl;
+}
+
+void customerList::sort_by_name()
+{
+	//check if list has "something"
+	if (head == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	CustomerNode* tmp;
+	CustomerNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = head;
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by name
+			if (compare_string(prev->getCustomer()->getName(), tmp->getCustomer()->getName()) == 1) {
+				// if the after customer have name < previous customer's
+				//swap two customers
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Name..." << endl;
+}
+
 bool customerList::isValidCustomer(Customer* customer, itemList iList) {
 	// invalid id syntax
 	if (!isValidCustomerId(customer->getId())) return false;

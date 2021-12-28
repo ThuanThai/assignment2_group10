@@ -17,8 +17,9 @@ bool isValidRank(string rank);
 bool isValidPhoneNumber(string phoneNum);
 // sort
 void swap(CustomerNode* C1, CustomerNode* C2);
-void sort_by_id(customerList& List);
-void sort_by_name(customerList& List);
+//sort moves to list's header file
+//void sort_by_id(customerList& List);
+//void sort_by_name(customerList& List);
 
 //for item
 //check file/user input

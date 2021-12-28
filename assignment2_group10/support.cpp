@@ -207,8 +207,8 @@ void menu() {
 			} while (choice != "1" && choice != "2");
 
 			//check sorting type
-			if (choice == "1") sort_by_id(iList);
-			else if (choice == "2") sort_by_title(iList);
+			if (choice == "1") iList.sort_by_id();
+			else if (choice == "2") iList.sort_by_title();
 			
 			//print the customer list
 			iList.printItemList();
@@ -250,8 +250,8 @@ void menu() {
 			} while (choice != "1" && choice != "2");
 
 			//check sorting type
-			if (choice == "1") sort_by_id(cList);
-			else if (choice == "2") sort_by_name(cList);
+			if (choice == "1") cList.sort_by_id();
+			else if (choice == "2") cList.sort_by_name();
 		
 			//print the customer list
 			cList.printCustomerList();
@@ -283,7 +283,7 @@ void menu() {
 				cin.ignore();
 			} while (choice != "1" && choice != "2" && choice != "3");
 			//sort by id before displaying
-			sort_by_id(cList);
+			cList.sort_by_id();
 
 			//start print out customer by group
 			if (choice == "1") cList.printGuest(); //print the guest
@@ -316,6 +316,7 @@ void swap(ItemNode* I1, ItemNode* I2) {
 }
 
 // sorting item by id
+/*
 void sort_by_id(itemList& List)
 {
 	//check if list has "something"
@@ -345,8 +346,9 @@ void sort_by_id(itemList& List)
 	}
 	cout << "Finish sorting the list by Id..." << endl;
 }
-
+*/
 // sorting item by title
+/*
 void sort_by_title(itemList& List)
 {
 	//check if list has "something"
@@ -376,8 +378,9 @@ void sort_by_title(itemList& List)
 	}
 	cout << "Finish sorting the list by Title..." << endl;
 }
-
+*/
 //sort customer by id
+/*
 void sort_by_id(customerList& List)
 {
 	//check if list has "something"
@@ -407,8 +410,9 @@ void sort_by_id(customerList& List)
 	}
 	cout << "Finish sorting the list by Id..." << endl;
 }
-
+*/
 //sort customer by name
+/*
 void sort_by_name(customerList& List)
 {
 	//check if list has "something"
@@ -438,6 +442,7 @@ void sort_by_name(customerList& List)
 	}
 	cout << "Finish sorting the list by Name..." << endl;
 }
+*/
 
 // function compare two string
 // return 1 if x > y

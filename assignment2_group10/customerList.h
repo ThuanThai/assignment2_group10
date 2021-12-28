@@ -43,6 +43,9 @@ public:
 	void printGuest();
 	void printRegular();
 	void printVIP();
+	//sort functions
+	void sort_by_id();
+	void sort_by_name();
 };
 
 

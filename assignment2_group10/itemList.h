@@ -24,4 +24,7 @@ public:
 	void addNewItem(string type);
 	bool isValidItem(Item item);
 	bool isValidItem(RVItem item);
+	//sort funtions 
+	void sort_by_id();
+	void sort_by_title();
 };
