@@ -15,7 +15,7 @@ public:
 
 	void Output();
 	void Input(string type);
-	void readItemFile(fstream&);
+	int readItemFile(fstream&);
 	void updateType(Item* item, string newType);
 	friend ostream& operator << (ostream& stream, const RVItem* item);
 

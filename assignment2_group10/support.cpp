@@ -133,6 +133,7 @@ void menu() {
 	string id;
 	iList.readItemFile("item.txt");
 	cList.readCustomerFile("customers.txt", iList);
+	system("pause");
 	while (flag) {
 		system("cls");
 		cout << "1. add a new item, update or delete an existing item\n";
@@ -533,6 +534,32 @@ void updateCustomer(string id, customerList& cList) {
 			system("pause");
 			continue;
 		}
+	}
+}
+
+void checkItemMissing(int status) {
+	switch (status) {
+	case 1:
+		cout << "Miss item id ";
+		break;
+	case 2:
+		cout << "Miss title";
+		break;
+	case 3:
+		cout << "Miss rental type ";
+		break;
+	case 4:
+		cout << "Miss loan type ";
+		break;
+	case 5:
+		cout << "Miss number_of_copies ";
+		break;
+	case 6:
+		cout << "Miss rental fee ";
+		break;
+	case 7:
+		cout << "Miss genre ";
+		break;
 	}
 }
 
