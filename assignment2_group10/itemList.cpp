@@ -195,3 +195,63 @@ bool itemList::isValidItem(RVItem item) {
 	}
 	return true;
 }
+
+void itemList::sort_by_id()
+{
+	//check if list has "something"
+	if (head == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	ItemNode* tmp;
+	ItemNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = head;
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by Id
+			if (tmp->getItem()->getId() < prev->getItem()->getId()) {
+				// if after item has id < previous item's
+				//swap two items
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Id..." << endl;
+}
+
+void itemList::sort_by_title()
+{
+	//check if list has "something"
+	if (head == NULL) {
+		cout << "Nothing in the list" << endl;
+		return;
+	}
+	bool sorted = 0;
+	ItemNode* tmp;
+	ItemNode* prev;
+	//start sorting
+	while (!sorted) {
+		tmp = head;
+		while (tmp->getNext() != NULL) {
+			prev = tmp;
+			tmp = tmp->getNext();
+
+			//sorting by title
+			if (compare_string(prev->getItem()->getTitle(), tmp->getItem()->getTitle()) == 1) {
+				// if after item has title < previous item's
+				//swap two items
+				swap(prev, tmp);
+				sorted = 1;
+			}
+		}
+		sorted = !sorted; //flag to make the sorting continues until no swap function is called
+	}
+	cout << "Finish sorting the list by Title..." << endl;
+}
