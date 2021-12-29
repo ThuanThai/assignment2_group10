@@ -155,7 +155,6 @@ void customerList::borrowing(itemList& iList) {
 	}
 	Item* item = iList.findItem(id)->getItem();
 	if (customer->borrowing(item)) cout << "Successfully borrowing \n" << item;
-	else cout << "Item out of stock\n";
 }
 
 void customerList::returning(itemList& iList) {
