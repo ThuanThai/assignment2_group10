@@ -142,7 +142,7 @@ void itemList::readItemFile(string fileName) {
 			}
 			else {
 				checkItemMissing(status);
-				cout << "at line " << line << " in file: " << fileName << endl;
+				cout << "in line " << line << " file: " << fileName << endl;
 			}
 		}
 		else if (search(tmp, "DVD") || search(tmp, "Record")) {
@@ -158,7 +158,7 @@ void itemList::readItemFile(string fileName) {
 			}
 			else {
 				checkItemMissing(status);
-				cout << "at line " << line << " in file: " << fileName << endl;
+				cout << "in line " << line << " file: " << fileName << endl;
 			}
 		}
 		line++;

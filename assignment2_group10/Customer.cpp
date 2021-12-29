@@ -104,26 +104,35 @@ void Customer::Output() {
 	}
 }
 
-void Customer::readCustomerFile(ifstream& fileIn)
+int Customer::readCustomerFile(ifstream& fileIn)
 {
-	string tmp;
+	string tmp, itemRented;
+	int byte;
 	getline(fileIn, this->id, ',');
+	if (this->id == "") return 1;
 	getline(fileIn, this->name, ',');
+	if (this->name == "") return 2;
 	getline(fileIn, this->address, ',');
+	if (this->address == "") return 3;
 	getline(fileIn, this->phone, ',');
-	fileIn >> itemRented;
-	fileIn.ignore();
+	if (this->phone == "") return 4;
+	getline(fileIn, itemRented, ',');
+	if (itemRented == "") return 5;
+	this->itemRented = stoi(itemRented);
 	getline(fileIn, this->rank);
+	if (rank == "") return 6;
 	while (getline(fileIn, tmp, '\n')) {
 		if (tmp[0] == 'I') {
 			this->rList.push_back(tmp);
 		}
 		else {
-			int byte = (tmp.length() + 2) * (-1);
+			byte = (tmp.length() + 2) * (-1);
 			fileIn.seekg(byte, 1);
 			break;
 		}
 	}
+	if (this->rList.size() != this->itemRented) return 7;
+	return 0;
 }
 
 void Customer::setCustomerType(Customer* customer)

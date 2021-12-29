@@ -563,6 +563,32 @@ void checkItemMissing(int status) {
 	}
 }
 
+void checkCustomerMissing(int status) {
+	switch (status) {
+	case 1:
+		cout << "Miss customer id ";
+		break;
+	case 2:
+		cout << "Miss customer name ";
+		break;
+	case 3:
+		cout << "Miss customer address ";
+		break;
+	case 4:
+		cout << "Miss customer phone number ";
+		break;
+	case 5:
+		cout << "Miss customer rentals ";
+		break;
+	case 6:
+		cout << "Miss customer type ";
+		break;
+	case 7:
+		cout << "the quantity of the rental item does not match the quantity on the listing ";
+		break;
+	}
+}
+
 bool isValidPhoneNumber(string phoneNum) {
 	for (int i = 0; i < phoneNum.length(); i++) {
 		if (phoneNum[i] < '0' || phoneNum[i] > '9') return false;
