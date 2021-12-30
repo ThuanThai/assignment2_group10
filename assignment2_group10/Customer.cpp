@@ -125,7 +125,6 @@ int Customer::readCustomerFile(ifstream& fileIn)
 		return 5;
 	}
 	getline(fileIn, this->rank);
-	if (rank == "") return 6;
 	while (getline(fileIn, tmp, '\n')) {
 		if (tmp[0] == 'I') {
 			this->rList.push_back(tmp);
@@ -136,6 +135,7 @@ int Customer::readCustomerFile(ifstream& fileIn)
 			break;
 		}
 	}
+	if (rank == "") return 6;
 	if (this->rList.size() != this->itemRented) return 7;
 	return 0;
 }

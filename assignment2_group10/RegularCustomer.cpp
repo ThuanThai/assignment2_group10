@@ -20,6 +20,10 @@ bool RegularCustomer::borrowing(Item* item) {
 		this->itemRented++;
 		return true;
 	}
+	else {
+		cout << "The item is out of stock\n";
+		return false;
+	}
 	return false;
 }
 
