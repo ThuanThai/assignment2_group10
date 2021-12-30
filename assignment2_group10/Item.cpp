@@ -42,8 +42,19 @@ int Item::readItemFile(fstream& fileIn) {
 	this->title = title;
 	this->type = type;
 	this->loanType = loanType;
-	this->stock = stoi(stock);
-	this->fee = atof(fee.c_str());
+	try {
+		this->stock = stoi(stock);
+	}
+	catch (...) {
+		return 5;
+	}
+	try {
+		this->fee = atof(fee.c_str());
+	}
+	catch (...) {
+		return 6;
+	}
+	
 	return 0;
 }
 

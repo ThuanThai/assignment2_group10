@@ -118,7 +118,12 @@ int Customer::readCustomerFile(ifstream& fileIn)
 	if (this->phone == "") return 4;
 	getline(fileIn, itemRented, ',');
 	if (itemRented == "") return 5;
-	this->itemRented = stoi(itemRented);
+	try {
+		this->itemRented = stoi(itemRented);
+	}
+	catch(...){
+		return 5;
+	}
 	getline(fileIn, this->rank);
 	if (rank == "") return 6;
 	while (getline(fileIn, tmp, '\n')) {
