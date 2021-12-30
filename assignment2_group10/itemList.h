@@ -22,6 +22,7 @@ public:
 	void updateItem(string id);
 	void deleteItem(string ID);
 	void printItemList();
+	void displayOutOfStock();
 	void addNewItem(string type);
 	bool isValidItem(Item item);
 	bool isValidItem(RVItem item);
