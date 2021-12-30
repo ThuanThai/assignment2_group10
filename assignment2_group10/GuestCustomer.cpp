@@ -11,12 +11,23 @@ GuestCustomer::GuestCustomer() {
 }
 
 GuestCustomer::~GuestCustomer() { ; }
-
 bool GuestCustomer::borrowing(Item* item) {
+	if (item->getLoanType()._Equal("2-day")) {
+		cout << "Your account need to be upgraded to rent this item\n";
+		return false;
+	}
 	if (item->borrowing() && itemRented < MAX_BORROW) {
 		this->rList.push_back(item->getId());
 		this->itemRented++;
 		return true;
+	}
+	else if (!item->borrowing()) {
+		cout << "The item is out of stock\n";
+		return false;
+	}
+	else if (itemRented >= MAX_BORROW) {
+		cout << "Your account need to be upgraded to rent more item\n";
+		return false;
 	}
 	return false;
 }

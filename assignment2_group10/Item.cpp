@@ -12,15 +12,39 @@ void Item::Output() {
 	cout << "6.Fee: " << fee << endl;
 }
 
-void Item::readItemFile(fstream& fileIn) {
+int Item::readItemFile(fstream& fileIn) {
+	string id, title, type, loanType, stock, fee;
 	getline(fileIn, id, ',');
+	if (id == "") {
+		return 1;
+	}
 	getline(fileIn, title, ',');
+	if (title == "") {
+		return 2;
+	}
 	getline(fileIn, type, ',');
+	if (type == "") {
+		return 3;
+	}
 	getline(fileIn, loanType, ',');
-	fileIn >> stock;
-	fileIn.ignore();
-	fileIn >> fee;
-	fileIn.ignore();
+	if (loanType == "") {
+		return 4;
+	}
+	getline(fileIn, stock, ',');
+	if (stock == "") {
+		return 5;
+	}
+	getline(fileIn, fee);
+	if (fee == "") {
+		return 6;
+	}
+	this->id = id;
+	this->title = title;
+	this->type = type;
+	this->loanType = loanType;
+	this->stock = stoi(stock);
+	this->fee = atof(fee.c_str());
+	return 0;
 }
 
 ostream& operator << (ostream& stream, const Item* item) {

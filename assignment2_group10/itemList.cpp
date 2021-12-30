@@ -115,9 +115,11 @@ void itemList::addNewItem(string type) {
 	newItem->setFee(fee);
 	this->appendItemBack(newItem);
 }
+
 void itemList::readItemFile(string fileName) {
 	fstream fileIn;
 	string tmp;
+	int line = 1;
 	int len;
 	int byte;
 	fileIn.open(fileName, ios_base::in);
@@ -132,9 +134,15 @@ void itemList::readItemFile(string fileName) {
 			byte = (len * (-1)) - 2;
 			fileIn.seekg(byte, 1);
 			newItem = new Item;
-			newItem->readItemFile(fileIn);
-			if (this->isValidItem(*newItem)) {
-				appendItemBack(newItem);
+			int status = newItem->readItemFile(fileIn);
+			if (status == 0) {
+				if (this->isValidItem(*newItem)) {
+					appendItemBack(newItem);
+				}
+			}
+			else {
+				checkItemMissing(status);
+				cout << "in line " << line << " file: " << fileName << endl;
 			}
 		}
 		else if (search(tmp, "DVD") || search(tmp, "Record")) {
@@ -142,11 +150,18 @@ void itemList::readItemFile(string fileName) {
 			byte = (len * (-1)) - 2;
 			fileIn.seekg(byte, 1);
 			newItem = new RVItem;
-			newItem->readItemFile(fileIn);
-			if (this->isValidItem(*newItem)) {
-				appendItemBack(newItem);
+			int status =  newItem->readItemFile(fileIn);
+			if (status == 0) {
+				if (this->isValidItem(*newItem)) {
+					appendItemBack(newItem);
+				}
+			}
+			else {
+				checkItemMissing(status);
+				cout << "in line " << line << " file: " << fileName << endl;
 			}
 		}
+		line++;
 	}
 	fileIn.close();
 }

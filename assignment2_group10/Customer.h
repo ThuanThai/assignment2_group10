@@ -48,6 +48,6 @@ public:
 	friend ostream& operator << (ostream& stream, const Customer* customer);
 	friend istream& operator >> (istream& stream, Customer*& customer);
 	void Output();
-	void readCustomerFile(ifstream&);
+	int readCustomerFile(ifstream&);
 	void setCustomerType(Customer* customer);
 };

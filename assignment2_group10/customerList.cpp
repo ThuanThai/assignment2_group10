@@ -38,6 +38,7 @@ void customerList::deleteCustomer(string id) {
 
 void customerList::readCustomerFile(string fileName, itemList iList) {
 	ifstream fileIn(fileName, ios_base::in);
+	int line = 1;
 	if (!fileIn) {
 		cerr << "Cannot Open File\n";
 	}
@@ -45,7 +46,7 @@ void customerList::readCustomerFile(string fileName, itemList iList) {
 	{
 		Customer* customer = new Customer;
 		Customer* newCustomer = NULL;
-		customer->readCustomerFile(fileIn);
+		int status = customer->readCustomerFile(fileIn);
 		if (customer->getRank().compare("Guest") == 0) {
 			newCustomer = new GuestCustomer;
 			newCustomer->setCustomerType(customer);
@@ -58,12 +59,16 @@ void customerList::readCustomerFile(string fileName, itemList iList) {
 			newCustomer = new VipCustomer;
 			newCustomer->setCustomerType(customer);
 		}
-		if (isValidCustomer(newCustomer, iList)) {
-			appendCustomerBack(newCustomer);
+		if (status == 0) {
+			if (isValidCustomer(newCustomer, iList)) {
+				appendCustomerBack(newCustomer);
+			}
 		}
 		else {
-			cout << "Cannot add " << newCustomer->getId() << " into the list!!!" << endl;
+			checkCustomerMissing(status);
+			cout << "in line " << line << " file: " << fileName << endl;
 		}
+		line++;
 	}
 	fileIn.close();
 }
@@ -150,7 +155,6 @@ void customerList::borrowing(itemList& iList) {
 	}
 	Item* item = iList.findItem(id)->getItem();
 	if (customer->borrowing(item)) cout << "Successfully borrowing \n" << item;
-	else cout << "Item out of stock\n";
 }
 
 void customerList::returning(itemList& iList) {
@@ -303,7 +307,7 @@ bool customerList::isValidCustomer(Customer* customer, itemList iList) {
 	// invalid rank syntax
 	if (!isValidRank(customer->getRank())) return false;
 	// false data on rental system
-	if (customer->getItemRented() != customer->getRentalListLength()) return false;
+	/*if (customer->getItemRented() != customer->getRentalListLength()) return false;*/
 	//id is not unique
 	if (this->findCustomer(customer->getId()) != NULL) return false;
 	// wrong phone number
