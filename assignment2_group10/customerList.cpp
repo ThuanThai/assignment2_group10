@@ -84,6 +84,61 @@ CustomerNode* customerList::findCustomer(string id) {
 	return current;
 }
 
+void customerList::updateCustomer(string id) {
+	string update;
+	int choice;
+	bool flag = true;
+	CustomerNode* current = findCustomer(id);
+	if (current == NULL) {
+		cout << "Can not found\n";
+		system("pause");
+		return;
+	}
+	while (flag) {
+		system("cls");
+		current->getCustomer();
+		cout << "1.Name: " << current->getCustomer()->getName() << endl;
+		cout << "2.Address: " << current->getCustomer()->getAddress() << endl;
+		cout << "3.Phone: " << current->getCustomer()->getPhone() << endl;
+		cout << "0.Exit" << endl;
+		cout << "Enter attribute you want to change: ";
+		cin >> choice;
+		cin.ignore();
+		switch (choice) {
+		case 1: {
+			cout << "Enter new name: ";
+			getline(cin, update);
+			current->getCustomer()->setName(update);
+			break;
+		}
+		case 2: {
+			cout << "Enter new address: ";
+			getline(cin, update);
+			current->getCustomer()->setAddress(update);
+			break;
+		}
+		case 3: {
+			cout << "Enter new phone number: ";
+			getline(cin, update);
+			while (!isValidPhoneNumber(update)) {
+				cout << "Please enter digits only!!!" << endl;
+				cout << "Enter new phone number: ";
+				getline(cin, update);
+			}
+			current->getCustomer()->setPhone(update);
+			break;
+		}
+		case 0:
+			flag = false;
+			break;
+		default:
+			cout << "wrong chocie";
+			system("pause");
+			continue;
+		}
+	}
+}
+
 void customerList::printCustomerList() {
 	CustomerNode* current = this->head;
 	int i = 1;

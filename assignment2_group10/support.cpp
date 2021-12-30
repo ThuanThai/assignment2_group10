@@ -5,95 +5,95 @@ bool search(string source, string find) {
 	return (source.find(find) != string::npos);
 }
 
-void updateItem(string id, itemList& iList) {
-	string update;
-	int choice;
-	bool flag = true;
-	ItemNode* current = iList.findItem(id);
-	if (current == NULL) {
-		cout << "Can not found\n";
-		system("pause");
-		return;
-	}
-	while (flag) {
-		system("cls");
-		current->getItem()->Output();
-		cout << "0.Exit" << endl;
-		cout << "enter choice: ";
-		cin >> choice;
-		cin.ignore();
-		switch (choice) {
-		case 1: {
-			cout << "Enter new ID: ";
-			getline(cin, update);
-			current->getItem()->setId(id);
-			break;
-		}
-		case 2: {
-			cout << "Enter new title: ";
-			getline(cin, update);
-			current->getItem()->setTitle(update);
-			break;
-		}
-		case 3: {
-			cout << "Enter new type: ";
-			Item* updateItem;
-			string currentType = current->getItem()->getType();
-			getline(cin, update);
-			current->getItem()->setType(update);
-			if (currentType._Equal("Game") && (update._Equal("DVD") || update._Equal("Record"))) {
-				updateItem = new RVItem;
-				updateItem->updateType(current->getItem(), update);
-				current->setItem(updateItem);
-			}
-			else if (currentType._Equal("DVD") || currentType._Equal("Record") && update._Equal("Game")) {
-				updateItem = new Item;
-				updateItem->updateType(current->getItem(), update);
-				current->setItem(updateItem);
-			}
-			break;
-		}
-		case 4: {
-			cout << "Enter new loan type: ";
-			getline(cin, update);
-			current->getItem()->setLoanType(update);
-			break;
-		}
-		case 5: {
-			cout << "Enter new stock: ";
-			int newStock;
-			cin >> newStock;
-			current->getItem()->setStock(newStock);
-			break;
-		}
-		case 6: {
-			cout << "Enter new fee: ";
-			float newFee;
-			cin >> newFee;
-			current->getItem()->setFee(newFee);
-			break;
-		}
-		case 7: {
-			if (current->getItem()->getType()._Equal("Game")) {
-				cout << "wrong chocie";
-				system("pause");
-				continue;
-			}
-			cout << "Enter new genre: ";
-			getline(cin, update);
-			current->getItem()->setGenre(update);
-			break;
-		}
-		case 0:
-			flag = false;
-			break;
-		default:
-			cout << "wrong chocie";
-			system("pause");
-			continue;
-		}
-	}
-}
+//void updateItem(string id, itemList& iList) {
+//	string update;
+//	int choice;
+//	bool flag = true;
+//	ItemNode* current = iList.findItem(id);
+//	if (current == NULL) {
+//		cout << "Can not found\n";
+//		system("pause");
+//		return;
+//	}
+//	while (flag) {
+//		system("cls");
+//		current->getItem()->Output();
+//		cout << "0.Exit" << endl;
+//		cout << "enter choice: ";
+//		cin >> choice;
+//		cin.ignore();
+//		switch (choice) {
+//		case 1: {
+//			cout << "Enter new ID: ";
+//			getline(cin, update);
+//			current->getItem()->setId(id);
+//			break;
+//		}
+//		case 2: {
+//			cout << "Enter new title: ";
+//			getline(cin, update);
+//			current->getItem()->setTitle(update);
+//			break;
+//		}
+//		case 3: {
+//			cout << "Enter new type: ";
+//			Item* updateItem;
+//			string currentType = current->getItem()->getType();
+//			getline(cin, update);
+//			current->getItem()->setType(update);
+//			if (currentType._Equal("Game") && (update._Equal("DVD") || update._Equal("Record"))) {
+//				updateItem = new RVItem;
+//				updateItem->updateType(current->getItem(), update);
+//				current->setItem(updateItem);
+//			}
+//			else if (currentType._Equal("DVD") || currentType._Equal("Record") && update._Equal("Game")) {
+//				updateItem = new Item;
+//				updateItem->updateType(current->getItem(), update);
+//				current->setItem(updateItem);
+//			}
+//			break;
+//		}
+//		case 4: {
+//			cout << "Enter new loan type: ";
+//			getline(cin, update);
+//			current->getItem()->setLoanType(update);
+//			break;
+//		}
+//		case 5: {
+//			cout << "Enter new stock: ";
+//			int newStock;
+//			cin >> newStock;
+//			current->getItem()->setStock(newStock);
+//			break;
+//		}
+//		case 6: {
+//			cout << "Enter new fee: ";
+//			float newFee;
+//			cin >> newFee;
+//			current->getItem()->setFee(newFee);
+//			break;
+//		}
+//		case 7: {
+//			if (current->getItem()->getType()._Equal("Game")) {
+//				cout << "wrong chocie";
+//				system("pause");
+//				continue;
+//			}
+//			cout << "Enter new genre: ";
+//			getline(cin, update);
+//			current->getItem()->setGenre(update);
+//			break;
+//		}
+//		case 0:
+//			flag = false;
+//			break;
+//		default:
+//			cout << "wrong chocie";
+//			system("pause");
+//			continue;
+//		}
+//	}
+//}
 
 bool isValidItemId(string id) {
 	if (id.length() != 9) return false;
@@ -185,7 +185,7 @@ void menu() {
 			else if (choice == "2") {
 				cout << "Enter id: ";
 				cin >> id;
-				updateItem(id, iList);
+				iList.updateItem(id);
 			}
 			else if (choice == "3") {
 				iList.printItemList();
@@ -229,7 +229,7 @@ void menu() {
 			else if (choice == "2") {
 				cout << "enter id: ";
 				cin >> id;
-				updateCustomer(id, cList);
+				cList.updateCustomer(id);
 			}
 			else if (choice == "3") {
 				cout << "\t\t ===== delete =====\n";
@@ -482,60 +482,60 @@ bool isValidRank(string rank)
 	return true;
 }
 
-void updateCustomer(string id, customerList& cList) {
-	string update;
-	int choice;
-	bool flag = true;
-	CustomerNode* current = cList.findCustomer(id);
-	if (current == NULL) {
-		cout << "Can not found\n";
-		system("pause");
-		return;
-	}
-	while (flag) {
-		system("cls");
-		current->getCustomer();
-		cout << "1.Name: " << current->getCustomer()->getName() << endl;
-		cout << "2.Address: " << current->getCustomer()->getAddress() << endl;
-		cout << "3.Phone: " << current->getCustomer()->getPhone() << endl;
-		cout << "0.Exit" << endl;
-		cout << "Enter attribute you want to change: ";
-		cin >> choice;
-		cin.ignore();
-		switch (choice) {
-		case 1: {
-			cout << "Enter new name: ";
-			getline(cin, update);
-			current->getCustomer()->setName(update);
-			break;
-		}
-		case 2: {
-			cout << "Enter new address: ";
-			getline(cin, update);
-			current->getCustomer()->setAddress(update);
-			break;
-		}
-		case 3: {
-			cout << "Enter new phone number: ";
-			getline(cin, update);
-			while (!isValidPhoneNumber(update)) {
-				cout << "Please enter digits only!!!" << endl;
-				cout << "Enter new phone number: ";
-				getline(cin, update);
-			}
-			current->getCustomer()->setPhone(update);
-			break;
-		}
-		case 0:
-			flag = false;
-			break;
-		default:
-			cout << "wrong chocie";
-			system("pause");
-			continue;
-		}
-	}
-}
+//void updateCustomer(string id, customerList& cList) {
+//	string update;
+//	int choice;
+//	bool flag = true;
+//	CustomerNode* current = cList.findCustomer(id);
+//	if (current == NULL) {
+//		cout << "Can not found\n";
+//		system("pause");
+//		return;
+//	}
+//	while (flag) {
+//		system("cls");
+//		current->getCustomer();
+//		cout << "1.Name: " << current->getCustomer()->getName() << endl;
+//		cout << "2.Address: " << current->getCustomer()->getAddress() << endl;
+//		cout << "3.Phone: " << current->getCustomer()->getPhone() << endl;
+//		cout << "0.Exit" << endl;
+//		cout << "Enter attribute you want to change: ";
+//		cin >> choice;
+//		cin.ignore();
+//		switch (choice) {
+//		case 1: {
+//			cout << "Enter new name: ";
+//			getline(cin, update);
+//			current->getCustomer()->setName(update);
+//			break;
+//		}
+//		case 2: {
+//			cout << "Enter new address: ";
+//			getline(cin, update);
+//			current->getCustomer()->setAddress(update);
+//			break;
+//		}
+//		case 3: {
+//			cout << "Enter new phone number: ";
+//			getline(cin, update);
+//			while (!isValidPhoneNumber(update)) {
+//				cout << "Please enter digits only!!!" << endl;
+//				cout << "Enter new phone number: ";
+//				getline(cin, update);
+//			}
+//			current->getCustomer()->setPhone(update);
+//			break;
+//		}
+//		case 0:
+//			flag = false;
+//			break;
+//		default:
+//			cout << "wrong chocie";
+//			system("pause");
+//			continue;
+//		}
+//	}
+//}
 
 void checkItemMissing(int status) {
 	switch (status) {

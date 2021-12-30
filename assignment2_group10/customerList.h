@@ -34,6 +34,7 @@ public:
 	void deleteCustomer(string id);
 	void readCustomerFile(string fileName, itemList iList);
 	CustomerNode* findCustomer(string id);
+	void updateCustomer(string id);
 	void printCustomerList();
 	void addNewCustomer();
 	void borrowing(itemList& iList);

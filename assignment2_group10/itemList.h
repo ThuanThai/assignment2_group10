@@ -19,6 +19,7 @@ public:
 	void appendItemBack(Item* newItem);
 	void readItemFile(string fileName);
 	ItemNode* findItem(string id);
+	void updateItem(string id);
 	void deleteItem(string ID);
 	void printItemList();
 	void addNewItem(string type);

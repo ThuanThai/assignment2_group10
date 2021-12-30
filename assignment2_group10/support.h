@@ -8,7 +8,6 @@
 using namespace std;
 bool search(string source, string find);
 void menu();
-void updateCustomer(string id, customerList& cList);
 void checkItemMissing(int status);
 void checkCustomerMissing(int status);
 //for customer

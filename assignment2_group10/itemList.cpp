@@ -29,6 +29,96 @@ ItemNode* itemList::findItem(string id) {
 	return current;
 }
 
+void itemList::updateItem(string id) {
+	string update;
+	int choice;
+	bool flag = true;
+	ItemNode* current = findItem(id);
+	if (current == NULL) {
+		cout << "Can not found\n";
+		system("pause");
+		return;
+	}
+	while (flag) {
+		system("cls");
+		current->getItem()->Output();
+		cout << "0.Exit" << endl;
+		cout << "enter choice: ";
+		cin >> choice;
+		cin.ignore();
+		switch (choice) {
+		case 1: {
+			cout << "Enter new ID: ";
+			getline(cin, update);
+			current->getItem()->setId(id);
+			break;
+		}
+		case 2: {
+			cout << "Enter new title: ";
+			getline(cin, update);
+			current->getItem()->setTitle(update);
+			break;
+		}
+		case 3: {
+			cout << "Enter new type: ";
+			Item* updateItem;
+			string currentType = current->getItem()->getType();
+			getline(cin, update);
+			current->getItem()->setType(update);
+			if (currentType._Equal("Game") && (update._Equal("DVD") || update._Equal("Record"))) {
+				updateItem = new RVItem;
+				updateItem->updateType(current->getItem(), update);
+				current->setItem(updateItem);
+			}
+			else if (currentType._Equal("DVD") || currentType._Equal("Record") && update._Equal("Game")) {
+				updateItem = new Item;
+				updateItem->updateType(current->getItem(), update);
+				current->setItem(updateItem);
+			}
+			break;
+		}
+		case 4: {
+			cout << "Enter new loan type: ";
+			getline(cin, update);
+			current->getItem()->setLoanType(update);
+			break;
+		}
+		case 5: {
+			cout << "Enter new stock: ";
+			int newStock;
+			cin >> newStock;
+			current->getItem()->setStock(newStock);
+			break;
+		}
+		case 6: {
+			cout << "Enter new fee: ";
+			float newFee;
+			cin >> newFee;
+			current->getItem()->setFee(newFee);
+			break;
+		}
+		case 7: {
+			if (current->getItem()->getType()._Equal("Game")) {
+				cout << "wrong chocie";
+				system("pause");
+				continue;
+			}
+			cout << "Enter new genre: ";
+			getline(cin, update);
+			current->getItem()->setGenre(update);
+			break;
+		}
+		case 0:
+			flag = false;
+			break;
+		default:
+			cout << "wrong chocie";
+			system("pause");
+			continue;
+		}
+	}
+}
+
 void itemList::deleteItem(string ID) {
 	ItemNode* current = this->head;
 	ItemNode* prev = NULL;
