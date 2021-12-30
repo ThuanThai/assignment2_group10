@@ -38,6 +38,7 @@ bool VipCustomer::borrowing(Item* item) {
 				this->rewardPoint -= 100;
 				cout << "Your item is now FREE!!!" << endl;
 				cout << "Updated reward point: " << rewardPoint << endl;
+				cout << endl;
 			}
 		}
 		this->rList.push_back(item->getId());
