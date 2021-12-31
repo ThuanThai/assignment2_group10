@@ -75,4 +75,10 @@ void RVItem::updateType(Item* item, string newType) {
 	this->fee = item->getFee();
 	cout << "update Genre: ";
 	getline(cin, genre);
+	while (!genre._Equal("Action") && !genre._Equal("Horror") && !genre._Equal("Drama") && !genre._Equal("Comedy")) {
+		cout << "Only enter valid genre: Action || Horror || Drama || Comedy" << endl;
+		cout << "Enter updated genre: ";
+		getline(cin, genre);
+		cout << endl;
+	}
 }

@@ -50,7 +50,11 @@ void itemList::updateItem(string id) {
 		case 1: {
 			cout << "Enter new ID: ";
 			getline(cin, update);
-			current->getItem()->setId(id);
+			while (!isValidItemId(update) || this->findItem(update) != NULL) {
+				cout << "Valid Item Id syntax: Ixxx-yyyy | yyyy < 2022 | ID is unique in list." << endl;
+				cout << "Enter new ID: "; getline(cin, update);
+			}
+			current->getItem()->setId(update);
 			break;
 		}
 		case 2: {
@@ -64,6 +68,12 @@ void itemList::updateItem(string id) {
 			Item* updateItem;
 			string currentType = current->getItem()->getType();
 			getline(cin, update);
+			while (!update._Equal("Game") && !update._Equal("DVD") && !update._Equal("Record")) {
+				cout << "Only enter valid type: Game || DVD || Record" << endl;
+				cout << "Enter new type: ";
+				getline(cin, update);
+				cout << endl;
+			}
 			current->getItem()->setType(update);
 			if (currentType._Equal("Game") && (update._Equal("DVD") || update._Equal("Record"))) {
 				updateItem = new RVItem;
@@ -80,20 +90,27 @@ void itemList::updateItem(string id) {
 		case 4: {
 			cout << "Enter new loan type: ";
 			getline(cin, update);
+			while (!update._Equal("2-day") && !update._Equal("1-week")) {
+				cout << "Only enter valid loan type: 2-day || 1-week" << endl;
+				cout << "Enter new loan type: ";
+				getline(cin, update);
+				cout << endl;
+			}
 			current->getItem()->setLoanType(update);
 			break;
 		}
 		case 5: {
-			cout << "Enter new stock: ";
-			int newStock;
-			cin >> newStock;
+			int newStock = 0;
+			// get stock size
+			cout << endl;
+			inputStockSize(&newStock);
 			current->getItem()->setStock(newStock);
 			break;
 		}
 		case 6: {
-			cout << "Enter new fee: ";
-			float newFee;
-			cin >> newFee;
+			float newFee = 0.0f;
+			cout << endl;
+			inputFee(&newFee);
 			current->getItem()->setFee(newFee);
 			break;
 		}
