@@ -28,8 +28,6 @@ void inputStockSize(int* stock);
 void inputFee(float* fee);
 //sort
 void swap(ItemNode* I1, ItemNode* I2);
-void sort_by_id(itemList& List);
-void sort_by_title(itemList& List);
 
 // function compare two string
 // return 1 if x > y
@@ -38,3 +36,4 @@ int compare_string(string x, string y);
 
 //function transform string to lowercase
 string toLower(string s);
+void printGroupInfor();

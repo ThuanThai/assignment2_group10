@@ -35,6 +35,7 @@ public:
 
 	virtual void Output();
 	virtual int readItemFile(fstream&);
+	virtual void saveItemFile(fstream&);
 	virtual void setGenre(string genre) { ; } // Not do anything if item is not belong to RVItem;
 	virtual string getGenre() { return ""; }
 	virtual void updateType(Item* item, string newType);

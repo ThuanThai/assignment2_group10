@@ -33,6 +33,7 @@ public:
 	void appendCustomerBack(Customer* newCustomer);
 	void deleteCustomer(string id);
 	void readCustomerFile(string fileName, itemList iList);
+	void saveFileCustomer(string fileName);
 	CustomerNode* findCustomer(string id);
 	void updateCustomer(string id);
 	void printCustomerList();

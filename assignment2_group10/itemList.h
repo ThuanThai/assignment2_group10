@@ -18,6 +18,7 @@ public:
 	}
 	void appendItemBack(Item* newItem);
 	void readItemFile(string fileName);
+	void saveItemFile(string fileName);
 	ItemNode* findItem(string id);
 	void updateItem(string id);
 	void deleteItem(string ID);

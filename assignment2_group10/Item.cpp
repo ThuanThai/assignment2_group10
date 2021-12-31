@@ -58,6 +58,11 @@ int Item::readItemFile(fstream& fileIn) {
 	return 0;
 }
 
+void Item::saveItemFile(fstream& fileOut) {
+	fileOut << id << "," << title << "," << type << ","
+		<< loanType << "," << stock << "," << fee << endl;
+}
+
 ostream& operator << (ostream& stream, const Item* item) {
 	stream << "Id: " << item->id << endl;
 	stream << "Title: " << item->title << endl;

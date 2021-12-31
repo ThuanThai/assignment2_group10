@@ -140,6 +140,14 @@ int Customer::readCustomerFile(ifstream& fileIn)
 	return 0;
 }
 
+void Customer::saveCustomerFile(fstream& fileOut) {
+	fileOut << id << "," << name << "," << address << ","
+		<< phone << "," << itemRented << "," << rank << endl;
+	for (auto x : rList) {
+		fileOut << x << endl;
+	}
+}
+
 void Customer::setCustomerType(Customer* customer)
 {
 	this->id = customer->id;

@@ -162,10 +162,10 @@ void itemList::displayOutOfStock() {
 	while (current != NULL) {
 		if (current->getItem()->getStock() == 0) {
 			cout << "\t\t===== Item " << i << "=====\n";
-			cout << current;
+			cout << current->getItem();
+			i++;
 		}
 		current = current->getNext();
-		i++;
 	}
 }
 void itemList::addNewItem(string type) {
@@ -266,6 +266,19 @@ void itemList::readItemFile(string fileName) {
 		line++;
 	}
 	fileIn.close();
+}
+
+void itemList::saveItemFile(string fileName) {
+	fstream fileOut(fileName, ios_base::out);
+	if (!fileOut) {
+		cerr << "Can't open file\n";
+	}
+	ItemNode* current = head;
+	while (current != NULL) {
+		current->getItem()->saveItemFile(fileOut);
+		current = current->getNext();
+	}
+	fileOut.close();
 }
 
 // check if the valid item

@@ -49,5 +49,6 @@ public:
 	friend istream& operator >> (istream& stream, Customer*& customer);
 	void Output();
 	int readCustomerFile(ifstream&);
+	void saveCustomerFile(fstream&);
 	void setCustomerType(Customer* customer);
 };

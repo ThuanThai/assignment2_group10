@@ -73,6 +73,19 @@ void customerList::readCustomerFile(string fileName, itemList iList) {
 	fileIn.close();
 }
 
+void customerList::saveFileCustomer(string fileName) {
+	fstream fileOut(fileName, ios_base::out);
+	if (!fileOut) {
+		cerr << "Can't open file\n";
+	}
+	CustomerNode* current = head;
+	while (current != NULL) {
+		current->getCustomer()->saveCustomerFile(fileOut);
+		current = current->getNext();
+	}
+	fileOut.close();
+}
+
 CustomerNode* customerList::findCustomer(string id) {
 	CustomerNode* current = this->head;
 	while (current != NULL && current->getCustomer()->getId() != id) {

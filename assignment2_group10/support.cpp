@@ -33,6 +33,14 @@ void inputFee(float* fee) {
 	}
 }
 
+void printGroupInfor() {
+	cout << "\n\t\tASSIGNMENT 2 GROUP 10" << endl;
+	cout << "s3877819, s3877819@rmit.edu.vn, Phong, Le" << endl;
+	cout << "s3877798, s3877798@rmit.edu.vn, Anh, Nguyen" << endl;
+	cout << "s3877024, s3877024@rmit.edu.vn, Thuan, Thai" << endl;
+	cout << "s3761910, s3761910@rmit.edu.vn, Dat, Phan" << endl;
+}
+
 void menu() {
 	itemList iList; 
 	customerList cList;
@@ -44,16 +52,20 @@ void menu() {
 	system("pause");
 	while (flag) {
 		system("cls");
-		cout << "1. add a new item, update or delete an existing item\n";
-		cout << "2. print item list\n";
-		cout << "3. add new customer or update an existing customer\n";
-		cout << "4. print customer list\n";
-		cout << "5. Rent an item\n";
-		cout << "6. Return an item\n";
-		cout << "9. Print customer by groups\n";
+		cout << " 1. Add a new item, update or delete an existing item\n";
+		cout << " 2. Add new customer or update an existing customer\n";
+		cout << " 3. Promote an existing customer\n";
+		cout << " 4. Rent an item\n";
+		cout << " 5. Return an item\n";
+		cout << " 6. Display all items\n";
+		cout << " 7. Display out-of-stock items\n";
+		cout << " 8. Display all customers\n";
+		cout << " 9. Print customer by groups\n";
+		cout << "10. Search items or customers\n";
 		cout << "Enter your command here: ";
 		cin >> choice;
 		cin.ignore();
+		//add, update, delete item
 		if (choice == "1") {
 			system("cls");
 			cout << "1. add a new item\n";
@@ -103,8 +115,46 @@ void menu() {
 				iList.deleteItem(id);
 			}
 		}
-		// 2. Print item list
+		//add, update, customer
 		else if (choice == "2") {
+			system("cls");
+			cout << "1. add a new customer\n";
+			cout << "2. update a customer\n";
+			cout << "Enter your command: ";
+			do {
+				cout << "What type of item you want to add: ";
+				getline(cin, choice);
+				if (choice < "1" || choice > "2") {
+					cout << "Invalid choice\n";
+					cout << "Please enter a digit from 1 to 3!!! ex: enter 1 if you want to add a game.\n";
+				}
+			} while (choice < "1" || choice > "2");
+			if (choice == "1") {
+				cList.addNewCustomer();
+			}
+			else if (choice == "2") {
+				cout << "Enter id: ";
+				cin >> id;
+				cList.updateCustomer(id);
+			}
+		}
+		//promote customer type
+		else if (choice == "3") {
+			
+		}
+		//4. Rent an item
+		else if (choice == "4") {
+			cList.borrowing(iList);
+			system("pause");
+		}
+		
+		//5. Return an item
+		else if (choice == "5") {
+			cList.returning(iList);
+			system("pause");
+		}
+		// 6. Print item list
+		else if (choice == "6") {
 			//ask for sorting type
 			cout << "Sort the list by: " << endl;
 			cout << "1. Id" << endl;
@@ -118,36 +168,16 @@ void menu() {
 			//check sorting type
 			if (choice == "1") iList.sort_by_id();
 			else if (choice == "2") iList.sort_by_title();
-			
+
 			//print the customer list
 			iList.printItemList();
 			system("pause");
 		}
-		// add, update, delete customer.
-		else if (choice == "3") {
-			system("cls");
-			cout << "1. add a new customer\n";
-			cout << "2. update a customer\n";
-			cout << "3. delete a customer\n";
-			cout << "Enter your command: ";
-			cin >> choice;
-			if (choice == "1") {
-				cList.addNewCustomer();
-			}
-			else if (choice == "2") {
-				cout << "enter id: ";
-				cin >> id;
-				cList.updateCustomer(id);
-			}
-			else if (choice == "3") {
-				cout << "\t\t ===== delete =====\n";
-				cout << "enter id: ";
-				cin >> id;
-				cList.deleteCustomer(id);
-			}
+		else if (choice._Equal("7")) {
+			iList.displayOutOfStock();
+			system("pause");
 		}
-		// 4. Print customer list
-		else if (choice == "4") {
+		else if (choice._Equal("8")) {
 			//ask for sorting type
 			cout << "Sort the list by: " << endl;
 			cout << "1. Id" << endl;
@@ -161,24 +191,11 @@ void menu() {
 			//check sorting type
 			if (choice == "1") cList.sort_by_id();
 			else if (choice == "2") cList.sort_by_name();
-		
+
 			//print the customer list
 			cList.printCustomerList();
 			system("pause");
 		}
-		
-		//5. Rent an item
-		else if (choice == "5") {
-			cList.borrowing(iList);
-			system("pause");
-		}
-
-		//6. Return an item
-		else if (choice == "6") {
-			cList.returning(iList);
-			system("pause");
-		}
-
 		//9. Print group of customer
 		else if (choice == "9") {
 			//ask for which group
@@ -198,10 +215,40 @@ void menu() {
 			if (choice == "1") cList.printGuest(); //print the guest
 			else if (choice == "2") cList.printRegular(); //print the regular
 			else cList.printVIP(); // print the vip pro
-
 			system("pause");
 		}
+		else if (choice._Equal("10")) {
+			cout << "1. Item" << endl;
+			cout << "2. Customer" << endl;
+			do {
+				cout << "Enter your command here (1 or 2): ";
+				getline(cin, choice);
+			} while (choice != "1" && choice != "2");
+			if (choice._Equal("1")) {
+				cout << "Input item's ID: "; getline(cin, id);
+				if (iList.findItem(id) == NULL) {
+					cout << "Invalid item'sID\n";
+					system("pause");
+					continue;
+				}
+				cout << iList.findItem(id)->getItem();
+				system("pause");
+			}
+			else {
+				cout << "Input customer's ID: "; getline(cin, id);
+				if (cList.findCustomer(id) == NULL) {
+					cout << "Invalid customer'sID\n";
+					system("pause");
+					continue;
+				}
+				cout << cList.findCustomer(id)->getCustomer();
+				system("pause");
+			}
+		}
 		else if (choice == "Exit" || choice == "exit") {
+			iList.saveItemFile("itemOut.txt");
+			cList.saveFileCustomer("cusOut.txt");
+			printGroupInfor();
 			flag = false;
 			break;
 		}

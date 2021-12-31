@@ -50,6 +50,11 @@ int RVItem::readItemFile(fstream& fileIn) {
 	return 0;
 }
 
+void RVItem::saveItemFile(fstream& fileOut) {
+	fileOut << id << "," << title << "," << type << ","
+		<< loanType << "," << stock << "," << fee << "," << genre << endl;
+}
+
 ostream& operator << (ostream& stream, const RVItem* item) {
 	stream << "Id: " << item->id << endl;
 	stream << "Title: " << item->title << endl;
