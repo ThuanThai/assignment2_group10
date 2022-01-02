@@ -39,6 +39,7 @@ public:
 	string getPhone();
 	int getItemRented();
 	int getItemReturned();
+	vector<string> getItemRentedList();
 	string getRank();
 	int getRentalListLength();
 	bool hasViableRentalList(itemList stock);

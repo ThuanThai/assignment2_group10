@@ -5,7 +5,7 @@
 #include "VipCustomer.h"
 #include <iostream>
 
-int main() { 
+int main() {
 	menu();
 	return 0;
 }

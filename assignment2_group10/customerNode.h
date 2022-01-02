@@ -25,4 +25,7 @@ public:
 	//getter
 	Customer* getCustomer();
 	CustomerNode* getNext();
+
+	//promote customer
+	bool promoteCustomer();
 };

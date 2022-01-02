@@ -38,3 +38,15 @@ bool RegularCustomer::returning(Item* item) {
 	}
 	return false;
 }
+
+void RegularCustomer::copy(Customer* C)
+{
+	id = C->getId();
+	name = C->getName();
+	phone = C->getPhone();
+	address = C->getAddress();
+	itemRented = C->getItemRented();
+	rList = C->getItemRentedList();
+	rank = "Regular";
+	itemReturned = 0;
+}

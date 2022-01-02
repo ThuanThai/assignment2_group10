@@ -1,6 +1,6 @@
 #pragma once
 #include "Customer.h"
-class RegularCustomer:public Customer
+class RegularCustomer :public Customer
 {
 public:
 	RegularCustomer();
@@ -8,5 +8,11 @@ public:
 	~RegularCustomer();
 	bool borrowing(Item* item);
 	bool returning(Item* item);
-};
 
+	/*
+	function supporting the customer promoting
+	copy all information from old account to new account
+	except (int)itemReturned and (string)rank
+	*/
+	void copy(Customer* C);
+};

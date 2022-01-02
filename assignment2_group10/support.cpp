@@ -42,7 +42,7 @@ void printGroupInfor() {
 }
 
 void menu() {
-	itemList iList; 
+	itemList iList;
 	customerList cList;
 	bool flag = true;
 	string choice;
@@ -149,14 +149,29 @@ void menu() {
 		}
 		//promote customer type
 		else if (choice == "3") {
-			
+			//ask for customer id
+			cout << "Input customer's ID: "; getline(cin, id);
+			if (cList.findCustomer(id) == NULL) {
+				// if id is invalid
+				cout << "Invalid customer'sID\n";
+				system("pause");
+				continue;
+			}
+			//display the account to be promoted
+			cout << cList.findCustomer(id)->getCustomer();
+			if (cList.findCustomer(id)->promoteCustomer())
+				// if the promotion succeeds
+				// display new account
+				cout << cList.findCustomer(id)->getCustomer();
+			else cout << "This customer account does not meet the requirement to be promoted!" << endl;
+			system("pause");
 		}
 		//4. Rent an item
 		else if (choice == "4") {
 			cList.borrowing(iList);
 			system("pause");
 		}
-		
+
 		//5. Return an item
 		else if (choice == "5") {
 			cList.returning(iList);

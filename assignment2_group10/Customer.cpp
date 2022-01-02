@@ -9,7 +9,7 @@ Customer::Customer()
 	this->phone = "";
 	this->itemRented = 0;
 	this->itemReturned = 0;
-	this->rank = "";
+	this->rank = "Guest";
 	this->rList = {};
 }
 //constructor
@@ -52,8 +52,12 @@ string Customer::getAddress() { return this->address; }
 string Customer::getPhone() { return this->phone; }
 int Customer::getItemRented() { return this->itemRented; }
 int Customer::getItemReturned() { return this->itemReturned; }
+vector<string> Customer::getItemRentedList()
+{
+	return rList;
+}
 string Customer::getRank() { return this->rank; }
-int Customer::getRentalListLength(){ return this->rList.size(); }
+int Customer::getRentalListLength() { return this->rList.size(); }
 bool Customer::hasViableRentalList(itemList stock)
 {
 	for (auto x : this->rList) {
@@ -72,7 +76,7 @@ ostream& operator << (ostream& stream, const Customer* customer) {
 	stream << "Address " << customer->address << endl;
 	stream << "Phone: " << customer->phone << endl;
 	stream << "Rank: " << customer->rank << endl;
-	stream << "Lis of Rentals: " << endl;
+	stream << "List of Rentals: " << endl;
 	for (auto x : customer->rList)
 	{
 		stream << x << endl;
@@ -121,7 +125,7 @@ int Customer::readCustomerFile(ifstream& fileIn)
 	try {
 		this->itemRented = stoi(itemRented);
 	}
-	catch(...){
+	catch (...) {
 		return 5;
 	}
 	getline(fileIn, this->rank);
