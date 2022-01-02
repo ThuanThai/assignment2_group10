@@ -51,4 +51,5 @@ public:
 	int readCustomerFile(ifstream&);
 	void saveCustomerFile(fstream&);
 	void setCustomerType(Customer* customer);
+	vector<string> getItemList();
 };

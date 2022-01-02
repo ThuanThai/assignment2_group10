@@ -48,6 +48,7 @@ public:
 	//sort functions
 	void sort_by_id();
 	void sort_by_name();
+	bool isItemRented(string id);
 };
 
 

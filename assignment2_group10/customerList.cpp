@@ -384,3 +384,20 @@ bool customerList::isValidCustomer(Customer* customer, itemList iList) {
 	if (!customer->hasViableRentalList(iList)) return false;
 	return true;
 }
+
+bool customerList::isItemRented(string id) {
+	CustomerNode* ptr = this-> head;
+
+	while (ptr != NULL)
+	{
+		vector<string> items = ptr->getCustomer()->getItemList();
+		for(string item : items)
+		{
+			if (id == item) return true;
+		}
+
+		ptr = ptr->getNext();
+	}
+	
+	return false;
+}

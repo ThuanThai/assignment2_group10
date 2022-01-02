@@ -112,7 +112,16 @@ void menu() {
 				cout << "\t\t ===== delete =====\n";
 				cout << "Enter id: ";
 				cin >> id;
-				iList.deleteItem(id);
+
+				if (cList.isItemRented(id))
+				{
+					cout << "Item already rented!\n";
+					system("pause");
+				}
+				else 
+				{
+					iList.deleteItem(id);
+				}
 			}
 		}
 		//add, update, customer

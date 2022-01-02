@@ -158,3 +158,7 @@ void Customer::setCustomerType(Customer* customer)
 	this->rList = customer->rList;
 	this->rank = customer->rank;
 }
+
+vector<string> Customer::getItemList() {
+	return this->rList;
+}
