@@ -176,7 +176,6 @@ void customerList::addNewCustomer()
 		cout << "Valid id syntax: Cxxx | ID must be unique" << endl;
 		cout << "Enter customer ID: ";
 		getline(cin, newId);
-		
 	} while (!isValidCustomerId(newId) || this->findCustomer(newId) != NULL);
 
 	cout << "Enter customer name: ";
@@ -196,7 +195,7 @@ void customerList::addNewCustomer()
 	if (newRank._Equal("Guest")) {
 		newCustomer = new GuestCustomer(newId, newName, newAddress, newPhone);
 	}
-	else if(newRank._Equal("Regualar"))
+	else if (newRank._Equal("Regualar"))
 	{
 		newCustomer = new RegularCustomer(newId, newName, newAddress, newPhone);
 	}
