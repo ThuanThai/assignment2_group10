@@ -32,3 +32,29 @@ void CustomerNode::setNext(CustomerNode* nextNode) {
 //getter
 Customer* CustomerNode::getCustomer() { return this->customer; }
 CustomerNode* CustomerNode::getNext() { return this->next; }
+
+bool CustomerNode::promoteCustomer()
+{
+	if (customer->getRank() == "Vip") {
+		cout << "This customer is already a VIP" << endl;
+		return false;
+	}
+	else {
+		if (customer->getRank() == "Guest") {
+			Customer* tmp = new RegularCustomer;
+			((RegularCustomer*)tmp)->copy(this->customer);
+			delete this->customer;
+			this->setCustomer(tmp);
+			cout << "Finish promoting from Guest to Regular" << endl;
+			return true;
+		}
+		if (customer->getRank() == "Regular") {
+			Customer* tmp = new VipCustomer;
+			((VipCustomer*)tmp)->copy(this->customer);
+			delete this->customer;
+			this->setCustomer(tmp);
+			cout << "Finish promoting from Regular to VIP" << endl;
+			return true;
+		}
+	}
+}

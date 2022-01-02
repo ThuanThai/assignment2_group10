@@ -8,5 +8,13 @@ public:
 	~RegularCustomer();
 	bool borrowing(Item* item);
 	bool returning(Item* item);
+
+	void copy(Customer* C) {
+		id = C->getId();
+		name = C->getName();
+		phone = C->getPhone();
+		address = C->getAddress();
+		rank = "Regular";
+	}
 };
 

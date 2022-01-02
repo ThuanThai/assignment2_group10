@@ -9,7 +9,7 @@ Customer::Customer()
 	this->phone = "";
 	this->itemRented = 0;
 	this->itemReturned = 0;
-	this->rank = "";
+	this->rank = "Guest";
 	this->rList = {};
 }
 //constructor
