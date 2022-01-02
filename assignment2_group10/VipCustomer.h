@@ -1,5 +1,6 @@
 #pragma once
 #include "Customer.h"
+
 class VipCustomer :public Customer
 {
 private:
@@ -14,12 +15,10 @@ public:
 	bool borrowing(Item* item);
 	bool returning(Item* item);
 
-	void copy(Customer* C) {
-		id = C->getId();
-		name = C->getName();
-		phone = C->getPhone();
-		address = C->getAddress();
-		rank = "Vip";
-		rewardPoint = 0;
-	}
+	/*
+	function supporting the customer promoting
+	copy all information from old account to new account
+	except (int)itemReturned and (string)rank
+	*/
+	void copy(Customer* C);
 };

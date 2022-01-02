@@ -65,3 +65,15 @@ bool VipCustomer::returning(Item* item) {
 	return false;
 }
 
+void VipCustomer::copy(Customer* C)
+{
+	id = C->getId();
+	name = C->getName();
+	phone = C->getPhone();
+	address = C->getAddress();
+	itemRented = C->getItemRented();
+	rList = C->getItemRentedList();
+	rank = "VIP";
+	itemReturned = 0;
+	rewardPoint = 0;
+}
