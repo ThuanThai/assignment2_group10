@@ -86,9 +86,9 @@ void customerList::saveFileCustomer(string fileName) {
 	fileOut.close();
 }
 
-CustomerNode* customerList::findCustomer(string id) {
+CustomerNode* customerList::findCustomer(string searchEl) {
 	CustomerNode* current = this->head;
-	while (current != NULL && current->getCustomer()->getId() != id) {
+	while (current != NULL && current->getCustomer()->getId() != searchEl && current->getCustomer()->getName() != searchEl) {
 		current = current->getNext();
 	}
 	if (current == NULL) {

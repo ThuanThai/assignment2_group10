@@ -103,14 +103,14 @@ void menu() {
 				}
 			}
 			else if (choice == "2") {
-				cout << "Enter id: ";
+				cout << "Enter ID/Title: ";
 				cin >> id;
 				iList.updateItem(id);
 			}
 			else if (choice == "3") {
 				iList.printItemList();
 				cout << "\t\t ===== delete =====\n";
-				cout << "Enter id: ";
+				cout << "Enter ID/Title: ";
 				cin >> id;
 
 				if (cList.isItemRented(id))
@@ -142,7 +142,7 @@ void menu() {
 				cList.addNewCustomer();
 			}
 			else if (choice == "2") {
-				cout << "Enter id: ";
+				cout << "Enter ID/Name: ";
 				cin >> id;
 				cList.updateCustomer(id);
 			}
@@ -150,10 +150,10 @@ void menu() {
 		//promote customer type
 		else if (choice == "3") {
 			//ask for customer id
-			cout << "Input customer's ID: "; getline(cin, id);
+			cout << "Input customer's ID/Name: "; getline(cin, id);
 			if (cList.findCustomer(id) == NULL) {
 				// if id is invalid
-				cout << "Invalid customer'sID\n";
+				cout << "Invalid customer's ID/Name\n";
 				system("pause");
 				continue;
 			}
@@ -249,9 +249,9 @@ void menu() {
 				getline(cin, choice);
 			} while (choice != "1" && choice != "2");
 			if (choice._Equal("1")) {
-				cout << "Input item's ID: "; getline(cin, id);
+				cout << "Input item's ID/Title: "; getline(cin, id);
 				if (iList.findItem(id) == NULL) {
-					cout << "Invalid item'sID\n";
+					cout << "Invalid item'sID/Title\n";
 					system("pause");
 					continue;
 				}
@@ -259,9 +259,9 @@ void menu() {
 				system("pause");
 			}
 			else {
-				cout << "Input customer's ID: "; getline(cin, id);
+				cout << "Input customer's ID/Name: "; getline(cin, id);
 				if (cList.findCustomer(id) == NULL) {
-					cout << "Invalid customer'sID\n";
+					cout << "Invalid customer's ID/Name\n";
 					system("pause");
 					continue;
 				}

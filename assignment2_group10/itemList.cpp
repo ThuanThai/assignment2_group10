@@ -18,9 +18,9 @@ void itemList::appendItemBack(Item* newItem) {
 	current->setNext(newNode);
 }
 
-ItemNode* itemList::findItem(string id) {
+ItemNode* itemList::findItem(string searchEl) {
 	ItemNode* current = head;
-	while (current != NULL && current->getItem()->getId() != id) {
+	while (current != NULL && current->getItem()->getId() != searchEl && current->getItem()->getTitle() != searchEl) {
 		current = current->getNext();
 	}
 	if (current == NULL) {
