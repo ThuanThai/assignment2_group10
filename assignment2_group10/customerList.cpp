@@ -265,7 +265,7 @@ void customerList::printGuest()
 		}
 		tmp = tmp->getNext();
 	}
-	if (count == 0) cout << "No guest customer in the list" << endl;
+	if (count == 0) cout << "========== No guest customer in the list ==========" << endl;
 }
 
 void customerList::printRegular()
@@ -285,7 +285,7 @@ void customerList::printRegular()
 		}
 		tmp = tmp->getNext();
 	}
-	if (count == 0) cout << "No regular customer in the list" << endl;
+	if (count == 0) cout << "========== No regular customer in the list ==========" << endl;
 }
 
 void customerList::printVIP()
@@ -305,7 +305,7 @@ void customerList::printVIP()
 		}
 		tmp = tmp->getNext();
 	}
-	if (count == 0) cout << "No VIP customer in the list" << endl;
+	if (count == 0) cout << "========== No VIP customer in the list ==========" << endl;
 }
 
 void customerList::sort_by_id()

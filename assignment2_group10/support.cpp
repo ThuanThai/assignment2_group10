@@ -84,8 +84,8 @@ void menu() {
 					cout << "What type of item you want to add: ";
 					getline(cin, choice);
 					if (choice < "1" || choice > "3") {
-						cout << "Invalid choice\n";
-						cout << "Please enter a digit from 1 to 3!!! ex: enter 1 if you want to add a game.\n";
+						cout << "========== Invalid choice ==========\n";
+						cout << "Please enter a digit from 1 to 3! (ex: enter 1 if you want to add a game.)\n";
 					}
 				} while (choice < "1" || choice > "3");
 
@@ -115,7 +115,7 @@ void menu() {
 
 				if (cList.isItemRented(searchElement))
 				{
-					cout << "Item already rented!\n";
+					cout << "========== Item is already rented! ==========\n";
 					system("pause");
 				}
 				else 
@@ -134,8 +134,8 @@ void menu() {
 				cout << "What type of item you want to add: ";
 				getline(cin, choice);
 				if (choice < "1" || choice > "2") {
-					cout << "Invalid choice\n";
-					cout << "Please enter a digit from 1 to 3!!! ex: enter 1 if you want to add a game.\n";
+					cout << "========== Invalid choice ==========\n";
+					cout << "Please enter a digit from 1 to 3! (ex: enter 1 if you want to add a customer)\n";
 				}
 			} while (choice < "1" || choice > "2");
 			if (choice == "1") {
@@ -153,7 +153,7 @@ void menu() {
 			cout << "Input customer's ID/Name: "; getline(cin, searchElement);
 			if (cList.findCustomer(searchElement) == NULL) {
 				// if id is invalid
-				cout << "Invalid customer's ID/Name\n";
+				cout << "========== Invalid customer's ID/Name ==========\n";
 				system("pause");
 				continue;
 			}
@@ -251,20 +251,22 @@ void menu() {
 			if (choice._Equal("1")) {
 				cout << "Input item's ID/Title: "; getline(cin, searchElement);
 				if (iList.findItem(searchElement) == NULL) {
-					cout << "Invalid item'sID/Title\n";
+					cout << "========== No item found with that ID/Title ==========\n";
 					system("pause");
 					continue;
 				}
+				cout << "========== Item found ==========\n";
 				cout << iList.findItem(searchElement)->getItem();
 				system("pause");
 			}
 			else {
-				cout << "Input customer's ID/Name: "; getline(cin, searchElement);
+				cout << "Input customer's ID/Full Name: "; getline(cin, searchElement);
 				if (cList.findCustomer(searchElement) == NULL) {
-					cout << "Invalid customer's ID/Name\n";
+					cout << "========== No customer found with that ID/Name ==========\n";
 					system("pause");
 					continue;
 				}
+				cout << "========== Customer found ==========\n";
 				cout << cList.findCustomer(searchElement)->getCustomer();
 				system("pause");
 			}

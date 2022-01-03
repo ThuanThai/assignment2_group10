@@ -37,7 +37,7 @@ bool CustomerNode::promoteCustomer()
 {
 	//if the customer has highest rank
 	if (customer->getRank() == "VIP") {
-		cout << "==========This customer is already a VIP==========" << endl;
+		cout << "========== This customer is already a VIP ==========" << endl;
 		return false;
 	}
 	else {
@@ -50,7 +50,7 @@ bool CustomerNode::promoteCustomer()
 			delete this->customer;
 			//set new account
 			this->setCustomer(tmp);
-			cout << "==========Finish promoting from Guest to Regular==========" << endl;
+			cout << "========== Finish promoting from Guest to Regular ==========" << endl;
 			return true;
 		}
 		//if customer is a Regular and have returned 3 items
@@ -62,7 +62,7 @@ bool CustomerNode::promoteCustomer()
 			delete this->customer;
 			//set new account
 			this->setCustomer(tmp);
-			cout << "==========Finish promoting from Regular to VIP==========" << endl;
+			cout << "========== Finish promoting from Regular to VIP ==========" << endl;
 			return true;
 		}
 	}

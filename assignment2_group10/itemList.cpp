@@ -184,7 +184,7 @@ void itemList::displayOutOfStock() {
 		}
 		current = current->getNext();
 	}
-	if (i == 1) cout << "There is no out-of-stock item!!!" << endl;
+	if (i == 1) cout << "========== There is no out-of-stock item! ==========" << endl;
 }
 void itemList::addNewItem(string type) {
 	Item* newItem = new Item;
