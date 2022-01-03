@@ -241,6 +241,7 @@ void menu() {
 			else cList.printVIP(); // print the vip pro
 			system("pause");
 		}
+		// 10. search for item or customer 
 		else if (choice._Equal("10")) {
 			cout << "1. Item" << endl;
 			cout << "2. Customer" << endl;
@@ -248,26 +249,16 @@ void menu() {
 				cout << "Enter your command here (1 or 2): ";
 				getline(cin, choice);
 			} while (choice != "1" && choice != "2");
+			// if choice is item
 			if (choice._Equal("1")) {
 				cout << "Input item's ID/Title: "; getline(cin, searchElement);
-				if (iList.findItem(searchElement) == NULL) {
-					cout << "========== No item found with that ID/Title ==========\n";
-					system("pause");
-					continue;
-				}
-				cout << "========== Item found ==========\n";
-				cout << iList.findItem(searchElement)->getItem();
+				iList.search_for(searchElement);
 				system("pause");
 			}
+			// if choice is customer
 			else {
 				cout << "Input customer's ID/Full Name: "; getline(cin, searchElement);
-				if (cList.findCustomer(searchElement) == NULL) {
-					cout << "========== No customer found with that ID/Name ==========\n";
-					system("pause");
-					continue;
-				}
-				cout << "========== Customer found ==========\n";
-				cout << cList.findCustomer(searchElement)->getCustomer();
+				cList.search_for(searchElement);
 				system("pause");
 			}
 		}
@@ -282,7 +273,6 @@ void menu() {
 }
 
 //Sorting functions
-
 //for customer
 void swap(CustomerNode* C1, CustomerNode* C2) {
 	Customer* tmp = C1->getCustomer();

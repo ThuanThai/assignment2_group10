@@ -400,3 +400,34 @@ bool customerList::isItemRented(string id) {
 	
 	return false;
 }
+
+//function searching customer by comparing keyword in ID and name
+void customerList::search_for(string keyword)
+{
+	//if the list is empty
+	if (head == NULL) {
+		cout << "========== No customer in the list ==========" << endl;
+		return;
+	}
+	//if it is not empty
+	CustomerNode* current = head;
+	string id;
+	string name;
+	int count = 0;
+	while (current != NULL) {
+		// get the current account's Id and name
+		id = current->getCustomer()->getId(); 
+		name = current->getCustomer()->getName();
+		// check if the keyword appears in Id or name
+		if (strstr(id.c_str(),keyword.c_str()) || strstr(name.c_str(),keyword.c_str())) {
+			count++;
+			cout << "\t\t ===== Customer " << count << " =====\n";
+			// display the customer that matches
+			current->getCustomer()->Output();
+		}
+		// move to the next account
+		current = current->getNext();
+	}
+	// if no customer matches the keyword
+	if (count == 0) cout << "========== No customer found with that Id/Name ==========" << endl;
+}

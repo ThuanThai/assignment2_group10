@@ -403,3 +403,33 @@ void itemList::sort_by_title()
 	}
 	cout << "Finish sorting the list by Title..." << endl;
 }
+
+void itemList::search_for(string keyword)
+{
+	//if the list is empty
+	if (head == NULL) {
+		cout << "========== No item in the list ==========" << endl;
+		return;
+	}
+	//if it is not empty
+	ItemNode* current = head;
+	string id;
+	string title;
+	int count = 0;
+	while (current != NULL) {
+		// get the current Item's Id and title
+		id = current->getItem()->getId();
+		title = current->getItem()->getTitle();
+		// check if the keyword appears in Id or title
+		if (strstr(id.c_str(), keyword.c_str()) || strstr(title.c_str(), keyword.c_str())) {
+			count++;
+			cout << "\t\t ===== Item " << count << " =====\n";
+			// display the item that matches
+			current->getItem()->Output();
+		}
+		// move to the next item
+		current = current->getNext();
+	}
+	// if no item matches the keyword
+	if (count == 0) cout << "========== No item found with that Id/Name ==========" << endl;
+}

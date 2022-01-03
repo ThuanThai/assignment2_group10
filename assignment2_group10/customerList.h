@@ -34,7 +34,7 @@ public:
 	void deleteCustomer(string id);
 	void readCustomerFile(string fileName, itemList iList);
 	void saveFileCustomer(string fileName);
-	CustomerNode* findCustomer(string id);
+	CustomerNode* findCustomer(string searchEl);
 	void updateCustomer(string id);
 	void printCustomerList();
 	void addNewCustomer();
@@ -49,6 +49,8 @@ public:
 	void sort_by_id();
 	void sort_by_name();
 	bool isItemRented(string id);
+	//function print customers by searching for Id or name
+	void search_for(string keyword);
 };
 
 

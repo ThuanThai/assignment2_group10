@@ -30,4 +30,6 @@ public:
 	//sort funtions 
 	void sort_by_id();
 	void sort_by_title();
+	//function print items by searching for Id or title
+	void search_for(string keyword);
 };
