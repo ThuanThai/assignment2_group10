@@ -46,7 +46,7 @@ void menu() {
 	customerList cList;
 	bool flag = true;
 	string choice;
-	string id;
+	string searchElement;
 	iList.readItemFile("item.txt");
 	cList.readCustomerFile("customers.txt", iList);
 	system("pause");
@@ -104,23 +104,23 @@ void menu() {
 			}
 			else if (choice == "2") {
 				cout << "Enter ID/Title: ";
-				cin >> id;
-				iList.updateItem(id);
+				cin >> searchElement;
+				iList.updateItem(searchElement);
 			}
 			else if (choice == "3") {
 				iList.printItemList();
 				cout << "\t\t ===== delete =====\n";
 				cout << "Enter ID/Title: ";
-				cin >> id;
+				cin >> searchElement;
 
-				if (cList.isItemRented(id))
+				if (cList.isItemRented(searchElement))
 				{
 					cout << "Item already rented!\n";
 					system("pause");
 				}
 				else 
 				{
-					iList.deleteItem(id);
+					iList.deleteItem(searchElement);
 				}
 			}
 		}
@@ -143,26 +143,26 @@ void menu() {
 			}
 			else if (choice == "2") {
 				cout << "Enter ID/Name: ";
-				cin >> id;
-				cList.updateCustomer(id);
+				cin >> searchElement;
+				cList.updateCustomer(searchElement);
 			}
 		}
 		//promote customer type
 		else if (choice == "3") {
 			//ask for customer id
-			cout << "Input customer's ID/Name: "; getline(cin, id);
-			if (cList.findCustomer(id) == NULL) {
+			cout << "Input customer's ID/Name: "; getline(cin, searchElement);
+			if (cList.findCustomer(searchElement) == NULL) {
 				// if id is invalid
 				cout << "Invalid customer's ID/Name\n";
 				system("pause");
 				continue;
 			}
 			//display the account to be promoted
-			cout << cList.findCustomer(id)->getCustomer();
-			if (cList.findCustomer(id)->promoteCustomer())
+			cout << cList.findCustomer(searchElement)->getCustomer();
+			if (cList.findCustomer(searchElement)->promoteCustomer())
 				// if the promotion succeeds
 				// display new account
-				cout << cList.findCustomer(id)->getCustomer();
+				cout << cList.findCustomer(searchElement)->getCustomer();
 			else cout << "This customer account does not meet the requirement to be promoted!" << endl;
 			system("pause");
 		}
@@ -249,23 +249,23 @@ void menu() {
 				getline(cin, choice);
 			} while (choice != "1" && choice != "2");
 			if (choice._Equal("1")) {
-				cout << "Input item's ID/Title: "; getline(cin, id);
-				if (iList.findItem(id) == NULL) {
+				cout << "Input item's ID/Title: "; getline(cin, searchElement);
+				if (iList.findItem(searchElement) == NULL) {
 					cout << "Invalid item'sID/Title\n";
 					system("pause");
 					continue;
 				}
-				cout << iList.findItem(id)->getItem();
+				cout << iList.findItem(searchElement)->getItem();
 				system("pause");
 			}
 			else {
-				cout << "Input customer's ID/Name: "; getline(cin, id);
-				if (cList.findCustomer(id) == NULL) {
+				cout << "Input customer's ID/Name: "; getline(cin, searchElement);
+				if (cList.findCustomer(searchElement) == NULL) {
 					cout << "Invalid customer's ID/Name\n";
 					system("pause");
 					continue;
 				}
-				cout << cList.findCustomer(id)->getCustomer();
+				cout << cList.findCustomer(searchElement)->getCustomer();
 				system("pause");
 			}
 		}

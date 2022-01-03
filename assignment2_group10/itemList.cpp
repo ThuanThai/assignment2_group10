@@ -29,11 +29,11 @@ ItemNode* itemList::findItem(string searchEl) {
 	return current;
 }
 
-void itemList::updateItem(string id) {
+void itemList::updateItem(string searchEl) {
 	string update;
 	int choice;
 	bool flag = true;
-	ItemNode* current = findItem(id);
+	ItemNode* current = findItem(searchEl);
 	if (current == NULL) {
 		cout << "Can not found\n";
 		system("pause");
@@ -136,15 +136,15 @@ void itemList::updateItem(string id) {
 	}
 }
 
-void itemList::deleteItem(string ID) {
+void itemList::deleteItem(string searchEl) {
 	ItemNode* current = this->head;
 	ItemNode* prev = NULL;
-	if (current->getItem()->getId() == ID && current->getNext() != NULL) {
+	if (current->getItem()->getId() == searchEl && current->getItem()->getTitle() == searchEl && current->getNext() != NULL) {
 		this->head = this->head->getNext();
 		delete current;
 		return;
 	}
-	while (current != NULL && current->getItem()->getId() != ID) {
+	while (current != NULL && current->getItem()->getId() != searchEl && current->getItem()->getTitle() != searchEl) {
 		prev = current;
 		current = current->getNext();
 	}
@@ -184,6 +184,7 @@ void itemList::displayOutOfStock() {
 		}
 		current = current->getNext();
 	}
+	if (i == 1) cout << "There is no out-of-stock item!!!" << endl;
 }
 void itemList::addNewItem(string type) {
 	Item* newItem = new Item;

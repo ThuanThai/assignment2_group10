@@ -20,8 +20,8 @@ public:
 	void readItemFile(string fileName);
 	void saveItemFile(string fileName);
 	ItemNode* findItem(string searchEl);
-	void updateItem(string id);
-	void deleteItem(string ID);
+	void updateItem(string searchEl);
+	void deleteItem(string searchEl);
 	void printItemList();
 	void displayOutOfStock();
 	void addNewItem(string type);
