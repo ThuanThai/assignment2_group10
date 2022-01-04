@@ -103,7 +103,7 @@ void customerList::updateCustomer(string id) {
 	bool flag = true;
 	CustomerNode* current = findCustomer(id);
 	if (current == NULL) {
-		cout << "Can not found\n";
+		cout << "========== Can not found that customer ==========\n";
 		system("pause");
 		return;
 	}
@@ -134,7 +134,7 @@ void customerList::updateCustomer(string id) {
 			cout << "Enter new phone number: ";
 			getline(cin, update);
 			while (!isValidPhoneNumber(update)) {
-				cout << "Please enter digits only!!!" << endl;
+				cout << "========== Please enter digits only!!! ==========" << endl;
 				cout << "Enter new phone number: ";
 				getline(cin, update);
 			}
@@ -145,7 +145,7 @@ void customerList::updateCustomer(string id) {
 			flag = false;
 			break;
 		default:
-			cout << "wrong chocie";
+			cout << "========== Wrong choice ==========\n";
 			system("pause");
 			continue;
 		}
@@ -171,13 +171,22 @@ void customerList::addNewCustomer()
 	string newAddress;
 	string newPhone;
 	string newRank;
-	do {
-		cin.ignore();
-		cout << "Valid id syntax: Cxxx | ID must be unique" << endl;
+	while (true) {
 		cout << "Enter customer ID: ";
 		getline(cin, newId);
-	} while (!isValidCustomerId(newId) || this->findCustomer(newId) != NULL);
-
+		// check for valid id
+		if (!isValidCustomerId(newId)) {
+			cout << "========== Valid ID syntax: Cxxx | ID must be unique ==========" << endl;
+			continue;
+		}
+		// check for unique id
+		if (this->findCustomer(newId) != NULL) {
+			cout << "========== This ID is already used ==========" << endl;
+			continue;
+		}
+		else break;
+	}
+	
 	cout << "Enter customer name: ";
 	getline(cin, newName);
 
@@ -186,6 +195,11 @@ void customerList::addNewCustomer()
 
 	cout << "Enter customer phone number: ";
 	getline(cin, newPhone);
+	while (!isValidPhoneNumber(newPhone)) {
+		cout << "========== Please enter digits only!!! ==========" << endl;
+		cout << "Enter customer phone number: ";
+		getline(cin, newPhone);
+	}
 
 	do {
 		cout << "Valid customer rank: Guest | Regular | VIP" << endl;
@@ -195,7 +209,7 @@ void customerList::addNewCustomer()
 	if (newRank._Equal("Guest")) {
 		newCustomer = new GuestCustomer(newId, newName, newAddress, newPhone);
 	}
-	else if (newRank._Equal("Regualar"))
+	else if (newRank._Equal("Regular"))
 	{
 		newCustomer = new RegularCustomer(newId, newName, newAddress, newPhone);
 	}
@@ -209,7 +223,7 @@ void customerList::borrowing(itemList& iList) {
 	string id;
 	cout << "Input customer's ID: "; getline(cin, id);
 	if (findCustomer(id) == NULL) {
-		cout << "Invalid customer'sID\n";
+		cout << "========== Invalid customer's ID ==========\n";
 		return;
 	}
 	Customer* customer = findCustomer(id)->getCustomer();
@@ -217,7 +231,7 @@ void customerList::borrowing(itemList& iList) {
 	cout << customer;
 	cout << "Input item's ID: "; getline(cin, id);
 	if (iList.findItem(id) == NULL) {
-		cout << "Invalid item's ID\n";
+		cout << "========== Invalid item's ID ==========\n";
 		return;
 	}
 	Item* item = iList.findItem(id)->getItem();
@@ -228,31 +242,31 @@ void customerList::returning(itemList& iList) {
 	string id;
 	cout << "Input customer's ID: "; getline(cin, id);
 	if (findCustomer(id) == NULL) {
-		cout << "Invalid customer'sID\n";
+		cout << "========== Invalid customer's ID ==========\n";
 		return;
 	}
 	Customer* customer = findCustomer(id)->getCustomer();
 	if (customer->getItemRented() == 0) {
-		cout << "Your account has not yet made a loan\n";
+		cout << "========== Your account has not yet made a loan ==========\n";
 		return;
 	}
 	cout << "\t\t====== Customer's Information =====\n";
 	cout << customer;
 	cout << "Input item's ID: "; getline(cin, id);
 	if (iList.findItem(id) == NULL) {
-		cout << "Invalid item's ID\n";
+		cout << "========== Invalid item's ID ==========\n";
 		return;
 	}
 	Item* item = iList.findItem(id)->getItem();
 	if (customer->returning(item)) cout << "Successfully returning \n" << item;
-	else cout << "The item is not borrowed by this account\n";
+	else cout << "========== This item is not borrowed by this account ==========\n";
 }
 
 void customerList::printGuest()
 {
 	// check if the list is empty
 	if (head == NULL) {
-		cout << "No customer in the list" << endl;
+		cout << "========== No customer in the list ==========" << endl;
 		return;
 	}
 	int count = 0; //variable counting the needed customer
@@ -272,7 +286,7 @@ void customerList::printRegular()
 {
 	// check if the list is empty
 	if (head == NULL) {
-		cout << "No customer in the list" << endl;
+		cout << "========== No customer in the list ==========" << endl;
 		return;
 	}
 	int count = 0; //variable counting the needed customer
@@ -292,7 +306,7 @@ void customerList::printVIP()
 {
 	// check if the list is empty
 	if (head == NULL) {
-		cout << "No customer in the list" << endl;
+		cout << "========== No customer in the list ==========" << endl;
 		return;
 	}
 	int count = 0; //variable counting the needed customer
@@ -312,7 +326,7 @@ void customerList::sort_by_id()
 {
 	//check if list has "something"
 	if (head == NULL) {
-		cout << "Nothing in the list" << endl;
+		cout << "========== Nothing in the list ==========" << endl;
 		return;
 	}
 	bool sorted = 0;
@@ -342,7 +356,7 @@ void customerList::sort_by_name()
 {
 	//check if list has "something"
 	if (head == NULL) {
-		cout << "Nothing in the list" << endl;
+		cout << "========== Nothing in the list ==========" << endl;
 		return;
 	}
 	bool sorted = 0;

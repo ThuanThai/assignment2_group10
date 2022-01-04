@@ -245,6 +245,7 @@ void itemList::readItemFile(string fileName) {
 	fileIn.open(fileName, ios_base::in);
 	if (!fileIn) {
 		cerr << "Cannot open file\n";
+		return;
 	}
 	while (getline(fileIn, tmp, '\n')) {
 		Item* item = new Item;
@@ -289,7 +290,8 @@ void itemList::readItemFile(string fileName) {
 void itemList::saveItemFile(string fileName) {
 	fstream fileOut(fileName, ios_base::out);
 	if (!fileOut) {
-		cerr << "Can't open file\n";
+		cerr << "========== Can't open file ========== \n";
+		return;
 	}
 	ItemNode* current = head;
 	while (current != NULL) {

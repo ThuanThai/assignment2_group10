@@ -62,6 +62,7 @@ void menu() {
 		cout << " 8. Display all customers\n";
 		cout << " 9. Print customer by groups\n";
 		cout << "10. Search items or customers\n";
+		cout << "Type \"Exit\" to save the file and exit the program\n\n";
 		cout << "Enter your command here: ";
 		cin >> choice;
 		cin.ignore();
@@ -131,11 +132,11 @@ void menu() {
 			cout << "2. update a customer\n";
 			cout << "Enter your command: ";
 			do {
-				cout << "What type of item you want to add: ";
 				getline(cin, choice);
 				if (choice < "1" || choice > "2") {
 					cout << "========== Invalid choice ==========\n";
 					cout << "Please enter a digit from 1 to 3! (ex: enter 1 if you want to add a customer)\n";
+					cout << "Enter your command: ";
 				}
 			} while (choice < "1" || choice > "2");
 			if (choice == "1") {
@@ -263,7 +264,7 @@ void menu() {
 			}
 		}
 		else if (choice == "Exit" || choice == "exit") {
-			iList.saveItemFile("itemOut.txt");
+			iList.saveItemFile("itemOut1.txt");
 			cList.saveFileCustomer("cusOut.txt");
 			printGroupInfor();
 			flag = false;
