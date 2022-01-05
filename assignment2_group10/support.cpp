@@ -114,7 +114,7 @@ void menu() {
 					iList.addNewItem(type);
 				}
 				else {
-					type == "DVD";
+					type = "DVD";
 					iList.addNewItem(type);
 				}
 			}
@@ -279,8 +279,8 @@ void menu() {
 			}
 		}
 		else if (choice == "Exit" || choice == "exit") {
-			iList.saveItemFile("itemOut.txt");
-			cList.saveFileCustomer("cusOut.txt");
+			iList.saveItemFile("item.txt");
+			cList.saveFileCustomer("customers.txt");
 			printGroupInfor();
 			flag = false;
 			break;

@@ -20,14 +20,14 @@ bool VipCustomer::borrowing(Item* item) {
 	if (item->borrowing()) {
 		cout << "Current reward point: " << rewardPoint << endl;
 		if (this->rewardPoint >= 100) {
-			cout << "Do you want to exhange 100 reward point to borrow the item for free?" << endl;
+			cout << "Do you want to exchange 100 reward points to borrow the item for free?" << endl;
 			cout << "1.YES" << endl;
 			cout << "2.NO" << endl;
 			cout << "Enter here: ";
 			cin >> choice;
 			cout << endl;
 			while (choice != "1" && choice != "2" && choice != "YES" && choice != "NO") {
-				cout << "Please only enter: 1 || 2 || YES || NO" << endl;
+				cout << "Please only enter: 1 or 2 or YES or NO" << endl;
 				cout << "1.YES" << endl;
 				cout << "2.NO" << endl;
 				cout << "Enter here: ";
@@ -36,7 +36,7 @@ bool VipCustomer::borrowing(Item* item) {
 			}
 			if (choice == "1" || choice == "YES") {
 				this->rewardPoint -= 100;
-				cout << "Your item is now FREE!!!" << endl;
+				cout <<  "\t\t========== Your item is now FREE!!! ==========" << endl;
 				cout << "Updated reward point: " << rewardPoint << endl;
 				cout << endl;
 			}

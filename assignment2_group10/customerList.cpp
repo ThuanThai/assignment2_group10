@@ -222,7 +222,7 @@ void customerList::addNewCustomer()
 
 void customerList::borrowing(itemList& iList) {
 	string id;
-	cout << "Input customer's ID: "; getline(cin, id);
+	cout << "Input customer's ID/Name: "; getline(cin, id);
 	if (findCustomer(id) == NULL) {
 		cout << "========== Invalid customer's ID ==========\n";
 		return;
@@ -230,13 +230,13 @@ void customerList::borrowing(itemList& iList) {
 	Customer* customer = findCustomer(id)->getCustomer();
 	cout << "\t\t====== Customer's Information =====\n";
 	cout << customer;
-	cout << "Input item's ID: "; getline(cin, id);
+	cout << "Input item's ID/Title: "; getline(cin, id);
 	if (iList.findItem(id) == NULL) {
 		cout << "========== Invalid item's ID ==========\n";
 		return;
 	}
 	Item* item = iList.findItem(id)->getItem();
-	if (customer->borrowing(item)) cout << "Successfully borrowing \n" << item;
+	if (customer->borrowing(item)) cout << "========== Successfully borrowing ==========\n" << item;
 }
 
 void customerList::returning(itemList& iList) {
@@ -259,7 +259,7 @@ void customerList::returning(itemList& iList) {
 		return;
 	}
 	Item* item = iList.findItem(id)->getItem();
-	if (customer->returning(item)) cout << "Successfully returning \n" << item;
+	if (customer->returning(item)) cout << "========== Successfully returning ==========\n" << item;
 	else cout << "========== This item is not borrowed by this account ==========\n";
 }
 
