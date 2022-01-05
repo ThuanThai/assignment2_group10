@@ -9,6 +9,11 @@ bool isValidItemId(string id) {
 	if (id.length() != 9) return false;
 	if (id.at(0) != 'I') return false;
 	if (id.at(4) != '-') return false;
+	for (int i = 1; i < id.length(); i++) {
+		if (i != 4) {
+			if (!isdigit(id[i])) return false;
+		}
+	}
 	if (stoi(id.substr(5, 4)) > 2022) return false;
 	return true;
 }
@@ -16,9 +21,14 @@ void inputStockSize(int* stock) {
 	string stockStr;
 	cout << "Num of copies: "; cin >> stockStr;
 	try {
-		*(stock) = stoi(stockStr);
+		*stock = stoi(stockStr);
+		if (*stock < 0) {
+			cerr << "========== Enter positive number only ==========\n";
+			inputStockSize(stock);
+		}
 	}
 	catch (const std::exception& ex) {
+		cerr << "========== Enter number only ==========\n";
 		inputStockSize(stock);
 	}
 }
@@ -26,9 +36,14 @@ void inputFee(float* fee) {
 	string feeStr;
 	cout << "Fee: "; cin >> feeStr;
 	try {
-		*(fee) = stof(feeStr);
+		*fee = stof(feeStr);
+		if (*fee < 0) {
+			cerr << "========== Enter positive number only ==========\n";
+			inputFee(fee);
+		}
 	}
 	catch (const std::exception& ex) {
+		cerr << "========== Enter number only ==========\n";
 		inputFee(fee);
 	}
 }
@@ -69,9 +84,9 @@ void menu() {
 		//add, update, delete item
 		if (choice == "1") {
 			system("cls");
-			cout << "1. add a new item\n";
-			cout << "2. update a new item\n";
-			cout << "3. delete\n";
+			cout << "1. Add a new item\n";
+			cout << "2. Update an item\n";
+			cout << "3. Delete\n";
 			cout << "Enter your command here: ";
 			cin >> choice;
 			cin.ignore();
@@ -264,7 +279,7 @@ void menu() {
 			}
 		}
 		else if (choice == "Exit" || choice == "exit") {
-			iList.saveItemFile("itemOut1.txt");
+			iList.saveItemFile("itemOut.txt");
 			cList.saveFileCustomer("cusOut.txt");
 			printGroupInfor();
 			flag = false;

@@ -206,6 +206,7 @@ void customerList::addNewCustomer()
 		cout << "Enter customer rank: ";
 		getline(cin, newRank);
 	} while (!isValidRank(newRank));
+
 	if (newRank._Equal("Guest")) {
 		newCustomer = new GuestCustomer(newId, newName, newAddress, newPhone);
 	}

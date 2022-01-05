@@ -35,7 +35,7 @@ void itemList::updateItem(string searchEl) {
 	bool flag = true;
 	ItemNode* current = findItem(searchEl);
 	if (current == NULL) {
-		cout << "Can not found\n";
+		cout << "========== Can not found ==========\n";
 		system("pause");
 		return;
 	}
@@ -43,18 +43,13 @@ void itemList::updateItem(string searchEl) {
 		system("cls");
 		current->getItem()->Output();
 		cout << "0.Exit" << endl;
-		cout << "enter choice: ";
+		cout << "Enter choice: ";
 		cin >> choice;
 		cin.ignore();
 		switch (choice) {
 		case 1: {
-			cout << "Enter new ID: ";
-			getline(cin, update);
-			while (!isValidItemId(update) || this->findItem(update) != NULL) {
-				cout << "Valid Item Id syntax: Ixxx-yyyy | yyyy < 2022 | ID is unique in list." << endl;
-				cout << "Enter new ID: "; getline(cin, update);
-			}
-			current->getItem()->setId(update);
+			cerr << "========== Cannot change the ID ==========\n";
+			system("pause");
 			break;
 		}
 		case 2: {
@@ -139,9 +134,11 @@ void itemList::updateItem(string searchEl) {
 void itemList::deleteItem(string searchEl) {
 	ItemNode* current = this->head;
 	ItemNode* prev = NULL;
-	if (current->getItem()->getId() == searchEl && current->getItem()->getTitle() == searchEl && current->getNext() != NULL) {
+	if ((current->getItem()->getId() == searchEl || current->getItem()->getTitle() == searchEl) && current->getNext() != NULL) {
 		this->head = this->head->getNext();
 		delete current;
+		cout << "========== Delete Successfully! ==========\n";
+		system("pause");
 		return;
 	}
 	while (current != NULL && current->getItem()->getId() != searchEl && current->getItem()->getTitle() != searchEl) {
@@ -154,7 +151,7 @@ void itemList::deleteItem(string searchEl) {
 	}
 	prev->setNext(current->getNext());
 	delete current;
-	cout << "Delete Successfully!\n";
+	cout << "========== Delete Successfully! ==========\n";
 	system("pause");
 }
 
