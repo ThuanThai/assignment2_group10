@@ -3,10 +3,16 @@
 class RegularCustomer :public Customer
 {
 public:
+	//constructor
 	RegularCustomer();
 	RegularCustomer(string id, string name, string address, string phone, string rank = "Regular") :Customer(id, name, address, phone, rank) { ; }
+	
+	//destructor
 	~RegularCustomer();
+
+	// borrow function
 	bool borrowing(Item* item);
+	// return function
 	bool returning(Item* item);
 
 	/*

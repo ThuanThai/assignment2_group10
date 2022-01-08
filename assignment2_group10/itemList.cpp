@@ -5,6 +5,21 @@
 #include <iostream>
 using namespace std;
 
+//constructor
+itemList::itemList() {
+	head = NULL;
+}
+
+itemList::itemList(Item* newItem) {
+	head = new ItemNode(newItem);
+}
+
+//getter
+ItemNode* itemList::getHead() {
+	return this->head;
+}
+
+// add item to list
 void itemList::appendItemBack(Item* newItem) {
 	ItemNode* newNode = new ItemNode(newItem);
 	ItemNode* current = head;
@@ -18,6 +33,7 @@ void itemList::appendItemBack(Item* newItem) {
 	current->setNext(newNode);
 }
 
+// search itemNode
 ItemNode* itemList::findItem(string searchEl) {
 	ItemNode* current = head;
 	while (current != NULL && current->getItem()->getId() != searchEl && current->getItem()->getTitle() != searchEl) {
@@ -29,6 +45,7 @@ ItemNode* itemList::findItem(string searchEl) {
 	return current;
 }
 
+// update item
 void itemList::updateItem(string searchEl) {
 	string update;
 	int choice;
@@ -131,6 +148,7 @@ void itemList::updateItem(string searchEl) {
 	}
 }
 
+//delete item
 void itemList::deleteItem(string searchEl) {
 	ItemNode* current = this->head;
 	ItemNode* prev = NULL;
@@ -155,6 +173,8 @@ void itemList::deleteItem(string searchEl) {
 	system("pause");
 }
 
+
+// print item list
 void itemList::printItemList() {
 	ItemNode* current = this->head;
 	int i = 1;
@@ -170,6 +190,8 @@ void itemList::printItemList() {
 		i++;
 	}
 }
+
+// print out of stock item
 void itemList::displayOutOfStock() {
 	ItemNode* current = head;
 	int i = 1;
@@ -183,6 +205,8 @@ void itemList::displayOutOfStock() {
 	}
 	if (i == 1) cout << "========== There is no out-of-stock item! ==========" << endl;
 }
+
+// add new item 
 void itemList::addNewItem(string type) {
 	Item* newItem = new Item;
 	string id, title, loanType, genre;
@@ -233,6 +257,7 @@ void itemList::addNewItem(string type) {
 	this->appendItemBack(newItem);
 }
 
+//read item file
 void itemList::readItemFile(string fileName) {
 	fstream fileIn;
 	string tmp;
@@ -284,6 +309,7 @@ void itemList::readItemFile(string fileName) {
 	fileIn.close();
 }
 
+//save item file
 void itemList::saveItemFile(string fileName) {
 	fstream fileOut(fileName, ios_base::out);
 	if (!fileOut) {
@@ -343,6 +369,7 @@ bool itemList::isValidItem(RVItem item) {
 	return true;
 }
 
+//sort funtions 
 void itemList::sort_by_id()
 {
 	//check if list has "something"
@@ -373,6 +400,7 @@ void itemList::sort_by_id()
 	cout << "Finish sorting the list by Id..." << endl;
 }
 
+//sort funtions 
 void itemList::sort_by_title()
 {
 	//check if list has "something"
@@ -403,6 +431,7 @@ void itemList::sort_by_title()
 	cout << "Finish sorting the list by Title..." << endl;
 }
 
+//function print items by searching for Id or title
 void itemList::search_for(string keyword)
 {
 	//if the list is empty

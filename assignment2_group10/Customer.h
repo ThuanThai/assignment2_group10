@@ -23,6 +23,8 @@ public:
 	Customer(string id, string name, string address, string phone, string rank = "Guest");
 	//copy constructor
 	Customer(Customer& C);
+	//destructor
+	~Customer() {};
 
 	void setId(string id);
 	void setName(string name);

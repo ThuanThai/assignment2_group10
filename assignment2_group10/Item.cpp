@@ -1,8 +1,25 @@
 #include "Item.h"
 #include "support.h"
 
-Item::~Item() {;}
+//constructor
+Item::Item() {
+	this->id = "";
+	this->title = "";
+	this->type = "";
+	this->loanType = "";
+	this->stock = 0;
+	this->fee = 0.0f;
+}
+Item::Item(string id, string title, string type, string loanType, int stock, float fee) {
+	this->id = id;
+	this->title = title;
+	this->type = type;
+	this->loanType = loanType;
+	this->stock = stock;
+	this->fee = fee;
+}
 
+// print an item info
 void Item::Output() {
 	cout << "1.ID: " << id << endl;
 	cout << "2.Title: " << title << endl;
@@ -12,6 +29,7 @@ void Item::Output() {
 	cout << "6.Fee: " << fee << endl;
 }
 
+// read file items.txt
 int Item::readItemFile(fstream& fileIn) {
 	string id, title, type, loanType, stock, fee;
 	getline(fileIn, id, ',');
@@ -58,11 +76,13 @@ int Item::readItemFile(fstream& fileIn) {
 	return 0;
 }
 
+// save information to file
 void Item::saveItemFile(fstream& fileOut) {
 	fileOut << id << "," << title << "," << type << ","
 		<< loanType << "," << stock << "," << fee << endl;
 }
 
+//overload ostream
 ostream& operator << (ostream& stream, const Item* item) {
 	stream << "Id: " << item->id << endl;
 	stream << "Title: " << item->title << endl;
@@ -73,6 +93,7 @@ ostream& operator << (ostream& stream, const Item* item) {
 	return stream;
 }
 
+// update type of item
 void Item::updateType(Item* item, string newType) {
 	this->id = item->getId();
 	this->title = item->getTitle();
@@ -82,6 +103,7 @@ void Item::updateType(Item* item, string newType) {
 	this->fee = item->getFee();
 }
 
+// borrow function
 bool Item::borrowing() {
 	if(stock == 0)
 		return false;
@@ -92,8 +114,48 @@ bool Item::borrowing() {
 	}
 }
 
+// return function
 bool Item::returning() {
 	stock++;
 	return true;
 }
 
+//getter
+string Item::getId() {
+	return this->id;
+}
+string Item::getTitle() {
+	return this->title;
+}
+string Item::getType() {
+	return this->type;
+}
+string Item::getLoanType() {
+	return this->loanType;
+}
+int Item::getStock() {
+	return this->stock;
+}
+float Item::getFee() {
+	return this->fee;
+}
+
+// setter
+void Item::setId(string id) {
+	this->id = id;
+}
+void Item::setTitle(string title) {
+	this->title = title;
+}
+void Item::setLoanType(string loanType) {
+	this->loanType = loanType;
+}
+void Item::setStock(int stock) {
+	this->stock = stock;
+}
+void Item::setFee(float fee) {
+	this->fee = fee;
+}
+void Item::setType(string type) {
+	this->type = type;
+}

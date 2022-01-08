@@ -1,28 +1,36 @@
 #pragma once
 #include "Item.h"
 
+// Movies and Record DVD
 class RVItem : public Item {
 private:
 	string genre;
 public:
-	RVItem() : Item() {
-		this->genre = "";
-	}
-	RVItem(string id, string title, string type, string loanType, int stock, float fee, string genre) : Item(id, title, type, loanType, stock, fee) {
-		this->genre = genre;
-	}
+	//constructor
+	RVItem();
+	RVItem(string id, string title, string type, string loanType, int stock, float fee, string genre);
+
+	//destructor
 	~RVItem() { ; }
 
+	// print RV Item info
 	void Output();
-	void Input(string type);
+
+	// read item file
 	int readItemFile(fstream&);
+	
+	// save item file
 	void saveItemFile(fstream&);
+
+	// update type of customer
 	void updateType(Item* item, string newType);
+
+	//overload ostream
 	friend ostream& operator << (ostream& stream, const RVItem* item);
 
 	//getter
-	string getGenre() { return genre; }
+	string getGenre();
 
 	//setter
-	void setGenre(string genre) { this->genre = genre; }
+	void setGenre(string genre);
 };

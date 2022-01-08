@@ -1,5 +1,7 @@
 #pragma once
 #include "GuestCustomer.h"
+
+//constructor
 GuestCustomer::GuestCustomer() {
 	this->id = "";
 	this->name = "";
@@ -10,7 +12,10 @@ GuestCustomer::GuestCustomer() {
 	this->rank = "Guest";
 }
 
+//destructor
 GuestCustomer::~GuestCustomer() { ; }
+
+// borrow function
 bool GuestCustomer::borrowing(Item* item) {
 	if (item->getLoanType()._Equal("2-day")) {
 		cout << "Your account need to be upgraded to rent this item\n";
@@ -32,6 +37,7 @@ bool GuestCustomer::borrowing(Item* item) {
 	return false;
 }
 
+// return function
 bool GuestCustomer::returning(Item* item) {
 	for (int i = 0; i < rList.size(); i++) {
 		if (item->getId()._Equal(this->rList[i]) && item->returning()) {
