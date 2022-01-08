@@ -1,6 +1,34 @@
 #pragma once
 #include "customerList.h"
 #include "support.h"
+
+//default constructor
+customerList::customerList() {
+	head = NULL;
+}
+
+customerList::customerList(Customer* newCustomer) {
+	head = new CustomerNode(newCustomer);
+}
+//destructor
+customerList::~customerList() {
+	if (head == NULL) {
+		return;
+	}
+	CustomerNode* temp = head;
+	while (temp != NULL) {
+		head = head->getNext();
+		delete temp;
+		temp = head;
+	}
+}
+
+//getter
+CustomerNode* customerList::getHead() {
+	return this->head;
+}
+
+// add a customer
 void customerList::appendCustomerBack(Customer* newCustomer) {
 	CustomerNode* newCustomerNode = new CustomerNode(newCustomer);
 	CustomerNode* current = this->head;
@@ -14,6 +42,7 @@ void customerList::appendCustomerBack(Customer* newCustomer) {
 	current->setNext(newCustomerNode);
 }
 
+// delete a customer
 void customerList::deleteCustomer(string id) {
 	CustomerNode* current = head;
 	CustomerNode* prev = NULL;
@@ -36,6 +65,7 @@ void customerList::deleteCustomer(string id) {
 	delete current;
 }
 
+// read customer file
 void customerList::readCustomerFile(string fileName, itemList iList) {
 	ifstream fileIn(fileName, ios_base::in);
 	int line = 1;
@@ -73,6 +103,7 @@ void customerList::readCustomerFile(string fileName, itemList iList) {
 	fileIn.close();
 }
 
+// save customer file
 void customerList::saveFileCustomer(string fileName) {
 	fstream fileOut(fileName, ios_base::out);
 	if (!fileOut) {
@@ -86,6 +117,7 @@ void customerList::saveFileCustomer(string fileName) {
 	fileOut.close();
 }
 
+// find customer
 CustomerNode* customerList::findCustomer(string searchEl) {
 	CustomerNode* current = this->head;
 	while (current != NULL && current->getCustomer()->getId() != searchEl && current->getCustomer()->getName() != searchEl) {
@@ -97,6 +129,7 @@ CustomerNode* customerList::findCustomer(string searchEl) {
 	return current;
 }
 
+// update a customer searched by id
 void customerList::updateCustomer(string id) {
 	string update;
 	int choice;
@@ -152,6 +185,7 @@ void customerList::updateCustomer(string id) {
 	}
 }
 
+// print customer list
 void customerList::printCustomerList() {
 	CustomerNode* current = this->head;
 	int i = 1;
@@ -163,6 +197,7 @@ void customerList::printCustomerList() {
 	}
 }
 
+// add new customer
 void customerList::addNewCustomer()
 {
 	Customer* newCustomer;
@@ -220,6 +255,7 @@ void customerList::addNewCustomer()
 	this->appendCustomerBack(newCustomer);
 }
 
+// borrow function
 void customerList::borrowing(itemList& iList) {
 	string id;
 	cout << "Input customer's ID/Name: "; getline(cin, id);
@@ -239,6 +275,7 @@ void customerList::borrowing(itemList& iList) {
 	if (customer->borrowing(item)) cout << "========== Successfully borrowing ==========\n" << item;
 }
 
+// return function
 void customerList::returning(itemList& iList) {
 	string id;
 	cout << "Input customer's ID: "; getline(cin, id);
@@ -263,6 +300,7 @@ void customerList::returning(itemList& iList) {
 	else cout << "========== This item is not borrowed by this account ==========\n";
 }
 
+//functions print group of customer
 void customerList::printGuest()
 {
 	// check if the list is empty
@@ -283,6 +321,7 @@ void customerList::printGuest()
 	if (count == 0) cout << "========== No guest customer in the list ==========" << endl;
 }
 
+//functions print group of customer
 void customerList::printRegular()
 {
 	// check if the list is empty
@@ -303,6 +342,7 @@ void customerList::printRegular()
 	if (count == 0) cout << "========== No regular customer in the list ==========" << endl;
 }
 
+//functions print group of customer
 void customerList::printVIP()
 {
 	// check if the list is empty
@@ -323,6 +363,7 @@ void customerList::printVIP()
 	if (count == 0) cout << "========== No VIP customer in the list ==========" << endl;
 }
 
+//sort functions
 void customerList::sort_by_id()
 {
 	//check if list has "something"
@@ -353,6 +394,7 @@ void customerList::sort_by_id()
 	cout << "Finish sorting the list by Id..." << endl;
 }
 
+//sort functions
 void customerList::sort_by_name()
 {
 	//check if list has "something"
@@ -383,6 +425,7 @@ void customerList::sort_by_name()
 	cout << "Finish sorting the list by Name..." << endl;
 }
 
+//check for valid customer
 bool customerList::isValidCustomer(Customer* customer, itemList iList) {
 	// invalid id syntax
 	if (!isValidCustomerId(customer->getId())) return false;
@@ -399,6 +442,7 @@ bool customerList::isValidCustomer(Customer* customer, itemList iList) {
 	return true;
 }
 
+//check if customer rent an item
 bool customerList::isItemRented(string id) {
 	CustomerNode* ptr = this-> head;
 

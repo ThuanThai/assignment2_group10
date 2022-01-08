@@ -5,6 +5,7 @@ private:
 	Item* item;
 	ItemNode* next;
 public:
+	//constructor
 	ItemNode() {
 		this->item = NULL;
 		this->next = NULL;
@@ -14,6 +15,10 @@ public:
 		next = NULL;
 	}
 
+	//destructor
+	~ItemNode() {};
+
+	//getter
 	ItemNode* getNext() {
 		return this->next;
 	}
@@ -21,6 +26,7 @@ public:
 		return this->item;
 	}
 
+	//setter
 	void setNext(ItemNode* nextNode) {
 		this->next = nextNode;
 	}

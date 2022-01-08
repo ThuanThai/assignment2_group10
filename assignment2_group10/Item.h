@@ -15,70 +15,46 @@ protected:
 	float fee;
 public:
 	//constructor
-	Item() {
-		this->id = "";
-		this->title = "";
-		this->type = "";
-		this->loanType = "";
-		this->stock = 0;
-		this->fee = 0.0f;
-	}
-	Item(string id, string title, string type, string loanType, int stock, float fee) {
-		this->id = id;
-		this->title = title;
-		this->type = type;
-		this->loanType = loanType;
-		this->stock = stock;
-		this->fee = fee;
-	}
-	~Item();
+	Item();
+	Item(string id, string title, string type, string loanType, int stock, float fee);
+	//destructor
+	~Item() {};
 
+	// print an item info
 	virtual void Output();
+	// read file items.txt
 	virtual int readItemFile(fstream&);
+	// save information to file
 	virtual void saveItemFile(fstream&);
+
+	// set/get Genre
 	virtual void setGenre(string genre) { ; } // Not do anything if item is not belong to RVItem;
 	virtual string getGenre() { return ""; }
+	
+	// update type of item
 	virtual void updateType(Item* item, string newType);
+
+	// borrow function
 	bool borrowing();
+	// return function
 	bool returning();
+
+	//overload ostream
 	friend ostream& operator << (ostream& stream, const Item* item);
+
 	//getter
-	string getId() {
-		return this->id;
-	}
-	string getTitle() {
-		return this->title;
-	}
-	string getType() {
-		return this->type;
-	}
-	string getLoanType() {
-		return this->loanType;
-	}
-	int getStock() {
-		return this->stock;
-	}
-	float getFee() {
-		return this->fee;
-	}
+	string getId();
+	string getTitle();
+	string getType();
+	string getLoanType();
+	int getStock();
+	float getFee();
 
 	//setter
-	void setId(string id) {
-		this->id = id;
-	}
-	void setTitle(string title) {
-		this->title = title;
-	}
-	void setLoanType(string loanType) {
-		this->loanType = loanType;
-	}
-	void setStock(int stock) {
-		this->stock = stock;
-	}
-	void setFee(float fee) {
-		this->fee = fee;
-	}
-	void setType(string type) {
-		this->type = type;
-	}
+	void setId(string id);
+	void setTitle(string title);
+	void setLoanType(string loanType);
+	void setStock(int stock);
+	void setFee(float fee);
+	void setType(string type);
 };

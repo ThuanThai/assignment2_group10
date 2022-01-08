@@ -1,5 +1,7 @@
 #pragma once
 #include "VipCustomer.h"
+
+// constructor
 VipCustomer::VipCustomer()
 {
 	this->id = "";
@@ -11,10 +13,20 @@ VipCustomer::VipCustomer()
 	this->rank = "Vip";
 	this->rewardPoint = 0;
 }
+
+VipCustomer::VipCustomer(string id, string name, string address, string phone, string rank) :Customer(id, name, address, phone, rank) {
+	rewardPoint = 0 ;
+}
+
+//destructor
 VipCustomer::~VipCustomer() { ; }
+
+//setter
 void VipCustomer::setRewardPoint(unsigned int num) { this->rewardPoint = num; }
+// getter
 int VipCustomer::getRewardPoint() { return this->rewardPoint; }
 
+// borrow function
 bool VipCustomer::borrowing(Item* item) {
 	string choice;
 	if (item->borrowing()) {
@@ -52,6 +64,7 @@ bool VipCustomer::borrowing(Item* item) {
 	return false;
 }
 
+// return function
 bool VipCustomer::returning(Item* item) {
 	for (int i = 0; i < rList.size(); i++) {
 		if (item->getId()._Equal(this->rList[i]) && item->returning()) {
@@ -65,6 +78,11 @@ bool VipCustomer::returning(Item* item) {
 	return false;
 }
 
+/*
+function supporting the customer promoting
+copy all information from old account to new account
+except (int)itemReturned and (string)rank
+*/
 void VipCustomer::copy(Customer* C)
 {
 	id = C->getId();

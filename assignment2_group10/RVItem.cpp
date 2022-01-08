@@ -1,15 +1,21 @@
 #pragma once
 #include "RVItem.h"
 
+// Constructor 
+RVItem::RVItem() : Item() {
+	this->genre = "";
+}
+RVItem::RVItem(string id, string title, string type, string loanType, int stock, float fee, string genre) : Item(id, title, type, loanType, stock, fee) {
+	this->genre = genre;
+}
+
+// print RV Item info
 void RVItem::Output() {
 	Item::Output();
 	cout << "7.Genre: " << this->genre << endl;
 }
 
-void RVItem::Input(string type)
-{
-}
-
+// read item file
 int RVItem::readItemFile(fstream& fileIn) {
 	string id, title, type, loanType, stock, fee, genre;
 	getline(fileIn, id, ',');
@@ -45,16 +51,18 @@ int RVItem::readItemFile(fstream& fileIn) {
 	this->type = type;
 	this->loanType = loanType;
 	this->stock = stoi(stock);
-	this->fee = atof(fee.c_str());
+	this->fee = (double)atof(fee.c_str());
 	this->genre = genre;
 	return 0;
 }
 
+// save item file
 void RVItem::saveItemFile(fstream& fileOut) {
 	fileOut << id << "," << title << "," << type << ","
 		<< loanType << "," << stock << "," << fee << "," << genre << endl;
 }
 
+//overload ostream
 ostream& operator << (ostream& stream, const RVItem* item) {
 	stream << "Id: " << item->id << endl;
 	stream << "Title: " << item->title << endl;
@@ -66,6 +74,7 @@ ostream& operator << (ostream& stream, const RVItem* item) {
 	return stream;
 }
 
+// update type of customer
 void RVItem::updateType(Item* item, string newType) {
 	this->id = item->getId();
 	this->title = item->getTitle();
@@ -82,3 +91,9 @@ void RVItem::updateType(Item* item, string newType) {
 		cout << endl;
 	}
 }
+
+//getter
+string RVItem::getGenre() { return genre; }
+
+//setter
+void RVItem::setGenre(string genre) { this->genre = genre; }

@@ -5,6 +5,7 @@ bool search(string source, string find) {
 	return (source.find(find) != string::npos);
 }
 
+// check for valid item's ID
 bool isValidItemId(string id) {
 	if (id.length() != 9) return false;
 	if (id.at(0) != 'I') return false;
@@ -17,6 +18,8 @@ bool isValidItemId(string id) {
 	if (stoi(id.substr(5, 4)) > 2022) return false;
 	return true;
 }
+
+// check for valid item's stock size
 void inputStockSize(int* stock) {
 	string stockStr;
 	cout << "Num of copies: "; cin >> stockStr;
@@ -32,6 +35,8 @@ void inputStockSize(int* stock) {
 		inputStockSize(stock);
 	}
 }
+
+// check for valid item's fee
 void inputFee(float* fee) {
 	string feeStr;
 	cout << "Fee: "; cin >> feeStr;
@@ -48,6 +53,7 @@ void inputFee(float* fee) {
 	}
 }
 
+// function print team information
 void printGroupInfor() {
 	cout << "\n\t\tASSIGNMENT 2 GROUP 10" << endl;
 	cout << "s3877819, s3877819@rmit.edu.vn, Phong, Le" << endl;
@@ -56,15 +62,24 @@ void printGroupInfor() {
 	cout << "s3761910, s3761910@rmit.edu.vn, Dat, Phan" << endl;
 }
 
+// main function
 void menu() {
+	//create two lists
 	itemList iList;
 	customerList cList;
+
+	// menu flag for loop
 	bool flag = true;
+
 	string choice;
 	string searchElement;
+	
+	//read item and customer file
+	// and print error message on missing infomation
 	iList.readItemFile("item.txt");
 	cList.readCustomerFile("customers.txt", iList);
 	system("pause");
+
 	while (flag) {
 		system("cls");
 		cout << " 1. Add a new item, update or delete an existing item\n";
@@ -81,9 +96,11 @@ void menu() {
 		cout << "Enter your command here: ";
 		cin >> choice;
 		cin.ignore();
-		//add, update, delete item
+
+		// Option 1. add, update, delete item
 		if (choice == "1") {
 			system("cls");
+			// sub menu
 			cout << "1. Add a new item\n";
 			cout << "2. Update an item\n";
 			cout << "3. Delete\n";
@@ -95,7 +112,6 @@ void menu() {
 				cout << "1. Game\n";
 				cout << "2. Record\n";
 				cout << "3. DVD\n";
-
 				do {
 					cout << "What type of item you want to add: ";
 					getline(cin, choice);
@@ -105,30 +121,39 @@ void menu() {
 					}
 				} while (choice < "1" || choice > "3");
 
+				// Add a game
 				if (choice._Equal("1")) {
 					type = "Game";
 					iList.addNewItem(type);
 				}
+
+				// or add a record
 				else if (choice._Equal("2")) {
 					type = "Record";
 					iList.addNewItem(type);
 				}
+				// or add a DVD
 				else {
 					type = "DVD";
 					iList.addNewItem(type);
 				}
 			}
+			
+			// update an item searched by Id/Title
 			else if (choice == "2") {
 				cout << "Enter ID/Title: ";
 				cin >> searchElement;
 				iList.updateItem(searchElement);
 			}
+
+			// Delete an item 
 			else if (choice == "3") {
 				iList.printItemList();
 				cout << "\t\t ===== delete =====\n";
 				cout << "Enter ID/Title: ";
 				cin >> searchElement;
-
+				
+				// check if item is rented or not
 				if (cList.isItemRented(searchElement))
 				{
 					cout << "========== Item is already rented! ==========\n";
@@ -140,7 +165,7 @@ void menu() {
 				}
 			}
 		}
-		//add, update, customer
+		// Option 2. add, update, customer
 		else if (choice == "2") {
 			system("cls");
 			cout << "1. add a new customer\n";
@@ -154,16 +179,21 @@ void menu() {
 					cout << "Enter your command: ";
 				}
 			} while (choice < "1" || choice > "2");
+
+			// add a customer
 			if (choice == "1") {
 				cList.addNewCustomer();
 			}
+
+			// update customer
 			else if (choice == "2") {
 				cout << "Enter ID/Name: ";
 				cin >> searchElement;
 				cList.updateCustomer(searchElement);
 			}
 		}
-		//promote customer type
+
+		// Option 3. Promote customer type
 		else if (choice == "3") {
 			//ask for customer id
 			cout << "Input customer's ID/Name: "; getline(cin, searchElement);
@@ -182,18 +212,21 @@ void menu() {
 			else cout << "This customer account does not meet the requirement to be promoted!" << endl;
 			system("pause");
 		}
-		//4. Rent an item
+
+		// Option 4. Rent an item
 		else if (choice == "4") {
 			cList.borrowing(iList);
 			system("pause");
 		}
 
-		//5. Return an item
+		// Option 5. Return an item
 		else if (choice == "5") {
 			cList.returning(iList);
 			system("pause");
 		}
-		// 6. Print item list
+		// Option 6. Print item list sorted by 
+		// 1. Id
+		// 2. Title
 		else if (choice == "6") {
 			//ask for sorting type
 			cout << "Sort the list by: " << endl;
@@ -213,10 +246,16 @@ void menu() {
 			iList.printItemList();
 			system("pause");
 		}
+
+		// Option 7. Display out of stock  
 		else if (choice._Equal("7")) {
 			iList.displayOutOfStock();
 			system("pause");
 		}
+
+		// Option 8. Display customer list sorted by
+		// 1. Id
+		// 2. Name
 		else if (choice._Equal("8")) {
 			//ask for sorting type
 			cout << "Sort the list by: " << endl;
@@ -236,7 +275,7 @@ void menu() {
 			cList.printCustomerList();
 			system("pause");
 		}
-		//9. Print group of customer
+		// Option 9. Print customers by group
 		else if (choice == "9") {
 			//ask for which group
 			cout << "Display:  " << endl;
@@ -257,7 +296,7 @@ void menu() {
 			else cList.printVIP(); // print the vip pro
 			system("pause");
 		}
-		// 10. search for item or customer 
+		// Option 10. Search for item or customer 
 		else if (choice._Equal("10")) {
 			cout << "1. Item" << endl;
 			cout << "2. Customer" << endl;
@@ -278,6 +317,8 @@ void menu() {
 				system("pause");
 			}
 		}
+
+		// Save the file and exit the program
 		else if (choice == "Exit" || choice == "exit") {
 			iList.saveItemFile("item.txt");
 			cList.saveFileCustomer("customers.txt");
@@ -288,15 +329,16 @@ void menu() {
 	}
 }
 
-//Sorting functions
-//for customer
+// ** For customer **
+// sort function
 void swap(CustomerNode* C1, CustomerNode* C2) {
 	Customer* tmp = C1->getCustomer();
 	C1->setCustomer(C2->getCustomer());
 	C2->setCustomer(tmp);
 }
 
-//for item
+// ** For item **
+// sort function
 void swap(ItemNode* I1, ItemNode* I2) {
 	Item* tmp = I1->getItem();
 	I1->setItem(I2->getItem());
@@ -340,6 +382,7 @@ bool isValidRank(string rank)
 	return true;
 }
 
+//check missing info when reading item file
 void checkItemMissing(int status) {
 	switch (status) {
 	case 1:
@@ -366,6 +409,7 @@ void checkItemMissing(int status) {
 	}
 }
 
+//check missing info when reading customer file
 void checkCustomerMissing(int status) {
 	switch (status) {
 	case 1:

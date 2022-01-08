@@ -6,13 +6,19 @@ class VipCustomer :public Customer
 private:
 	int rewardPoint;
 public:
+	// constructor
 	VipCustomer();
-	VipCustomer(string id, string name, string address, string phone, string rank = "VIP") :Customer(id, name, address, phone, rank) { ; }
+	VipCustomer(string id, string name, string address, string phone, string rank = "VIP");
+	//destructor
 	~VipCustomer();
 
+	//setter
 	void setRewardPoint(unsigned int num);
+	// getter
 	int getRewardPoint();
+	// borrow function
 	bool borrowing(Item* item);
+	// return function
 	bool returning(Item* item);
 
 	/*

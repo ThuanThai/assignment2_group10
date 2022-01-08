@@ -1,6 +1,7 @@
 #pragma once
 #include "RegularCustomer.h"
 
+//constructor
 RegularCustomer::RegularCustomer()
 {
 	this->id = "";
@@ -14,6 +15,7 @@ RegularCustomer::RegularCustomer()
 
 RegularCustomer::~RegularCustomer() { ; }
 
+// borrow function
 bool RegularCustomer::borrowing(Item* item) {
 	if (item->borrowing()) {
 		this->rList.push_back(item->getId());
@@ -27,6 +29,7 @@ bool RegularCustomer::borrowing(Item* item) {
 	return false;
 }
 
+// return function
 bool RegularCustomer::returning(Item* item) {
 	for (int i = 0; i < rList.size(); i++) {
 		if (item->getId()._Equal(this->rList[i]) && item->returning()) {
