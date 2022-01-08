@@ -17,9 +17,9 @@ customerList::~customerList() {
 	}
 	CustomerNode* temp = head;
 	while (temp != NULL) {
-		head = head->getNext();
-		delete temp;
-		temp = head;
+		temp = temp->getNext();
+		delete head;
+		head = temp;
 	}
 }
 
