@@ -12,7 +12,7 @@ public:
 	itemList(Item* newItem);
 
 	//destructor
-	~itemList();
+	~itemList() { ; }
 
 	//getter
 	ItemNode* getHead();

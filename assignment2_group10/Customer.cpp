@@ -130,6 +130,7 @@ int Customer::readCustomerFile(ifstream& fileIn)
 	}
 	getline(fileIn, this->rank);
 	while (getline(fileIn, tmp, '\n')) {
+		if (tmp == "") continue;
 		if (tmp[0] == 'I') {
 			this->rList.push_back(tmp);
 		}

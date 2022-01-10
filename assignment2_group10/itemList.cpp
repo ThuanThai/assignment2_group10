@@ -14,20 +14,6 @@ itemList::itemList(Item* newItem) {
 	head = new ItemNode(newItem);
 }
 
-//destructor
-itemList::~itemList()
-{
-	if (head == NULL) {
-		return;
-	}
-	ItemNode* temp = head;
-	while (temp != NULL) {
-		temp = temp->getNext();
-		delete head;
-		head = temp;
-	}
-}
-
 //getter
 ItemNode* itemList::getHead() {
 	return this->head;

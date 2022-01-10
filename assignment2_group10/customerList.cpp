@@ -278,7 +278,7 @@ void customerList::borrowing(itemList& iList) {
 // return function
 void customerList::returning(itemList& iList) {
 	string id;
-	cout << "Input customer's ID: "; getline(cin, id);
+	cout << "Input customer's ID/Name: "; getline(cin, id);
 	if (findCustomer(id) == NULL) {
 		cout << "========== Invalid customer's ID ==========\n";
 		return;
@@ -290,7 +290,7 @@ void customerList::returning(itemList& iList) {
 	}
 	cout << "\t\t====== Customer's Information =====\n";
 	cout << customer;
-	cout << "Input item's ID: "; getline(cin, id);
+	cout << "Input item's ID/Name: "; getline(cin, id);
 	if (iList.findItem(id) == NULL) {
 		cout << "========== Invalid item's ID ==========\n";
 		return;

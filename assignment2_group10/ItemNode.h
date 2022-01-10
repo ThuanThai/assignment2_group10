@@ -16,7 +16,10 @@ public:
 	}
 
 	//destructor
-	~ItemNode() {};
+	~ItemNode() {
+		this->item = NULL;
+		this->next = NULL;
+	};
 
 	//getter
 	ItemNode* getNext() {
