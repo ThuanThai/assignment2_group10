@@ -71,6 +71,7 @@ void customerList::readCustomerFile(string fileName, itemList iList) {
 	int line = 1;
 	if (!fileIn) {
 		cerr << "Cannot Open File\n";
+		return;
 	}
 	while (!fileIn.eof())
 	{

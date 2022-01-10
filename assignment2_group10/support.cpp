@@ -323,6 +323,7 @@ void menu() {
 			iList.saveItemFile("item.txt");
 			cList.saveFileCustomer("customers.txt");
 			printGroupInfor();
+			system("pause");
 			flag = false;
 			break;
 		}

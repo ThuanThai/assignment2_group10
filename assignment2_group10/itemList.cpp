@@ -1,6 +1,5 @@
 #pragma once
 #include "itemList.h"
-#include "StreamingItem.h"
 #include "support.h"
 #include <iostream>
 using namespace std;
